@@ -32,5 +32,7 @@ body {
     background: #888; }
   .board .row .floor {
     background: #222; }
+  .board .row .selected-cell {
+    outline: 2px solid #AAA; }
 
 /*# sourceMappingURL=style.css.map */

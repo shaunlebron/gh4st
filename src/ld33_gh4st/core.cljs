@@ -14,6 +14,7 @@
 
 (defonce app-state
   (atom {:board (empty-board 7 6)
+         :select-pos nil
          :level 0
          :actors {:pacman {:pos [0 1] :dir [1 0]}
                   :blinky {:pos [0 2] :dir [0 1]}
@@ -44,15 +45,25 @@
 (defn on-js-reload []
   nil)
 
+(defn select-cell
+  [pos]
+  (swap! app-state assoc :select-pos pos))
+
 (defn actor
   [actors drawpos]
   (for [name- actor-order]
     (let [{:keys [pos dir]} (get actors name-)]
       (when (= drawpos pos)
-        [:img.sprite {:src (img-src name- dir)}])
-      )
-    )
-  )
+        [:img.sprite {:src (img-src name- dir)
+                      :on-click #(select-cell drawpos)}]))))
+
+(defn cell
+  [data value [x y :as pos]]
+  [:div
+   {:class (cond-> (str "cell " (name value))
+             (= [x y] (:select-pos data)) (str " selected-cell"))
+    :on-click #(select-cell pos)}
+   (actor (:actors data) pos)])
 
 (defcomponent board
   [data owner]
@@ -61,23 +72,14 @@
       [:div.board
        (for [[y row] (map-indexed vector (:board data))]
          [:div.row
-          (for [[x cell] (map-indexed vector row)]
-            [:div
-             {:class (str "cell " (if (= :floor cell) "floor" "wall"))}
-             (actor (:actors data) [x y])
-             ]
-            )]
-         )
-       ]
-      )
-    )
-  )
+          (for [[x value] (map-indexed vector row)]
+            (cell data value [x y]))])])))
 
 (defcomponent root
   [data owner]
   (render [_this]
     (html
-      (om/build board (select-keys data [:board :actors]))
+      (om/build board data)
       )))
 
 (om/root

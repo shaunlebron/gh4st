@@ -56,6 +56,10 @@ $cell-pad: 2px;
     .floor {
       background: #222;
     }
+
+    .selected-cell {
+      outline: 2px solid #AAA;
+    }
   }
 }
 
