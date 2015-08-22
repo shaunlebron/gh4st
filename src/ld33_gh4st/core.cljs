@@ -1,9 +1,29 @@
 (ns ^:figwheel-always ld33-gh4st.core
     (:require
+      [cljs.pprint :refer [pprint]]
       [sablono.core :refer-macros [html]]
       [om-tools.core :refer-macros [defcomponent]]
       [om.core :as om]
       ))
+
+(def level1
+  {:board
+   [[:wall :wall :wall :wall :wall :wall :wall]
+    [:wall :floor :floor :floor :wall :wall :wall]
+    [:wall :wall :wall :floor :wall :floor :floor]
+    [:floor :wall :wall :floor :wall :floor :wall]
+    [:floor :floor :floor :floor :floor :floor :wall]
+    [:floor :wall :wall :wall :wall :wall :wall]],
+   :select-pos [0 0],
+   :select-actor nil,
+   :level 0,
+   :actors
+   {:pacman {:pos [2 1], :dir [1 0]},
+    :blinky {:pos [0 3], :dir [0 1]},
+    :pinky {:pos nil, :dir [0 1]},
+    :inky {:pos nil, :dir [0 1]},
+    :clyde {:pos nil, :dir [0 1]}, 
+    :fruit {:pos [6 2]}}})
 
 ;; https://craig.is/killing/mice
 ;; keyboard utility
@@ -16,18 +36,7 @@
   (vec (repeat h (vec (repeat w :wall)))))
 
 (defonce app-state
-  (atom {:board (empty-board 7 6)
-         :select-pos nil
-         :select-actor nil
-         :level 0
-         :actors {:pacman {:pos [0 1] :dir [1 0]}
-                  :blinky {:pos [0 2] :dir [0 1]}
-                  :pinky {:pos nil :dir [0 1]}
-                  :inky {:pos nil :dir [0 1]}
-                  :clyde {:pos nil :dir [0 1]}
-                  :fruit {:pos [3 5]}
-                  }
-         }))
+  (atom level1))
 
 (defn bound
   [x0 x x1]
@@ -91,6 +100,8 @@
 (js/Mousetrap.bind "w" #(set-mode! :pinky))
 (js/Mousetrap.bind "e" #(set-mode! :inky))
 (js/Mousetrap.bind "r" #(set-mode! :clyde))
+
+(js/Mousetrap.bind "p" #(pprint @app-state))
 
 (def actor-order
   [:blinky
