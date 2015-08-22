@@ -24,10 +24,10 @@ body {
     position: relative; }
     .board .row .cell .sprite {
       position: absolute;
-      left: 0;
-      top: 0;
-      width: 80px;
-      height: 80px; }
+      left: -15px;
+      top: -15px;
+      width: 110px;
+      height: 110px; }
   .board .row .wall {
     background: #151A32; }
   .board .row .floor {

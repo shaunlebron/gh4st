@@ -25,6 +25,8 @@ $cols: 7;
 $cell-size: 80px;
 $cell-pad: 3px;
 
+$cell-grow: 15px;
+
 .board {
   margin: 40px auto;
   width: $cols * ($cell-size + $cell-pad);
@@ -42,10 +44,10 @@ $cell-pad: 3px;
 
       .sprite {
         position: absolute;
-        left: 0;
-        top: 0;
-        width: $cell-size;
-        height: $cell-size;
+        left: -$cell-grow;
+        top: -$cell-grow;
+        width: $cell-size + 2 * $cell-grow;
+        height: $cell-size + 2 * $cell-grow;
       }
     }
 
