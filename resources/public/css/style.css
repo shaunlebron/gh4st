@@ -1,5 +1,5 @@
 body {
-  background: #111; }
+  background: #0a0a0a; }
 
 * {
   margin: 0;
@@ -10,14 +10,14 @@ body {
 
 .board {
   margin: 40px auto;
-  width: 574px; }
+  width: 581px; }
   .board .row:after {
     clear: both;
     content: '';
     display: block; }
   .board .row .cell {
-    margin-right: 2px;
-    margin-bottom: 2px;
+    margin-right: 3px;
+    margin-bottom: 3px;
     width: 80px;
     height: 80px;
     float: left;
@@ -29,7 +29,7 @@ body {
       width: 80px;
       height: 80px; }
   .board .row .wall {
-    background: #888; }
+    background: #151A32; }
   .board .row .floor {
     background: #222; }
   .board .row .selected-cell {

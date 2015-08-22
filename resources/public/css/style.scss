@@ -1,6 +1,6 @@
 
 body {
-  background: #111;
+  background: #0a0a0a;
 }
 
 // http://stackoverflow.com/a/25235486/142317
@@ -23,7 +23,7 @@ body {
 
 $cols: 7;
 $cell-size: 80px;
-$cell-pad: 2px;
+$cell-pad: 3px;
 
 .board {
   margin: 40px auto;
@@ -50,7 +50,7 @@ $cell-pad: 2px;
     }
 
     .wall {
-      background: #888;
+      background: #151A32;
     }
 
     .floor {

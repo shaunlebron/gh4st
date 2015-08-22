@@ -13,7 +13,7 @@
 (defn empty-board
   "create initial empty board"
   [w h]
-  (vec (repeat h (vec (repeat w :floor)))))
+  (vec (repeat h (vec (repeat w :wall)))))
 
 (defonce app-state
   (atom {:board (empty-board 7 6)
@@ -47,15 +47,16 @@
     (swap! app-state update-in [:board y x] toggle-tile)))
 
 (defn move-selection! [[dx dy]]
-  (when-let [[x y] (:select-pos @app-state)]
-    (swap! app-state assoc-in [:select-pos] (bound-pos [(+ x dx) (+ y dy)]))))
+  (if-let [[x y] (:select-pos @app-state)]
+    (swap! app-state assoc-in [:select-pos] (bound-pos [(+ x dx) (+ y dy)]))
+    (swap! app-state assoc :select-pos [0 0])))
 
 (js/Mousetrap.bind "x" toggle-selected-tile!)
 
-(js/Mousetrap.bind "up" #(move-selection! [0 -1]))
-(js/Mousetrap.bind "down" #(move-selection! [0 1]))
-(js/Mousetrap.bind "left" #(move-selection! [-1 0]))
-(js/Mousetrap.bind "right" #(move-selection! [1 0]))
+(js/Mousetrap.bind "k" #(move-selection! [0 -1]))
+(js/Mousetrap.bind "j" #(move-selection! [0 1]))
+(js/Mousetrap.bind "h" #(move-selection! [-1 0]))
+(js/Mousetrap.bind "l" #(move-selection! [1 0]))
 
 (def actor-order
   [:blinky
