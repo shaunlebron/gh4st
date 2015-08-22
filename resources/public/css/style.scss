@@ -1,0 +1,52 @@
+
+body {
+  background: #333;
+}
+
+// http://stackoverflow.com/a/25235486/142317
+@mixin clear-fix($where) {
+  &:#{$where} {
+    clear: both;
+    content: '';
+    display: block;
+  }
+} 
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+#app {
+  width: 100%;
+}
+
+$cols: 7;
+$cell-size: 80px;
+$cell-pad: 2px;
+
+.board {
+  margin: 40px auto;
+  width: $cols * ($cell-size + $cell-pad);
+
+  .row {
+    @include clear-fix('after');
+
+    .cell {
+      margin-right: $cell-pad;
+      margin-bottom: $cell-pad;
+      width: $cell-size;
+      height: $cell-size;
+      float: left;
+    }
+
+    .wall {
+      background: #888;
+    }
+
+    .floor {
+      background: #555;
+    }
+  }
+}
+
