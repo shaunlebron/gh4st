@@ -1,4 +1,4 @@
-(defproject ld33-gh4st "0.1.0-SNAPSHOT"
+(defproject gh4st "0.1.0-SNAPSHOT"
   :description "FIXME: write this!"
   :url "http://example.com/FIXME"
   :license {:name "Eclipse Public License"
@@ -22,17 +22,17 @@
     :builds [{:id "dev"
               :source-paths ["src"]
 
-              :figwheel { :on-jsload "ld33-gh4st.core/on-js-reload" }
+              :figwheel { :on-jsload "gh4st.core/on-js-reload" }
 
-              :compiler {:main ld33-gh4st.core
+              :compiler {:main gh4st.core
                          :asset-path "js/compiled/out"
-                         :output-to "resources/public/js/compiled/ld33_gh4st.js"
+                         :output-to "resources/public/js/compiled/gh4st.js"
                          :output-dir "resources/public/js/compiled/out"
                          :source-map-timestamp true }}
              {:id "min"
               :source-paths ["src"]
-              :compiler {:output-to "resources/public/js/compiled/ld33_gh4st.js"
-                         :main ld33-gh4st.core
+              :compiler {:output-to "resources/public/js/compiled/gh4st.js"
+                         :main gh4st.core
                          :optimizations :advanced
                          :pretty-print false}}]}
 
