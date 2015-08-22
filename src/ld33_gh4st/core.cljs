@@ -5,6 +5,9 @@
       [om.core :as om]
       ))
 
+;; https://craig.is/killing/mice
+;; keyboard utility
+
 (enable-console-print!)
 
 (defn empty-board
@@ -21,6 +24,38 @@
                   :fruit {:pos [3 5]}
                   }
          }))
+
+(defn bound
+  [x0 x x1]
+  (cond
+    (< x x0) x0
+    (> x x1) x1
+    :else x))
+
+(defn bound-pos
+  [[x y]]
+  [(bound 0 x (-> @app-state :board first count dec))
+   (bound 0 y (-> @app-state :board count dec))])
+
+(defn toggle-tile
+  [value]
+  (get {:floor :wall
+        :wall :floor} value))
+
+(defn toggle-selected-tile! []
+  (when-let [[x y] (:select-pos @app-state)]
+    (swap! app-state update-in [:board y x] toggle-tile)))
+
+(defn move-selection! [[dx dy]]
+  (when-let [[x y] (:select-pos @app-state)]
+    (swap! app-state assoc-in [:select-pos] (bound-pos [(+ x dx) (+ y dy)]))))
+
+(js/Mousetrap.bind "x" toggle-selected-tile!)
+
+(js/Mousetrap.bind "up" #(move-selection! [0 -1]))
+(js/Mousetrap.bind "down" #(move-selection! [0 1]))
+(js/Mousetrap.bind "left" #(move-selection! [-1 0]))
+(js/Mousetrap.bind "right" #(move-selection! [1 0]))
 
 (def actor-order
   [:blinky
