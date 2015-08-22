@@ -38,6 +38,15 @@ $cell-pad: 2px;
       width: $cell-size;
       height: $cell-size;
       float: left;
+      position: relative;
+
+      .sprite {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: $cell-size;
+        height: $cell-size;
+      }
     }
 
     .wall {

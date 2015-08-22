@@ -20,7 +20,14 @@ body {
     margin-bottom: 2px;
     width: 80px;
     height: 80px;
-    float: left; }
+    float: left;
+    position: relative; }
+    .board .row .cell .sprite {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 80px;
+      height: 80px; }
   .board .row .wall {
     background: #888; }
   .board .row .floor {
