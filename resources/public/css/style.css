@@ -1,5 +1,5 @@
 body {
-  background: #333; }
+  background: #111; }
 
 * {
   margin: 0;
@@ -31,6 +31,6 @@ body {
   .board .row .wall {
     background: #888; }
   .board .row .floor {
-    background: #555; }
+    background: #222; }
 
 /*# sourceMappingURL=style.css.map */
