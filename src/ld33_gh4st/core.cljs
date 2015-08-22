@@ -84,13 +84,13 @@
 (js/Mousetrap.bind "shift+h" #(set-select-dir! [-1 0]))
 (js/Mousetrap.bind "shift+l" #(set-select-dir! [1 0]))
 
-(js/Mousetrap.bind "0" #(set-mode! nil))
-(js/Mousetrap.bind "1" #(set-mode! :pacman))
-(js/Mousetrap.bind "2" #(set-mode! :blinky))
-(js/Mousetrap.bind "3" #(set-mode! :pinky))
-(js/Mousetrap.bind "4" #(set-mode! :inky))
-(js/Mousetrap.bind "5" #(set-mode! :clyde))
-(js/Mousetrap.bind "6" #(set-mode! :fruit))
+(js/Mousetrap.bind "1" #(set-mode! nil))
+(js/Mousetrap.bind "2" #(set-mode! :pacman))
+(js/Mousetrap.bind "3" #(set-mode! :fruit))
+(js/Mousetrap.bind "q" #(set-mode! :blinky))
+(js/Mousetrap.bind "w" #(set-mode! :pinky))
+(js/Mousetrap.bind "e" #(set-mode! :inky))
+(js/Mousetrap.bind "r" #(set-mode! :clyde))
 
 (def actor-order
   [:blinky
