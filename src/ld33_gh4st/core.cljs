@@ -18,9 +18,13 @@
 (defonce app-state
   (atom {:board (empty-board 7 6)
          :select-pos nil
+         :select-actor nil
          :level 0
          :actors {:pacman {:pos [0 1] :dir [1 0]}
                   :blinky {:pos [0 2] :dir [0 1]}
+                  :pinky {:pos nil :dir [0 1]}
+                  :inky {:pos nil :dir [0 1]}
+                  :clyde {:pos nil :dir [0 1]}
                   :fruit {:pos [3 5]}
                   }
          }))
@@ -42,9 +46,26 @@
   (get {:floor :wall
         :wall :floor} value))
 
+(defn toggle-actor
+  [actor pos]
+  (if (:pos actor)
+    (assoc actor :pos nil)
+    (assoc actor :pos pos)))
+
 (defn toggle-selected-tile! []
   (when-let [[x y] (:select-pos @app-state)]
-    (swap! app-state update-in [:board y x] toggle-tile)))
+    (if-let [actor (:select-actor @app-state)]
+      (swap! app-state update-in [:actors actor] toggle-actor [x y])
+      (swap! app-state update-in [:board y x] toggle-tile))))
+
+(defn set-mode!
+  [mode]
+  (swap! app-state assoc :select-actor mode))
+
+(defn set-select-dir!
+  [dir]
+  (when-let [actor (:select-actor @app-state)]
+    (swap! app-state assoc-in [:actors actor :dir] dir)))
 
 (defn move-selection! [[dx dy]]
   (if-let [[x y] (:select-pos @app-state)]
@@ -57,6 +78,19 @@
 (js/Mousetrap.bind "j" #(move-selection! [0 1]))
 (js/Mousetrap.bind "h" #(move-selection! [-1 0]))
 (js/Mousetrap.bind "l" #(move-selection! [1 0]))
+
+(js/Mousetrap.bind "shift+k" #(set-select-dir! [0 -1]))
+(js/Mousetrap.bind "shift+j" #(set-select-dir! [0 1]))
+(js/Mousetrap.bind "shift+h" #(set-select-dir! [-1 0]))
+(js/Mousetrap.bind "shift+l" #(set-select-dir! [1 0]))
+
+(js/Mousetrap.bind "0" #(set-mode! nil))
+(js/Mousetrap.bind "1" #(set-mode! :pacman))
+(js/Mousetrap.bind "2" #(set-mode! :blinky))
+(js/Mousetrap.bind "3" #(set-mode! :pinky))
+(js/Mousetrap.bind "4" #(set-mode! :inky))
+(js/Mousetrap.bind "5" #(set-mode! :clyde))
+(js/Mousetrap.bind "6" #(set-mode! :fruit))
 
 (def actor-order
   [:blinky
@@ -97,7 +131,8 @@
   [data value [x y :as pos]]
   [:div
    {:class (cond-> (str "cell " (name value))
-             (= [x y] (:select-pos data)) (str " selected-cell"))
+             (= [x y] (:select-pos data)) (str " selected-cell")
+             (:select-actor data) (str " selected-" (name (:select-actor data))))
     :on-click #(select-cell pos)}
    (actor (:actors data) pos)])
 

@@ -60,6 +60,25 @@ $cell-pad: 3px;
     .selected-cell {
       outline: 2px solid #AAA;
     }
+
+    .selected-pacman {
+      outline-color: #FFFF00;
+    }
+    .selected-blinky {
+      outline-color: #FF0000;
+    }
+    .selected-pinky {
+      outline-color: #FFB8FF;
+    }
+    .selected-inky {
+      outline-color: #00FFFF;
+    }
+    .selected-clyde {
+      outline-color: #FFB851;
+    }
+    .selected-fruit {
+      outline-color: #00FF00;
+    }
   }
 }
 

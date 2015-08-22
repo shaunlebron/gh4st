@@ -34,5 +34,17 @@ body {
     background: #222; }
   .board .row .selected-cell {
     outline: 2px solid #AAA; }
+  .board .row .selected-pacman {
+    outline-color: #FFFF00; }
+  .board .row .selected-blinky {
+    outline-color: #FF0000; }
+  .board .row .selected-pinky {
+    outline-color: #FFB8FF; }
+  .board .row .selected-inky {
+    outline-color: #00FFFF; }
+  .board .row .selected-clyde {
+    outline-color: #FFB851; }
+  .board .row .selected-fruit {
+    outline-color: #00FF00; }
 
 /*# sourceMappingURL=style.css.map */
