@@ -97,24 +97,28 @@ $width: $cols * ($cell-size + $cell-pad);
 }
 
 
+$title-bump: 10px;
+$title-margin: 120px;
+
 .home {
   width: $width;
   margin: 0 auto;
   text-align: center;
 
   h1 {
-    margin: 120px 0;
+    margin: $title-margin 0;
     font-size: 120px;
     color: #F00;
 
     .ghost {
       height: 80px;
     }
+    text-shadow: 0 $title-bump 0 #111;
   }
 
   .bump {
-    margin-top: 117px;
-    margin-bottom: 123px;
+    margin-top: $title-margin - $title-bump;
+    margin-bottom: $title-margin + $title-bump;
   }
 
   p {
