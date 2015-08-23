@@ -6,10 +6,10 @@ Control the four ghosts.  They use the actual AI from the original Pac-Man
 arcade.  Pac-Man is given a newly derived AI, since you'll be controlling the
 ghosts.
 
-How can you control the ghosts if they already have AI? When it's your turn to
-move, you may allow only one ghost to move.  Learn and exploit the
-deterministic behaviors of your ghosts and Pac-Man in order to catch him
-because he gets his fruit.
+How can you control the ghosts if they already have AI?  Well, your only power
+is to choose which ghost is allowed to move per turn.  Learn and coordinate the
+deterministic behaviors of your ghosts to catch Pac-Man before he gets his
+fruit.
 
 ## Setup
 
