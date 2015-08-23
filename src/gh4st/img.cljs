@@ -3,12 +3,13 @@
     [gh4st.state :refer [app-state]]))
 
 (def actor-order
-  [:blinky
-   :pinky
-   :inky
-   :clyde
-   :pacman
-   :fruit])
+  (reverse
+    [:blinky
+     :pinky
+     :inky
+     :clyde
+     :pacman
+     :fruit]))
 
 (def dir->name
   {[0 1]  "-d"
