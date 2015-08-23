@@ -12,16 +12,27 @@
    [:span.focus "Press " [:kbd "Z"] " or " [:kbd "Y"] " to undo/redo."] [:br]
    "Or press R to restart from the beginning."])
 
+(def text0
+  {:title "Meet Pac-Man..."
+   :desc [:p
+          "He wants fruit, but must run from the face of a ghost." [:br]
+          [:span.focus "Press " [:kbd.blinky "1"] " to move your ghost."] [:br]
+          "(Pac-Man will wait for his turn to move.)"]
+   })
+
+(def text1
+  {:title "No turning back" 
+   :desc [:p
+          "Even though Pac-Man wants his fruit," [:br]
+          " he can't turn back and is forced to take the long way." [:br]
+
+          "Press " [:kbd.blinky "1"] " to cycle your turn to see Pac-Man move."]})
+
 (def texts
   [
-   {:title "Meet Pac-Man..."
-    :desc [:p
-           "He wants fruit, but must run from the face of a ghost." [:br]
-           [:span.focus "Press " [:kbd.blinky "1"] " to move your ghost."] [:br]
-           "(Pac-Man will wait for his turn to move.)"]
-    }
-
-   {:title "No turning back"}
+   text0
+   text1
+   
    {:title "Follow your nose"}
    {:title "Decisions, decisions"}
    {:title "Release the Ghost!"}

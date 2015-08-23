@@ -18,14 +18,14 @@
 
 (declare advancing?)
 
-(def max-level
+(defonce max-level
   (atom 0))
 
-(def history-index
-  "index where next item will be remembered"
+(defonce history-index
+  ;; "index where next item will be remembered"
   (atom 0))
 
-(def history-stack
+(defonce history-stack
   (atom []))
 
 (defn undo! [curr-state]
@@ -115,10 +115,11 @@
 (defn load-level!
   [n]
   (let [data (get levels n)]
+    (swap! app-state assoc :level n)
     (swap! max-level max n)
     (swap! app-state assoc :end nil)
     (swap! app-state merge data)
-    (swap! app-state assoc :level-text (get texts 0))))
+    (swap! app-state assoc :level-text (get texts n))))
 
 (defn restart-level! []
   (load-level! (:level @app-state)))
@@ -127,7 +128,7 @@
 
 (defn try-next-level! []
   (let [level (:level @app-state)]
-    (when (< level max-level)
+    (when (< level @max-level)
       (load-level! (inc level)))))
 
 (defn try-prev-level! []

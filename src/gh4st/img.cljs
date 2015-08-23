@@ -20,6 +20,6 @@
 (defn img-src
   [name- dir]
   (if (= name- :fruit)
-    (str "img/" (name name-) (:level @app-state) ".png")
+    (str "img/" (name name-) (js-mod (:level @app-state) 5) ".png")
     (str "img/" (name name-) (dir->name dir) ".png")))
 
