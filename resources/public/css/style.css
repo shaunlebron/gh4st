@@ -1,6 +1,6 @@
 body {
   font-family: "Lato";
-  background: #0a0a0a; }
+  background: #222; }
 
 * {
   margin: 0;
@@ -10,8 +10,8 @@ body {
   width: 100%; }
 
 .board {
-  margin: 40px auto;
-  width: 1008px; }
+  margin: 0px auto;
+  width: 945px; }
   .board .row:after {
     clear: both;
     content: '';
@@ -19,20 +19,24 @@ body {
   .board .row .cell {
     margin-right: 3px;
     margin-bottom: 3px;
-    width: 45px;
-    height: 45px;
+    width: 42px;
+    height: 42px;
     float: left;
     position: relative; }
     .board .row .cell .sprite {
       position: absolute;
-      left: -15px;
-      top: -15px;
-      width: 75px;
-      height: 75px; }
+      left: -5px;
+      top: -5px;
+      width: 52px;
+      height: 52px; }
   .board .row .wall {
-    background: #151A32; }
-  .board .row .floor {
     background: #222; }
+  .board .row .defeat {
+    background: #4D252C; }
+  .board .row .victory {
+    background: #254D3A; }
+  .board .row .floor {
+    background: #343434; }
   .board .row .selected-cell {
     outline: 2px solid #AAA; }
   .board .row .selected-pacman {
@@ -49,7 +53,7 @@ body {
     outline-color: #00FF00; }
 
 .home {
-  width: 800px;
+  width: 945px;
   margin: 0 auto;
   text-align: center; }
   .home h1 {
@@ -61,16 +65,6 @@ body {
   .home .bump {
     margin-top: 117px;
     margin-bottom: 123px; }
-  .home .color-blinky {
-    color: #FF0000; }
-  .home .color-pinky {
-    color: #FFB8FF; }
-  .home .color-inky {
-    color: #00FFFF; }
-  .home .color-clyde {
-    color: #FFB851; }
-  .home .color-pacman {
-    color: #FFFF00; }
   .home p {
     color: #555;
     font-weight: 300;
@@ -78,5 +72,39 @@ body {
   .home em {
     color: #AAA;
     font-style: normal; }
+
+.game .title {
+  width: 945px;
+  margin: 80px auto 40px;
+  text-align: center;
+  color: #FAFEDE;
+  opacity: 0.4;
+  font-size: 42px;
+  font-weight: 300; }
+.game .desc {
+  width: 945px;
+  font-weight: 300;
+  font-size: 28px;
+  margin: 20px auto;
+  color: #5D5E5B;
+  text-align: center; }
+  .game .desc .focus {
+    color: #FAFEDE;
+    font-weight: 400; }
+
+.blinky {
+  color: #FF0000 !important; }
+
+.pinky {
+  color: #FFB8FF !important; }
+
+.inky {
+  color: #00FFFF !important; }
+
+.clyde {
+  color: #FFB851 !important; }
+
+.pacman {
+  color: #FFFF00 !important; }
 
 /*# sourceMappingURL=style.css.map */

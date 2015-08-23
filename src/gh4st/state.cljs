@@ -7,6 +7,8 @@
 
    :home-actor :blinky
 
+   :level-text nil
+
    ;; editor
    :select-pos nil,
    :select-actor nil,

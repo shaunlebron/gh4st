@@ -9,6 +9,7 @@
                       steer-actor]]
     [gh4st.board :refer [ghost-positions]]
     [gh4st.levels :refer [levels]]
+    [gh4st.texts :refer [texts]]
     ))
 
 ;;----------------------------------------------------------------------
@@ -104,7 +105,9 @@
 (defn load-level!
   [n]
   (let [data (get levels n)]
-    (swap! app-state merge data)))
+    (swap! app-state assoc :end nil)
+    (swap! app-state merge data)
+    (swap! app-state assoc :level-text (get texts 0))))
 
 (defn start-game! []
   (swap! app-state assoc :screen :game)

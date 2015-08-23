@@ -31,15 +31,20 @@
     :on-click #(select-cell! pos)}
    (actor (:actors data) pos)])
 
-(defcomponent board
+(defcomponent game
   [data owner]
   (render [_this]
     (html
-      [:div.board
-       (for [[y row] (map-indexed vector (:board data))]
-         [:div.row
-          (for [[x value] (map-indexed vector row)]
-            (cell data value [x y]))])])))
+      [:div.game
+       
+       [:div.title (-> data :level-text :title)]
+       [:div.desc (-> @data :level-text :desc)]
+       [:div.board
+        (for [[y row] (map-indexed vector (:board data))]
+          [:div.row
+           (for [[x value] (map-indexed vector row)]
+             (cell data value [x y]))])]
+       [:div.controls]])))
 
 (def stop-welcome-anim nil)
 
@@ -69,7 +74,7 @@
     (html
       [:div.home
        (let [name- (:home-actor data)]
-         [:h1 {:class (cond-> (str "color-" (name name-))
+         [:h1 {:class (cond-> (str (name name-))
                         (:home-bump data) (str " bump"))}
           "GH" [:img.ghost {:src (img-src name- [0 1])}] "ST"])
        [:p "Press " [:em "ENTER"] " to start."]])))
@@ -80,7 +85,7 @@
     (html
       (case (:screen data)
         :home (om/build welcome data)
-        :game (om/build board data)
+        :game (om/build game data)
         nil)
       
       )))

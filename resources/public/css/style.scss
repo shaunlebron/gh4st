@@ -1,7 +1,8 @@
 
+$bg: #222;
 body {
   font-family: "Lato";
-  background: #0a0a0a;
+  background: $bg;
 }
 
 // http://stackoverflow.com/a/25235486/142317
@@ -23,14 +24,16 @@ body {
 }
 
 $cols: 21;
-$cell-size: 45px;
+$cell-size: 42px;
 $cell-pad: 3px;
 
-$cell-grow: 15px;
+$cell-grow: 5px;
+
+$width: $cols * ($cell-size + $cell-pad);
 
 .board {
-  margin: 40px auto;
-  width: $cols * ($cell-size + $cell-pad);
+  margin: 0px auto;
+  width: $width;
 
   .row {
     @include clear-fix('after');
@@ -53,11 +56,19 @@ $cell-grow: 15px;
     }
 
     .wall {
-      background: #151A32;
+      background: $bg;
+    }
+
+    .defeat {
+      background: #4D252C;
+    }
+
+    .victory {
+      background: #254D3A;
     }
 
     .floor {
-      background: #222;
+      background: #343434;
     }
 
     .selected-cell {
@@ -87,7 +98,7 @@ $cell-grow: 15px;
 
 
 .home {
-  width: 800px;
+  width: $width;
   margin: 0 auto;
   text-align: center;
 
@@ -106,12 +117,6 @@ $cell-grow: 15px;
     margin-bottom: 123px;
   }
 
-  .color-blinky { color: #FF0000; }
-  .color-pinky { color: #FFB8FF; }
-  .color-inky { color: #00FFFF; }
-  .color-clyde { color: #FFB851; }
-  .color-pacman { color: #FFFF00; }
-
   p {
     color: #555;
     font-weight: 300;
@@ -123,3 +128,36 @@ $cell-grow: 15px;
     font-style: normal;
   }
 }
+
+.game {
+  .title {
+    width: $width;
+    margin: 80px auto 40px;
+    text-align: center;
+    color: #FAFEDE;
+    opacity: 0.4;
+    font-size: 42px;
+    font-weight: 300;
+  }
+
+  .desc {
+    width: $width;
+    font-weight: 300;
+    font-size: 28px;
+    margin: 20px auto;
+    color: #5D5E5B;
+    text-align: center;
+    .focus {
+      color: #FAFEDE;
+      font-weight: 400;
+    }
+  }
+
+}
+
+.blinky { color: #FF0000 !important; }
+.pinky { color: #FFB8FF !important; }
+.inky { color: #00FFFF !important; }
+.clyde { color: #FFB851 !important; }
+.pacman { color: #FFFF00 !important; }
+
