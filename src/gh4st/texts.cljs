@@ -1,11 +1,17 @@
 (ns gh4st.texts)
 
+(def victory-text
+  [:p.victory-text
+   "You got him!" [:br]
+   [:span.focus "Press" [kbd "SHIFT + →"]]
+   ])
+
 (def texts
   [
    {:title "Meet Pac-Man..."
     :desc [:p
-           "He wants fruit, but must run in the face of a ghost." [:br]
-           [:span.focus "Press " [:span.blinky "1"] " to move your ghost."] [:br]
+           "He wants fruit, but must run from the face of a ghost." [:br]
+           [:span.focus "Press " [:kbd.blinky "1"] " to move your ghost."] [:br]
            "(Pac-Man will wait for his turn to move.)"]
     }
 

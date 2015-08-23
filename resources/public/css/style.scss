@@ -31,6 +31,13 @@ $cell-grow: 8px;
 
 $width: $cols * ($cell-size + $cell-pad);
 
+$red: #FF0000;
+$pink: #FFB8FF;
+$cyan: #00FFFF;
+$orange: #FFB851;
+$yellow: #FFFF00;
+$green: #00FF00;
+
 .board {
   margin: 0px auto;
   width: $width;
@@ -76,22 +83,22 @@ $width: $cols * ($cell-size + $cell-pad);
     }
 
     .selected-pacman {
-      outline-color: #FFFF00;
+      outline-color: $yellow;
     }
     .selected-blinky {
-      outline-color: #FF0000;
+      outline-color: $red;
     }
     .selected-pinky {
-      outline-color: #FFB8FF;
+      outline-color: $pink;
     }
     .selected-inky {
-      outline-color: #00FFFF;
+      outline-color: $cyan;
     }
     .selected-clyde {
-      outline-color: #FFB851;
+      outline-color: $orange;
     }
     .selected-fruit {
-      outline-color: #00FF00;
+      outline-color: $green;
     }
   }
 }
@@ -145,6 +152,7 @@ $title-margin: 120px;
   }
 
   .desc {
+    line-height: 1.5em;
     width: $width;
     font-weight: 300;
     font-size: 28px;
@@ -159,9 +167,26 @@ $title-margin: 120px;
 
 }
 
-.blinky { color: #FF0000 !important; }
-.pinky { color: #FFB8FF !important; }
-.inky { color: #00FFFF !important; }
-.clyde { color: #FFB851 !important; }
-.pacman { color: #FFFF00 !important; }
+.pacman {
+  color: $yellow !important;
+}
+.blinky {
+  color: $red !important;
+}
+.pinky {
+  color: $pink !important;
+}
+.inky {
+  color: $cyan !important;
+}
+.clyde {
+  color: $orange !important;
+}
 
+kbd {
+  font-family: "Lato";
+  padding: 2px 10px;
+  margin: 0 3px;
+  background: #0d0d0d;
+  border-radius: 3px;
+}

@@ -42,7 +42,6 @@
     (swap! app-state assoc :select-pos [0 0])))
 
 (defn disable-select! []
-  (println "disabling select")
   (swap! app-state assoc :select-pos nil))
 
 (js/Mousetrap.bind "shift+x" toggle-selected-tile!)

@@ -18,6 +18,9 @@
 
 (declare advancing?)
 
+(def max-level
+  (atom 0))
+
 (def history-index
   "index where next item will be remembered"
   (atom 0))
@@ -62,8 +65,14 @@
         pacman-pos (-> actors :pacman :pos)
         fruit-pos (-> actors :fruit :pos)]
     (cond
-      (on-ghost? pacman-pos) (swap! app-state assoc :end :victory)
-      (= fruit-pos pacman-pos) (swap! app-state assoc :end :defeat)
+      (on-ghost? pacman-pos)
+      (do
+        (swap! max-level max (inc (:level @app-state)))
+        (swap! app-state assoc :end :victory))
+
+      (= fruit-pos pacman-pos)
+      (swap! app-state assoc :end :defeat)
+
       :else nil)))
 
 (defn move-actor!
@@ -106,9 +115,23 @@
 (defn load-level!
   [n]
   (let [data (get levels n)]
+    (swap! max-level max n)
     (swap! app-state assoc :end nil)
     (swap! app-state merge data)
     (swap! app-state assoc :level-text (get texts 0))))
+
+(defn try-next-level! []
+  (let [level (:level @app-state)]
+    (when (< level max-level)
+      (load-level! (inc level)))))
+
+(defn try-prev-level! []
+ (let [level (:level @app-state)]
+    (when (> level 0)
+      (load-level! (dec level)))))
+
+(js/Mousetrap.bind "shift+right" try-next-level!)
+(js/Mousetrap.bind "shift+left" try-prev-level!)
 
 (defn start-game! []
   (swap! app-state assoc :screen :game)
