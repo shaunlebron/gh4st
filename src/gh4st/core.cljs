@@ -9,7 +9,7 @@
     [gh4st.state :refer [app-state]]
     [gh4st.ui :refer [select-cell!]]
     [gh4st.img :refer [actor-order img-src]]
-    [gh4st.game]
+    [gh4st.game :refer [start-game!]]
     ))
 
 (enable-console-print!)
@@ -61,7 +61,8 @@
           (swap! app-state assoc :home-bump true)
           (<! (timeout 20))
           (swap! app-state assoc :home-bump false)
-          (recur)))))
+          (recur))))
+    (js/Mousetrap.bind "enter" #(start-game!)))
   (will-unmount [_this]
     (close! stop-welcome-anim))
   (render [_this]

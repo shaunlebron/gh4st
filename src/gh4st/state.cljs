@@ -1,7 +1,6 @@
 (ns gh4st.state
   (:require
-    [gh4st.board :refer [empty-board]]
-    [gh4st.levels :refer [level1]]))
+    [gh4st.board :refer [empty-board]]))
 
 (def empty-state
   {:screen :home ;; :home or :game

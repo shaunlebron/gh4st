@@ -1,6 +1,6 @@
 (ns gh4st.levels)
 
-(def level1
+(def level0
   {:board
    [[:wall :wall :wall :wall :wall :wall :wall :wall :wall :wall :wall :wall :wall :wall :wall :wall :wall :wall :wall :wall :wall]
     [:wall :wall :wall :wall :wall :wall :wall :wall :wall :wall :wall :wall :wall :wall :wall :wall :wall :wall :wall :wall :wall]
@@ -24,4 +24,8 @@
     :clyde {:pos nil, :dir [0 1]}, 
     :fruit {:pos [14 4]}}})
 
+(def levels
+  [level0
+   
+   ])
 
