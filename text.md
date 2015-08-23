@@ -32,4 +32,18 @@ Press "Q" as before to see him go.  Press "Z" to rewind.
 Pac-Man doesn't flip coins, so when he can't decide which turn smells better,
 he chooses in the following clockwise order: UP, RIGHT, DOWN, LEFT.
 
+## Release the Ghost!
+
+Meet Blinky, your first ghost.  He behaves exactly like Pac-Man, except he
+prefers fruit of the Pac-Man variety (read: not an actual fruit).
+
+Press "Q" to cycle Blinky until he inevitably catches Pac-Man.
+
+## Blinky needs help
+
+Here you can see that Blinky has no hope of catching of Pac-Man here.
+His behavior simply won't allow him to.
+
+Press "Q" to cycle to the inevitable defeat.
+
 
