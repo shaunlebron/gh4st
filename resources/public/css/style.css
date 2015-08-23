@@ -9,6 +9,16 @@ body {
 #app {
   width: 100%; }
 
+@keyframes blink-defeat {
+  from {
+    background: #343434; }
+  to {
+    background: #4D252C; } }
+@keyframes blink-victory {
+  from {
+    background: #343434; }
+  to {
+    background: #254D3A; } }
 .board {
   margin: 0px auto;
   width: 945px; }
@@ -31,12 +41,12 @@ body {
       height: 58px; }
   .board .row .wall {
     background: #222; }
-  .board .row .defeat {
-    background: #4D252C; }
-  .board .row .victory {
-    background: #254D3A; }
   .board .row .floor {
     background: #343434; }
+    .board .row .floor.defeat {
+      animation: blink-defeat 0.2s steps(2, start) infinite; }
+    .board .row .floor.victory {
+      animation: blink-victory 0.2s steps(2, start) infinite; }
   .board .row .selected-cell {
     outline: 2px solid #AAA; }
   .board .row .selected-pacman {

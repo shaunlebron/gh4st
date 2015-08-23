@@ -38,6 +38,29 @@ $orange: #FFB851;
 $yellow: #FFFF00;
 $green: #4BEE4B;
 
+$floor: #343434;
+$defeat-floor:#4D252C;
+$victory-floor:#254D3A;
+
+@keyframes blink-defeat {
+  from {
+    background: $floor;
+  }
+  to {
+    background: $defeat-floor;
+  }
+}
+
+@keyframes blink-victory {
+  from {
+    background: $floor;
+  }
+  to {
+    background: $victory-floor;
+  }
+}
+
+
 .board {
   margin: 0px auto;
   width: $width;
@@ -66,16 +89,16 @@ $green: #4BEE4B;
       background: $bg;
     }
 
-    .defeat {
-      background: #4D252C;
-    }
-
-    .victory {
-      background: #254D3A;
-    }
-
     .floor {
       background: #343434;
+
+      &.defeat {
+        animation: blink-defeat 0.2s steps(2, start) infinite;
+      }
+
+      &.victory {
+        animation: blink-victory 0.2s steps(2, start) infinite;
+      }
     }
 
     .selected-cell {

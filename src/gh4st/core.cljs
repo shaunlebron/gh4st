@@ -28,6 +28,7 @@
   [:div
    {:class (cond-> (str "cell " (name value))
              (= [x y] (:select-pos data)) (str " selected-cell")
+             (:end data) (str " " (name (:end data)))
              (:select-actor data) (str " selected-" (name (:select-actor data))))
     :on-click #(select-cell! pos)}
    (actor (:actors data) pos)])
