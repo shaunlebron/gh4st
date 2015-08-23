@@ -58,7 +58,7 @@
         opens (walkable-tiles pos (:board state))
         prev (sub-pos pos dir)
         choices (if (= :dead-end (tile-type (count opens)))
-                  (first opens)
+                  (take 1 opens)
                   (remove #(= prev %) opens)) ;; can't turn back
         closest (apply min-key #(dist-sq % target) choices)
         next-dir (sub-pos closest pos)]
