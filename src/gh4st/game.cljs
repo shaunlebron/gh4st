@@ -83,7 +83,8 @@
 
 (defn advance!
   [name-]
-  (when-not @advancing?
+  (when-not (or @advancing?
+                (:end @app-state))
     (when (get-in @app-state [:actors name- :pos])
       (reset! advancing? true)
       (remember! @app-state)
