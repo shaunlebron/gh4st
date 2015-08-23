@@ -7,6 +7,7 @@
     [gh4st.state :refer [app-state]]
     [gh4st.ai :refer [move-actor
                       steer-actor]]
+    [gh4st.board :refer [ghost-positions]]
     ))
 
 ;;----------------------------------------------------------------------
@@ -51,41 +52,44 @@
 (def advancing?
   (atom false))
 
-(defn progress-states
-  [name- state]
-  (let [new-pos (move-actor name- state)
-        state1 (assoc-in state [:actors name- :pos] new-pos)
-        new-dir (steer-actor name- state1)
-        state2 (assoc-in state1 [:actors name- :dir] new-dir)]
-    [state1 state2]))
+(declare steer-all!)
 
-(defn advance-pacman! []
-  (go
-    (let [[moved steered] (progress-states :pacman @app-state)]
-      (reset! app-state moved)
-      (reset! app-state steered))))
+(defn check-game-over! []
+  (let [actors (:actors @app-state)
+        on-ghost? (set (ghost-positions actors))
+        pacman-pos (-> actors :pacman :pos)
+        fruit-pos (-> actors :fruit :pos)]
+    (cond
+      (on-ghost? pacman-pos) (swap! app-state assoc :end :victory)
+      (= fruit-pos pacman-pos) (swap! app-state assoc :end :defeat)
+      :else nil)))
+
+(defn move-actor!
+  [name-]
+  (when-not (:end @app-state)
+    (swap! app-state #(assoc-in % [:actors name- :pos] (move-actor name- %)))
+    (check-game-over!)
+    (steer-all!)))
+
+(defn steer-actor!
+  [name-]
+  (swap! app-state #(assoc-in % [:actors name- :dir] (steer-actor name- %))))
+
+(defn steer-all! []
+  (doseq [name- [:pacman :blinky :pinky :inky :clyde]]
+    (steer-actor! name-)))
 
 (defn advance!
   [name-]
   (when-not @advancing?
     (when (get-in @app-state [:actors name- :pos])
+      (reset! advancing? true)
       (remember! @app-state)
       (go
-        (let [[moved steered] (progress-states name- @app-state)]
-
-          (reset! app-state moved)
-          ;; (<! (timeout 500))
-
-          (reset! app-state steered)
-          ;; (<! (timeout 500))
-
-          (<! (advance-pacman!))
-
-          ;; TODO: determine winner?
-
-          (reset! advancing? false)
-
-          )))))
+        (move-actor! name-)
+        (<! (timeout 300))
+        (move-actor! :pacman)
+        (reset! advancing? false)))))
 
 
 (js/Mousetrap.bind "a" #(advance! :blinky))

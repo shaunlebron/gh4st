@@ -38,3 +38,6 @@
        (filter #(can-walk? pos % board))
        (map #(add-pos pos %))))
 
+(defn ghost-positions
+  [actors]
+  (map #(get-in actors [% :pos]) [:blinky :pinky :inky :clyde]))
