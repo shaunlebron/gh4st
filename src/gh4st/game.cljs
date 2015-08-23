@@ -9,8 +9,11 @@
                       steer-actor]]
     ))
 
-(def advancing?
-  (atom false))
+;;----------------------------------------------------------------------
+;; History Stack
+;;----------------------------------------------------------------------
+
+(declare advancing?)
 
 (def history-index
   "index where next item will be remembered"
@@ -18,14 +21,6 @@
 
 (def history-stack
   (atom []))
-
-(add-watch history-stack :log
-           (fn [_ _ _ newv]
-             (println "stack size:" (count newv))))
-
-(add-watch history-index :log
-           (fn [_ _ _ newv]
-             (println "stack index:" newv)))
 
 (defn undo! [curr-state]
   (when-not @advancing?
@@ -48,6 +43,13 @@
   (swap! history-stack subvec 0 @history-index)
   (swap! history-stack conj curr-state)
   (swap! history-index inc))
+
+;;----------------------------------------------------------------------
+;; State progression
+;;----------------------------------------------------------------------
+
+(def advancing?
+  (atom false))
 
 (defn progress-states
   [name- state]
