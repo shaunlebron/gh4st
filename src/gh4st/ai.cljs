@@ -51,7 +51,7 @@
    3 :intersection
    4 :intersection})
 
-(defmethod steer-actor :ghost
+(defmethod steer-actor :default
   [name- state]
   (let [target (target-to-chase name- state)
         {:keys [pos dir]} (-> state :actors name-)
@@ -61,15 +61,6 @@
                   (take 1 opens)
                   (remove #(= prev %) opens)) ;; can't turn back
         closest (apply min-key #(dist-sq % target) choices)
-        next-dir (sub-pos closest pos)]
-    next-dir))
-
-(defmethod steer-actor :pacman
-  [name- state]
-  (let [target (target-to-chase name- state)
-        {:keys [pos dir]} (-> state :actors name-)
-        opens (walkable-tiles pos (:board state))
-        closest (apply min-key #(dist-sq % target) opens)
         next-dir (sub-pos closest pos)]
     next-dir))
 
