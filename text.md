@@ -72,13 +72,15 @@ Press "1" to move Blinky, or "2" to move Pinky.
 
 ## Oh Clyde
 
+Meet your third ghost, Clyde!  He chases Pac-Man directly, but unlike Blinky,
+he gets scared when he's too close and tries to make off in the opposite
+direction.
 
+Press "3" to see Clyde choke.
 
 ## Well done Clyde
 
 Clyde, like the others, cannot turn back to reach his target, so he is known to
 accidentally run into Pac-Man if he can't get away in time.
 
-Press "3" to move Clyde.
-
-## 
+Press "3" to move the unstoppable Clyde.
