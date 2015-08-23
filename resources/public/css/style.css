@@ -60,12 +60,12 @@ body {
     margin: 120px 0;
     font-size: 120px;
     color: #F00;
-    text-shadow: 0 10px 0 #111; }
+    text-shadow: 0 3px 0 #111; }
     .home h1 .ghost {
       height: 80px; }
   .home .bump {
-    margin-top: 110px;
-    margin-bottom: 130px; }
+    margin-top: 117px;
+    margin-bottom: 123px; }
   .home p {
     color: #555;
     font-weight: 300;
