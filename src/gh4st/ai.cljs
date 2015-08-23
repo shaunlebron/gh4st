@@ -55,12 +55,12 @@
 (defmethod steer-actor :default
   [name- state]
   (let [target (target-to-chase name- state)
-        {:keys [pos dir]} (-> state :actors name-)
+        {:keys [pos dir prev-pos]} (-> state :actors name-)
+        prev-pos (or prev-pos (sub-pos pos dir))
         opens (walkable-tiles pos (:board state))
-        prev (sub-pos pos dir)
         choices (if (= :dead-end (tile-type (count opens)))
                   (take 1 opens)
-                  (remove #(= prev %) opens)) ;; can't turn back
+                  (remove #(= prev-pos %) opens)) ;; can't turn back
         closest (apply min-key #(dist-sq % target) choices)
         next-dir (sub-pos closest pos)]
     next-dir))
@@ -68,14 +68,14 @@
 (defmethod steer-actor :pacman
   [name- state]
   (let [target (target-to-chase name- state)
-        {:keys [pos dir]} (-> state :actors name-)
+        {:keys [pos dir prev-pos]} (-> state :actors name-)
+        prev-pos (or prev-pos (sub-pos pos dir))
         ghost-pos? (set (ghost-positions (:actors state)))
         opens (->> (walkable-tiles pos (:board state))
                    (remove ghost-pos?))
-        prev (sub-pos pos dir)
         choices (if (= :dead-end (tile-type (count opens)))
                   (take 1 opens)
-                  (remove #(= prev %) opens)) ;; can't turn back
+                  (remove #(= prev-pos %) opens)) ;; can't turn back
         closest (apply min-key #(dist-sq % target) choices)
         next-dir (if closest
                    (sub-pos closest pos)

@@ -50,6 +50,10 @@
   (swap! history-stack conj curr-state)
   (swap! history-index inc))
 
+(defn flush-history! []
+  (reset! history-index 0)
+  (swap! history-stack empty))
+
 ;;----------------------------------------------------------------------
 ;; State progression
 ;;----------------------------------------------------------------------
@@ -71,14 +75,20 @@
         (swap! app-state assoc :end :victory))
 
       (= fruit-pos pacman-pos)
-      (swap! app-state assoc :end :defeat)
+      (if (:allow-defeat @app-state)
+        (do
+          (swap! max-level max (inc (:level @app-state))) 
+          (swap! app-state assoc :end :defeat-allowed))
+        (swap! app-state assoc :end :defeat))
 
       :else nil)))
 
 (defn move-actor!
   [name-]
   (when-not (:end @app-state)
-    (swap! app-state #(assoc-in % [:actors name- :pos] (move-actor name- %)))
+    (let [pos (get-in @app-state [:actors name- :pos])]
+      (swap! app-state #(assoc-in % [:actors name- :pos] (move-actor name- %)))
+      (swap! app-state #(assoc-in % [:actors name- :prev-pos] pos)))
     (check-game-over!)
     (steer-all!)))
 
@@ -115,6 +125,7 @@
 (defn load-level!
   [n]
   (let [data (get levels n)]
+    (flush-history!)
     (swap! app-state assoc :level n)
     (swap! max-level max n)
     (swap! app-state assoc :end nil)

@@ -1,7 +1,8 @@
 (ns gh4st.levels)
 
 (def level0
-  {:actors
+  {:allow-defeat false
+   :actors
    {:pacman {:pos [7 2], :dir [1 0]},
     :blinky {:pos [12 2], :dir [-1 0]},
     :pinky {:pos nil, :dir [0 0]},
@@ -17,6 +18,7 @@
 
 (def level1
  {
+  :allow-defeat true
  :actors
  {:pacman {:pos [9 1], :dir [-1 0]},
   :blinky {:pos [9 5], :dir [1 0]},

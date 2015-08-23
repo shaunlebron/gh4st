@@ -12,6 +12,12 @@
    [:span.focus "Press " [:kbd "Z"] " or " [:kbd "Y"] " to undo/redo."] [:br]
    "Or press R to restart from the beginning."])
 
+(def allow-defeat-text
+  [:p.defeat-text
+   "Yup.  It was inevitable." [:br]
+   "Press " [:kbd.green "SHIFT"] " + " [:kbd.green "→"] " for next level." [:br]
+   "Or press Z or Y to undo/redo for study."])
+
 (def text0
   {:title "Meet Pac-Man..."
    :desc [:p

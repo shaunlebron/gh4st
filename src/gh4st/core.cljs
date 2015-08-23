@@ -10,7 +10,10 @@
     [gh4st.ui :refer [select-cell!]]
     [gh4st.img :refer [actor-order img-src]]
     [gh4st.game :refer [start-game!]]
-    [gh4st.texts :refer [victory-text defeat-text]]
+    [gh4st.texts :refer [victory-text
+                         defeat-text
+                         allow-defeat-text
+                         ]]
     ))
 
 (enable-console-print!)
@@ -45,6 +48,7 @@
           (cond
             (= end :victory) victory-text
             (= end :defeat) defeat-text
+            (= end :defeat-allowed) allow-defeat-text
             :else (-> @data :level-text :desc)))]
        [:div.board
         (for [[y row] (map-indexed vector (:board data))]
