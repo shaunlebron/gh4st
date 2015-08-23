@@ -29,4 +29,7 @@ Press "Q" as before to see him go.  Press "Z" to rewind.
 
 ## Decisions, decisions
 
+Pac-Man doesn't flip coins, so when he can't decide which turn smells better,
+he chooses in the following clockwise order: UP, RIGHT, DOWN, LEFT.
+
 
