@@ -6,6 +6,7 @@
       [gh4st.state :refer [app-state]]
       [gh4st.ui :refer [select-cell!]]
       [gh4st.img :refer [actor-order img-src]]
+      [gh4st.game]
       ))
 
 (enable-console-print!)
