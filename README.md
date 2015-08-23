@@ -2,14 +2,12 @@
 
 A puzzle game for Ludum Dare 33.  The theme is "you are the monster".
 
-Control the four ghosts.  They use the actual AI from the original Pac-Man
-arcade.  Pac-Man is given a newly derived AI, since you'll be controlling the
-ghosts.
+Coordinate the four ghosts, which adhere to the actual AI from the original
+Pac-Man arcade. Your only power to catch Pac-Man is to choose which ghost is
+allowed to move per turn.
 
-How can you control the ghosts if they already have AI?  Well, your only power
-is to choose which ghost is allowed to move per turn.  Learn and coordinate the
-deterministic behaviors of your ghosts to catch Pac-Man before he gets his
-fruit.
+In this game, you must learn to exploit the deterministic behaviors of your
+ghosts and Pac-Man in order to catch Pac-Man before he gets his fruit.
 
 ## Setup
 
