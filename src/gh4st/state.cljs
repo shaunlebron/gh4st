@@ -4,9 +4,16 @@
     [gh4st.levels :refer [level1]]))
 
 (def empty-state
-  {:board (empty-board),
+  {:screen :home ;; :home or :game
+
+   :home-actor :blinky
+
+   ;; editor
    :select-pos nil,
    :select-actor nil,
+
+   ;; game
+   :board (empty-board), 
    :level 0,
    :actors
    {:pacman {:pos [2 1], :dir [1 0]},
@@ -17,4 +24,4 @@
     :fruit {:pos [6 2]}}})
 
 (defonce app-state
-  (atom level1))
+  (atom empty-state))

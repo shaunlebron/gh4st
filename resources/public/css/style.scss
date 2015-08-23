@@ -1,5 +1,6 @@
 
 body {
+  font-family: "Lato";
   background: #0a0a0a;
 }
 
@@ -84,3 +85,41 @@ $cell-grow: 15px;
   }
 }
 
+
+.home {
+  width: 800px;
+  margin: 0 auto;
+  text-align: center;
+
+  h1 {
+    margin: 120px 0;
+    font-size: 120px;
+    color: #F00;
+
+    .ghost {
+      height: 80px;
+    }
+  }
+
+  .bump {
+    margin-top: 117px;
+    margin-bottom: 123px;
+  }
+
+  .color-blinky { color: #FF0000; }
+  .color-pinky { color: #FFB8FF; }
+  .color-inky { color: #00FFFF; }
+  .color-clyde { color: #FFB851; }
+  .color-pacman { color: #FFFF00; }
+
+  p {
+    color: #555;
+    font-weight: 300;
+    font-size: 30px;
+  }
+
+  em {
+    color: #AAA;
+    font-style: normal;
+  }
+}

@@ -1,4 +1,5 @@
 body {
+  font-family: "Lato";
   background: #0a0a0a; }
 
 * {
@@ -46,5 +47,36 @@ body {
     outline-color: #FFB851; }
   .board .row .selected-fruit {
     outline-color: #00FF00; }
+
+.home {
+  width: 800px;
+  margin: 0 auto;
+  text-align: center; }
+  .home h1 {
+    margin: 120px 0;
+    font-size: 120px;
+    color: #F00; }
+    .home h1 .ghost {
+      height: 80px; }
+  .home .bump {
+    margin-top: 117px;
+    margin-bottom: 123px; }
+  .home .color-blinky {
+    color: #FF0000; }
+  .home .color-pinky {
+    color: #FFB8FF; }
+  .home .color-inky {
+    color: #00FFFF; }
+  .home .color-clyde {
+    color: #FFB851; }
+  .home .color-pacman {
+    color: #FFFF00; }
+  .home p {
+    color: #555;
+    font-weight: 300;
+    font-size: 30px; }
+  .home em {
+    color: #AAA;
+    font-style: normal; }
 
 /*# sourceMappingURL=style.css.map */
