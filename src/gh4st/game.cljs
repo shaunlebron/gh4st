@@ -9,19 +9,45 @@
                       steer-actor]]
     ))
 
-(def history-stack
-  (atom []))
-
 (def advancing?
   (atom false))
 
-(defn undo! []
+(def history-index
+  "index where next item will be remembered"
+  (atom 0))
+
+(def history-stack
+  (atom []))
+
+(add-watch history-stack :log
+           (fn [_ _ _ newv]
+             (println "stack size:" (count newv))))
+
+(add-watch history-index :log
+           (fn [_ _ _ newv]
+             (println "stack index:" newv)))
+
+(defn undo! [curr-state]
   (when-not @advancing?
-    ))
+    (when (pos? @history-index)
+
+      ;; Allow us to redo what we're undoing if this moment isn't remembered yet.
+      (when-not (get @history-stack @history-index)
+        (swap! history-stack conj curr-state))
+
+      (swap! history-index dec)
+      (reset! app-state (get @history-stack @history-index)))))
 
 (defn redo! []
   (when-not @advancing?
-    ))
+    (when-let [state (get @history-stack (inc @history-index))]
+      (reset! app-state state)
+      (swap! history-index inc))))
+
+(defn remember! [curr-state]
+  (swap! history-stack subvec 0 @history-index)
+  (swap! history-stack conj curr-state)
+  (swap! history-index inc))
 
 (defn progress-states
   [name- state]
@@ -35,22 +61,21 @@
   (go
     (let [[moved steered] (progress-states :pacman @app-state)]
       (reset! app-state moved)
-      (<! (timeout 500))
       (reset! app-state steered))))
 
 (defn advance!
   [name-]
   (when-not @advancing?
     (when (get-in @app-state [:actors name- :pos])
-      ;; TODO: push onto history stack
+      (remember! @app-state)
       (go
         (let [[moved steered] (progress-states name- @app-state)]
 
           (reset! app-state moved)
-          (<! (timeout 500))
+          ;; (<! (timeout 500))
 
           (reset! app-state steered)
-          (<! (timeout 500))
+          ;; (<! (timeout 500))
 
           (<! (advance-pacman!))
 
@@ -66,6 +91,6 @@
 (js/Mousetrap.bind "d" #(advance! :inky))
 (js/Mousetrap.bind "f" #(advance! :clyde))
 
-(js/Mousetrap.bind "mod+z" undo!)
-(js/Mousetrap.bind "mod+y" redo!)
+(js/Mousetrap.bind "z" #(undo! @app-state))
+(js/Mousetrap.bind "y" redo!)
 
