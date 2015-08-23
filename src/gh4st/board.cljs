@@ -4,10 +4,15 @@
     )
   )
 
+;; board size
+(def rows 11)
+(def cols 21) ;; NOTE: make sure this matches "$colls" in style.scss
+
 (defn empty-board
   "create initial empty board"
-  [w h]
-  (vec (repeat h (vec (repeat w :wall)))))
+  ([] (empty-board cols rows))
+  ([w h]
+   (vec (repeat h (vec (repeat w :wall))))))
 
 (defn bound
   [x0 x x1]

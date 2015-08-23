@@ -10,7 +10,7 @@ body {
 
 .board {
   margin: 40px auto;
-  width: 581px; }
+  width: 1008px; }
   .board .row:after {
     clear: both;
     content: '';
@@ -18,16 +18,16 @@ body {
   .board .row .cell {
     margin-right: 3px;
     margin-bottom: 3px;
-    width: 80px;
-    height: 80px;
+    width: 45px;
+    height: 45px;
     float: left;
     position: relative; }
     .board .row .cell .sprite {
       position: absolute;
       left: -15px;
       top: -15px;
-      width: 110px;
-      height: 110px; }
+      width: 75px;
+      height: 75px; }
   .board .row .wall {
     background: #151A32; }
   .board .row .floor {
