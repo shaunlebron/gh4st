@@ -50,7 +50,7 @@ body {
   .board .row .selected-clyde {
     outline-color: #FFB851; }
   .board .row .selected-fruit {
-    outline-color: #00FF00; }
+    outline-color: #4BEE4B; }
 
 .home {
   width: 945px;
@@ -91,8 +91,8 @@ body {
   color: #5D5E5B;
   text-align: center; }
   .game .desc .focus {
-    color: #FAFEDE;
-    font-weight: 400; }
+    letter-spacing: 0.03em;
+    color: #FAFEDE; }
 
 .pacman {
   color: #FFFF00 !important; }
@@ -108,6 +108,9 @@ body {
 
 .clyde {
   color: #FFB851 !important; }
+
+.green {
+  color: #4BEE4B !important; }
 
 kbd {
   font-family: "Lato";

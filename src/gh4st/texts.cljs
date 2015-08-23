@@ -3,8 +3,14 @@
 (def victory-text
   [:p.victory-text
    "You got him!" [:br]
-   [:span.focus "Press" [kbd "SHIFT + →"]]
-   ])
+   "Press " [:kbd.green "SHIFT"] " + " [:kbd.green "→"] " for next level." [:br]
+   "Or press Z or Y to undo/redo for study."])
+
+(def defeat-text
+  [:p.defeat-text
+   "Bah!  He got the fruit!" [:br]
+   [:span.focus "Press " [:kbd "Z"] " or " [:kbd "Y"] " to undo/redo."] [:br]
+   "Or press R to restart from the beginning."])
 
 (def texts
   [

@@ -120,6 +120,11 @@
     (swap! app-state merge data)
     (swap! app-state assoc :level-text (get texts 0))))
 
+(defn restart-level! []
+  (load-level! (:level @app-state)))
+
+(js/Mousetrap.bind "r" restart-level!)
+
 (defn try-next-level! []
   (let [level (:level @app-state)]
     (when (< level max-level)

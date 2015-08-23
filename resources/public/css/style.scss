@@ -36,7 +36,7 @@ $pink: #FFB8FF;
 $cyan: #00FFFF;
 $orange: #FFB851;
 $yellow: #FFFF00;
-$green: #00FF00;
+$green: #4BEE4B;
 
 .board {
   margin: 0px auto;
@@ -160,8 +160,8 @@ $title-margin: 120px;
     color: #5D5E5B;
     text-align: center;
     .focus {
+      letter-spacing: 0.03em;
       color: #FAFEDE;
-      font-weight: 400;
     }
   }
 
@@ -181,6 +181,9 @@ $title-margin: 120px;
 }
 .clyde {
   color: $orange !important;
+}
+.green {
+  color: $green !important;
 }
 
 kbd {
