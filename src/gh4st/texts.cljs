@@ -34,21 +34,30 @@
 
           "Press " [:kbd.blinky "1"] " to cycle your turn to see Pac-Man move."]})
 
+(def text2
+  {:title "Follow your nose"
+   :desc [:p
+          "Pac-Man follows his nose, but he can smell fruit through walls." [:br]
+          "He'll take a wrong turn if it smells better than the others." [:br]
+          "Press" [:kbd.blinky "1"] " to cycle. " [:kbd "Z"] " to undo."]
+   }
+  )
+
 (def texts
   [
    text0
    text1
+   text2
    
-   {:title "Follow your nose"}
-   {:title "Decisions, decisions"}
-   {:title "Release the Ghost!"}
-   {:title "Blinky needs help"}
-   {:title "Pinky can help"}
-   {:title "Pinky is different"}
-   {:title "Work together"}
-   {:title "Oh Clyde"}
-   {:title "Well done Clyde"}
-   {:title "Blinky and Clyde"}
+   ;; {:title "Decisions, decisions"}
+   ;; {:title "Release the Ghost!"}
+   ;; {:title "Blinky needs help"}
+   ;; {:title "Pinky can help"}
+   ;; {:title "Pinky is different"}
+   ;; {:title "Work together"}
+   ;; {:title "Oh Clyde"}
+   ;; {:title "Well done Clyde"}
+   ;; {:title "Blinky and Clyde"}
 
    ]
   )
