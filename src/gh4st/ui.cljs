@@ -38,7 +38,7 @@
 
 (defn move-selection! [[dx dy]]
   (if-let [[x y] (:select-pos @app-state)]
-    (swap! app-state assoc-in [:select-pos] (bound-pos [(+ x dx) (+ y dy)]))
+    (swap! app-state assoc-in [:select-pos] (bound-pos [(+ x dx) (+ y dy)] (:board @app-state)))
     (swap! app-state assoc :select-pos [0 0])))
 
 (js/Mousetrap.bind "x" toggle-selected-tile!)

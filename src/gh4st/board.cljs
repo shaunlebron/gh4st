@@ -1,6 +1,7 @@
 (ns gh4st.board
   (:require
-    [gh4st.state :refer [app-state]])
+    [gh4st.math :refer [add-pos]]
+    )
   )
 
 (defn empty-board
@@ -15,7 +16,25 @@
     (> x x1) x1
     :else x))
 
+(defn board-size [board]
+  (let [w (count (first board))
+        h (count board)]
+    [w h]))
+
 (defn bound-pos
-  [[x y]]
-  [(bound 0 x (-> @app-state :board first count dec))
-   (bound 0 y (-> @app-state :board count dec))])
+  [[x y] board]
+  (let [[w h] (board-size board)]
+    [(bound 0 x (dec w))
+     (bound 0 y (dec h))]))
+
+(defn can-walk?
+  [pos dir board]
+  (let [[x y] (add-pos pos dir)]
+    (= :floor (get-in board [y x]))))
+
+(defn walkable-tiles
+  [pos board]
+  (->> [[0 -1] [1 0] [0 1] [-1 0]]
+       (filter #(can-walk? pos % board))
+       (map #(add-pos pos %))))
+
