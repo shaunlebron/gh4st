@@ -25,10 +25,10 @@ body {
     position: relative; }
     .board .row .cell .sprite {
       position: absolute;
-      left: -5px;
-      top: -5px;
-      width: 52px;
-      height: 52px; }
+      left: -8px;
+      top: -8px;
+      width: 58px;
+      height: 58px; }
   .board .row .wall {
     background: #222; }
   .board .row .defeat {
