@@ -84,3 +84,17 @@ Clyde, like the others, cannot turn back to reach his target, so he is known to
 accidentally run into Pac-Man if he can't get away in time.
 
 Press "3" to move the unstoppable Clyde.
+
+## Blinky and Clyde
+
+## Pinky and Clyde
+
+## Too easy
+
+All of them
+
+## Wait a minute
+
+## Inky: Blinky's secret weapon
+
+
