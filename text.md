@@ -1,6 +1,6 @@
 # GH4ST
 
-Based on the actual ghost AI of the Pac-Man arcade.
+Based on the __original ghost AI__ from the Pac-Man arcade.
 
 ## Meet Pac-Man
 
@@ -13,7 +13,7 @@ Press "Q" to allow your ghost to step forward.
 Let's lock our ghost up to study Pac-Man's behavior first.
 
 Even though Pac-Man wants his fruit, he can't turn back
-and is forced to take the long way.  The ghost suffers
+and is forced to take the long way.  Your ghost suffers
 the same, but both can turn around if at a dead-end.
 
 Press "Q" to cycle your turn to see Pac-Man move.

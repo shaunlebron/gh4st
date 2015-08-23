@@ -2,9 +2,14 @@
 
 A puzzle game for Ludum Dare 33.  The theme is "you are the monster".
 
-Knowing the four ghost behaviors of the original Pac-Man arcade, configure
-the initial state of the ghosts such that they reach Pac-Man before he
-reaches his target.  Pre-arranged levels.
+Control the four ghosts.  They use the actual AI from the original Pac-Man
+arcade.  Pac-Man is given a newly derived AI, since you'll be controlling the
+ghosts.
+
+How can you control the ghosts if they already have AI? When it's your turn to
+move, you may allow only one ghost to move.  Learn and exploit the
+deterministic behaviors of your ghosts and Pac-Man in order to catch him
+because he gets his fruit.
 
 ## Setup
 
