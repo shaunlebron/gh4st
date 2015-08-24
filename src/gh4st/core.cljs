@@ -26,12 +26,18 @@
         [:img.sprite {:src (img-src name- dir)
                       :on-click #(select-cell! drawpos)}]))))
 
+(defn normalize-end
+  [end]
+  (if (= end :defeat-allowed)
+    :defeat
+    end))
+
 (defn cell
   [data value [x y :as pos]]
   [:div
    {:class (cond-> (str "cell " (name value))
              (= [x y] (:select-pos data)) (str " selected-cell")
-             (:end data) (str " " (name (:end data)))
+             (:end data) (str " " (name (normalize-end (:end data))))
              (:select-actor data) (str " selected-" (name (:select-actor data))))
     :on-click #(select-cell! pos)}
    (actor (:actors data) pos)])

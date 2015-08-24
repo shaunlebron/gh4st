@@ -60,6 +60,15 @@
    
    })
 
+(def text5
+ {:title "Blinky needs help"
+  :desc [:p
+         "Blinky has no hope of catching Pac-Man here." [:br]
+         "His behavior simply won't allow him to." [:br]
+         "Press " [:kbd.blinky "1"] " to cycle to the inevitable defeat."]
+  } 
+  )
+
 (def texts
   [
    text0
@@ -67,7 +76,9 @@
    text2
    text3
    text4
-   
+   text5
+
+
    ;; {:title "Decisions, decisions"}
    ;; {:title "Release the Ghost!"}
    ;; {:title "Blinky needs help"}
