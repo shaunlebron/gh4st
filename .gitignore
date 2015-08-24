@@ -15,3 +15,4 @@ pom.xml
 .DS_Store
 *.css.map
 .sass-cache
+deploy
