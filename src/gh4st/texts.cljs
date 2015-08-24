@@ -69,6 +69,25 @@
   } 
   )
 
+(def text6
+  {:title "Pinky can help"
+   :desc [:p
+          "Meet " [:span.pinky "Pinky"] ", your second ghost!" [:br]
+          "You can now choice which ghost to move each turn." [:br]
+          "Press" [:kbd.pinky "2"] " to move Pinky. " [:kbd.blinky "1"] " for Blinky."]
+   }
+  )
+
+(def text7
+  {:title "Pinky is different"
+   :desc [:p
+          "Pinky tries to get ahead of Pac-Man" [:br]
+          "by aiming two tiles ahead of where Pac-Man is looking." [:br]
+          "This doesn't always work out, as you can see here..." [:br]
+          "Press" [:kbd.pinky "2"] " to move Pinky. "]
+   }
+  )
+
 (def texts
   [
    text0
@@ -77,7 +96,8 @@
    text3
    text4
    text5
-
+   text6
+   text7
 
    ;; {:title "Decisions, decisions"}
    ;; {:title "Release the Ghost!"}
