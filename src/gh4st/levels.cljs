@@ -5,9 +5,6 @@
    :actors
    {:pacman {:pos [7 2], :dir [1 0]},
     :blinky {:pos [12 2], :dir [-1 0]},
-    :pinky {:pos nil, :dir [0 0]},
-    :inky {:pos nil, :dir [0 0]},
-    :clyde {:pos nil, :dir [0 0]},
     :fruit {:pos [14 2]}},
    :board
    [[:_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_]
@@ -21,9 +18,6 @@
    :actors
    {:pacman {:pos [9 1], :dir [-1 0]},
     :blinky {:pos [9 5], :dir [1 0]},
-    :pinky {:pos nil, :dir [0 0]},
-    :inky {:pos nil, :dir [0 0]},
-    :clyde {:pos nil, :dir [0 0]},
     :fruit {:pos [11 1]}},
    :board
    [[:_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_]
@@ -39,9 +33,6 @@
    :actors
    {:pacman {:pos [10 6], :dir [0 -1]},
     :blinky {:pos [13 2], :dir [0 1]},
-    :pinky {:pos nil, :dir [0 0]},
-    :inky {:pos nil, :dir [0 0]},
-    :clyde {:pos nil, :dir [0 0]},
     :fruit {:pos [10 0]}},
    :board
    [[:_ :_ :_ :_ :_ :_ :_ :_ :O :O :O :_ :_ :_ :_ :_ :_ :_ :_ :_ :_]
@@ -56,9 +47,6 @@
   {:actors
    {:pacman {:pos [10 0], :dir [0 1]},
     :blinky {:pos [8 6], :dir [1 0]},
-    :pinky {:pos nil, :dir [0 0]},
-    :inky {:pos nil, :dir [0 0]},
-    :clyde {:pos nil, :dir [0 0]},
     :fruit {:pos [10 4]}},
    :board
    [[:_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :O :_ :_ :_ :_ :_ :_ :_ :_ :_ :_]
@@ -73,9 +61,6 @@
   {:actors
    {:pacman {:pos [10 0], :dir [-1 0]},
     :blinky {:pos [12 2], :dir [-1 0]},
-    :pinky {:pos nil, :dir [0 0]},
-    :inky {:pos nil, :dir [0 0]},
-    :clyde {:pos nil, :dir [0 0]},
     :fruit {:pos [10 4]}},
    :board
    [[:_ :_ :_ :_ :_ :_ :_ :_ :O :O :O :_ :_ :_ :_ :_ :_ :_ :_ :_ :_]
@@ -91,9 +76,6 @@
    :actors
    {:pacman {:pos [7 2], :dir [1 0]},
     :blinky {:pos [11 4], :dir [-1 0]},
-    :pinky {:pos nil, :dir [0 0]},
-    :inky {:pos nil, :dir [0 0]},
-    :clyde {:pos nil, :dir [0 0]},
     :fruit {:pos [9 4]}},
    :board
    [[:_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_]
@@ -110,8 +92,6 @@
    {:pacman {:pos [11 1], :dir [1 0]},
     :blinky {:pos [8 1], :dir [1 0]},
     :pinky {:pos [13 3], :dir [0 -1]},
-    :inky {:pos nil, :dir [0 0]},
-    :clyde {:pos nil, :dir [0 0]},
     :fruit {:pos [15 1]}},
    :board
    [[:_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_]
@@ -126,10 +106,7 @@
   {:allow-defeat true
    :actors
    {:pacman {:pos [9 1], :dir [1 0], :prev-pos [14 1]},
-    :blinky {:pos nil, :dir [1 0]},
     :pinky {:pos [12 3], :dir [0 -1], :prev-pos [13 2]},
-    :inky {:pos nil, :dir [0 0]},
-    :clyde {:pos nil, :dir [0 0]},
     :fruit {:pos [15 1]}},
    :board
    [[:_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_]
@@ -146,8 +123,6 @@
    {:pacman {:pos [11 1], :dir [1 0], :prev-pos [14 1]},
     :blinky {:pos [15 3], :dir [0 -1]},
     :pinky {:pos [10 4], :dir [-1 0], :prev-pos [13 2]},
-    :inky {:pos nil, :dir [0 0]},
-    :clyde {:pos nil, :dir [0 0]},
     :fruit {:pos [15 1]}},
    :board
    [[:_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_]
@@ -162,9 +137,6 @@
   {:allow-defeat true
    :actors
    {:pacman {:pos [6 2], :dir [1 0], :prev-pos [14 1]},
-    :blinky {:pos nil, :dir [0 -1]},
-    :pinky {:pos nil, :dir [-1 0], :prev-pos [13 2]},
-    :inky {:pos nil, :dir [0 0]},
     :clyde {:pos [12 2], :dir [-1 0]},
     :fruit {:pos [11 2]}},
    :board

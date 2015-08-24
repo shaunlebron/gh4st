@@ -10,7 +10,9 @@
     [gh4st.ui :refer [select-cell!]]
     [gh4st.img :refer [actor-order img-src]]
     [gh4st.game :refer [start-game!]]
-    [gh4st.board :refer [decode-tile]]
+    [gh4st.board :refer [decode-tile
+                         board-size
+                         ]]
     [gh4st.texts :refer [victory-text
                          defeat-text
                          allow-defeat-text
@@ -19,13 +21,8 @@
 
 (enable-console-print!)
 
-(defn actor
-  [actors drawpos]
-  (for [name- actor-order]
-    (let [{:keys [pos dir]} (get actors name-)]
-      (when (= drawpos pos)
-        [:img.sprite {:src (img-src name- dir)
-                      :on-click #(select-cell! drawpos)}]))))
+(def cell-size 42)
+(def cell-pad 3)
 
 (defn normalize-end
   [end]
@@ -43,30 +40,54 @@
 
     ;; FIXME: re-enable for mouse editor control
     ;; :on-click #(select-cell! pos)
-    
-    }
-   (actor (:actors data) pos)])
+
+    :style {:width cell-size
+            :height cell-size
+            :margin-right cell-pad
+            :margin-bottom cell-pad}
+
+    }])
+
+(defn actor
+  [name- {:keys [dir pos]}]
+  (let [[x y] pos
+        s (+ cell-size cell-pad)
+        px (* x s)
+        py (* y s)
+        transform (str "translate(" px "px, " py "px)")
+        src (if pos (img-src name- dir) "")
+        style (cond-> {:transform transform}
+                (nil? pos) (assoc :display "none"))]
+    [:img {:class "sprite"
+           :src src
+           :style style}]))
 
 (defcomponent game
   [data owner]
   (render [_this]
-    (html
-      [:div.game
-       
-       [:div.title (-> data :level-text :title)]
-       [:div.desc
-        (let [end (:end data)]
-          (cond
-            (= end :victory) victory-text
-            (= end :defeat) defeat-text
-            (= end :defeat-allowed) allow-defeat-text
-            :else (-> @data :level-text :desc)))]
-       [:div.board
-        (for [[y row] (map-indexed vector (:board data))]
-          [:div.row
-           (for [[x value] (map-indexed vector row)]
-             (cell data value [x y]))])]
-       [:div.controls]])))
+    (let [[cols rows] (board-size (:board data))
+          width (* cols (+ cell-size cell-pad))]
+      (html
+        [:div.game
+         [:div.title {:style {:width width}}
+          (-> data :level-text :title)]
+         [:div.desc {:style {:width width}}
+          (let [end (:end data)]
+            (cond
+              (= end :victory) victory-text
+              (= end :defeat) defeat-text
+              (= end :defeat-allowed) allow-defeat-text
+              :else (-> @data :level-text :desc)))]
+         
+         [:div.board {:style {:width width}}
+          (for [[y row] (map-indexed vector (:board data))]
+            [:div.row
+             (for [[x value] (map-indexed vector row)]
+               (cell data value [x y]))])
+          (for [name- actor-order]
+           (actor name- (get-in data [:actors name-])))]
+         
+         [:div.controls]]))))
 
 (def stop-welcome-anim nil)
 
