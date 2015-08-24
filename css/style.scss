@@ -27,10 +27,6 @@ $cols: 21;
 $cell-size: 42px;
 $cell-pad: 3px;
 
-$cell-grow: 8px;
-
-$width: $cols * ($cell-size + $cell-pad);
-
 $red: #FF0000;
 $pink: #FFB8FF;
 $cyan: #00FFFF;
@@ -62,27 +58,23 @@ $victory-floor:#254D3A;
 
 
 .board {
+  position: relative;
   margin: 0px auto;
-  width: $width;
+
+  .sprite {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: transform 0.1s;
+  }
 
   .row {
     @include clear-fix('after');
 
     .cell {
-      margin-right: $cell-pad;
-      margin-bottom: $cell-pad;
-      width: $cell-size;
-      height: $cell-size;
       float: left;
       position: relative;
 
-      .sprite {
-        position: absolute;
-        left: -$cell-grow;
-        top: -$cell-grow;
-        width: $cell-size + 2 * $cell-grow;
-        height: $cell-size + 2 * $cell-grow;
-      }
     }
 
     .wall {
@@ -132,7 +124,7 @@ $title-margin: 120px;
 $title-bottom: -10px;
 
 .home {
-  width: $width;
+  width: 1000px;
   margin: 0 auto;
   text-align: center;
   color: #aaa;
@@ -205,7 +197,6 @@ $title-bottom: -10px;
 
 .game {
   .title {
-    width: $width;
     margin: 80px auto 40px;
     text-align: center;
     color: #FAFEDE;
@@ -217,7 +208,6 @@ $title-bottom: -10px;
   .desc {
     height: 200px;
     line-height: 1.5em;
-    width: $width;
     font-weight: 300;
     font-size: 28px;
     margin: 20px auto;

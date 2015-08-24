@@ -20,25 +20,20 @@ body {
   to {
     background: #254D3A; } }
 .board {
-  margin: 0px auto;
-  width: 945px; }
+  position: relative;
+  margin: 0px auto; }
+  .board .sprite {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: transform 0.1s; }
   .board .row:after {
     clear: both;
     content: '';
     display: block; }
   .board .row .cell {
-    margin-right: 3px;
-    margin-bottom: 3px;
-    width: 42px;
-    height: 42px;
     float: left;
     position: relative; }
-    .board .row .cell .sprite {
-      position: absolute;
-      left: -8px;
-      top: -8px;
-      width: 58px;
-      height: 58px; }
   .board .row .wall {
     background: #222; }
   .board .row .floor {
@@ -63,7 +58,7 @@ body {
     outline-color: #4BEE4B; }
 
 .home {
-  width: 945px;
+  width: 1000px;
   margin: 0 auto;
   text-align: center;
   color: #aaa; }
@@ -110,7 +105,6 @@ body {
     font-style: normal; }
 
 .game .title {
-  width: 945px;
   margin: 80px auto 40px;
   text-align: center;
   color: #FAFEDE;
@@ -120,7 +114,6 @@ body {
 .game .desc {
   height: 200px;
   line-height: 1.5em;
-  width: 945px;
   font-weight: 300;
   font-size: 28px;
   margin: 20px auto;
