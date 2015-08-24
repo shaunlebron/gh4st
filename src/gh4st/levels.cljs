@@ -1124,6 +1124,164 @@
  :wall]]}
   )
 
+(def level8
+  {:allow-defeat false
+   :actors
+   {:pacman {:pos [11 1], :dir [1 0], :prev-pos [14 1]},
+    :blinky {:pos [15 3], :dir [0 -1]},
+    :pinky {:pos [10 4], :dir [-1 0], :prev-pos [13 2]},
+    :inky {:pos nil, :dir [0 0]},
+    :clyde {:pos nil, :dir [0 0]},
+    :fruit {:pos [15 1]}},
+   :board
+   [[:wall
+     :wall
+     :wall
+     :wall
+     :wall
+     :wall
+     :wall
+     :wall
+     :wall
+     :wall
+     :wall
+     :wall
+     :wall
+     :wall
+     :wall
+     :wall
+     :wall
+     :wall
+     :wall
+     :wall
+     :wall]
+    [:wall
+     :wall
+     :wall
+     :wall
+     :wall
+     :floor
+     :floor
+     :floor
+     :floor
+     :floor
+     :floor
+     :floor
+     :floor
+     :floor
+     :floor
+     :floor
+     :floor
+     :floor
+     :wall
+     :wall
+     :wall]
+    [:wall
+     :wall
+     :wall
+     :wall
+     :wall
+     :wall
+     :floor
+     :wall
+     :wall
+     :floor
+     :wall
+     :wall
+     :wall
+     :wall
+     :wall
+     :floor
+     :wall
+     :wall
+     :wall
+     :wall
+     :wall]
+    [:wall
+     :wall
+     :wall
+     :wall
+     :wall
+     :wall
+     :floor
+     :wall
+     :wall
+     :floor
+     :wall
+     :wall
+     :wall
+     :wall
+     :wall
+     :floor
+     :wall
+     :wall
+     :wall
+     :wall
+     :wall]
+    [:wall
+     :wall
+     :wall
+     :wall
+     :wall
+     :wall
+     :floor
+     :floor
+     :floor
+     :floor
+     :floor
+     :floor
+     :floor
+     :floor
+     :floor
+     :floor
+     :wall
+     :wall
+     :wall
+     :wall
+     :wall]
+[:wall
+ :wall
+ :wall
+ :wall
+ :wall
+ :wall
+ :wall
+ :wall
+ :wall
+ :floor
+ :wall
+ :wall
+ :floor
+ :wall
+ :wall
+ :wall
+ :wall
+ :wall
+ :wall
+ :wall
+ :wall]
+[:wall
+ :wall
+ :wall
+ :wall
+ :wall
+ :wall
+ :wall
+ :wall
+ :wall
+ :wall
+ :wall
+ :wall 
+ :floor 
+ :wall 
+ :wall 
+ :wall 
+ :wall 
+ :wall 
+ :wall 
+ :wall 
+ :wall]]})
+
 (def levels
   [level0
    level1
@@ -1133,6 +1291,7 @@
    level5
    level6
    level7
+   level8
    
    ])
 

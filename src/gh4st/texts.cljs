@@ -88,6 +88,14 @@
    }
   )
 
+(def text8
+  {:title "Work together"
+   :desc [:p
+          "They have to work together here." [:br]
+          "Press" [:kbd.pinky "2"] " to move Pinky. " [:kbd.blinky "1"] " for Blinky."]
+   }
+  )
+
 (def texts
   [
    text0
@@ -98,6 +106,7 @@
    text5
    text6
    text7
+   text8
 
    ;; {:title "Decisions, decisions"}
    ;; {:title "Release the Ghost!"}
