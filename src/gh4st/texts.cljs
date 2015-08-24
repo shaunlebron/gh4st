@@ -96,6 +96,17 @@
    }
   )
 
+(def text9
+  {:title "Oh, Clyde"
+   :desc [:p
+          "Meet your third ghost, " [:span.clyde "Clyde!"] [:br]
+          " He chases Pac-Man like Blinky, except he gets scared" [:br]
+          "when he's too close and tries to run away." [:br]
+          "Press" [:kbd.clyde "3"] " to move Clyde."]
+
+   }
+  )
+
 (def texts
   [
    text0
@@ -107,6 +118,7 @@
    text6
    text7
    text8
+   text9
 
    ;; {:title "Decisions, decisions"}
    ;; {:title "Release the Ghost!"}

@@ -116,8 +116,8 @@
 
 (js/Mousetrap.bind "1" #(advance! :blinky))
 (js/Mousetrap.bind "2" #(advance! :pinky))
-(js/Mousetrap.bind "3" #(advance! :inky))
-(js/Mousetrap.bind "4" #(advance! :clyde))
+(js/Mousetrap.bind "4" #(advance! :inky))
+(js/Mousetrap.bind "3" #(advance! :clyde))
 
 (js/Mousetrap.bind "z" #(undo! @app-state))
 (js/Mousetrap.bind "y" redo!)
