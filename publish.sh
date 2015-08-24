@@ -2,6 +2,9 @@
 
 set -ex
 
+lein clean
+lein cljsbuild once min
+
 deploy_dir=deploy
 
 if [ ! -d "$deploy_dir" ]; then
