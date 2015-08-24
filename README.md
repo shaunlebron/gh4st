@@ -1,6 +1,4 @@
-# Ludum Dare 33 - GH4ST
-
-A puzzle game for Ludum Dare 33.  The theme is "you are the monster".
+# GH4ST
 
 Coordinate the four ghosts, which adhere to the actual AI from the original
 Pac-Man arcade. Your only power to catch Pac-Man is to choose which ghost is
