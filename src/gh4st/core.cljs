@@ -10,6 +10,7 @@
     [gh4st.ui :refer [select-cell!]]
     [gh4st.img :refer [actor-order img-src]]
     [gh4st.game :refer [start-game!]]
+    [gh4st.board :refer [decode-tile]]
     [gh4st.texts :refer [victory-text
                          defeat-text
                          allow-defeat-text
@@ -35,7 +36,7 @@
 (defn cell
   [data value [x y :as pos]]
   [:div
-   {:class (cond-> (str "cell " (name value))
+   {:class (cond-> (str "cell " (name (decode-tile value)))
              (= [x y] (:select-pos data)) (str " selected-cell")
              (:end data) (str " " (name (normalize-end (:end data))))
              (:select-actor data) (str " selected-" (name (:select-actor data))))

@@ -8,11 +8,23 @@
 (def rows 11)
 (def cols 21) ;; NOTE: make sure this matches "$colls" in style.scss
 
+(def toggle-tile
+  {:O :_
+   :_ :O})
+
+(def decode-tile
+  {:O :floor
+   :_ :wall})
+
+(def encode-tile
+  {:floor :O
+   :wall :_})
+
 (defn empty-board
   "create initial empty board"
   ([] (empty-board cols rows))
   ([w h]
-   (vec (repeat h (vec (repeat w :wall))))))
+   (vec (repeat h (vec (repeat w (encode-tile :wall)))))))
 
 (defn bound
   [x0 x x1]
@@ -35,7 +47,7 @@
 (defn can-walk?
   [pos dir board]
   (let [[x y] (add-pos pos dir)]
-    (= :floor (get-in board [y x]))))
+    (= (encode-tile :floor) (get-in board [y x]))))
 
 (defn walkable-tiles
   [pos board]

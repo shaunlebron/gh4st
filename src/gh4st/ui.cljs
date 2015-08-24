@@ -2,18 +2,14 @@
   (:require
     [cljs.pprint :refer [pprint]]
     [gh4st.state :refer [app-state]]
-    [gh4st.board :refer [bound-pos]]
+    [gh4st.board :refer [bound-pos
+                         toggle-tile]]
     )
   )
 
 (defn select-cell!
   [pos]
   (swap! app-state assoc :select-pos pos))
-
-(defn toggle-tile
-  [value]
-  (get {:floor :wall
-        :wall :floor} value))
 
 (defn toggle-actor
   [actor pos]
