@@ -72,10 +72,11 @@
         {:keys [pos dir prev-pos]} (-> state :actors name-)
         prev-pos (or prev-pos (sub-pos pos dir))
         ghost-pos? (set (ghost-positions (:actors state)))
-        next-ghost-pos? (set (next-ghost-positions (:actors state)))
+        trap? (-> (set (next-ghost-positions (:actors state)))
+                  (disj (get-in state [:actors :fruit :pos])))
         opens (->> (walkable-tiles pos (:board state))
                    (remove ghost-pos?)
-                   (remove next-ghost-pos?))
+                   (remove trap?))
         choices (if (= :dead-end (tile-type (count opens)))
                   (take 1 opens)
                   (remove #(= prev-pos %) opens)) ;; can't turn back
