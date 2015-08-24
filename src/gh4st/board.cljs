@@ -46,3 +46,9 @@
 (defn ghost-positions
   [actors]
   (map #(get-in actors [% :pos]) [:blinky :pinky :inky :clyde]))
+
+(defn next-ghost-positions
+  [actors]
+  (let [next-pos #(add-pos (:pos %) (:dir %))]
+    (map #(next-pos (get actors %)) [:blinky :pinky :inky :clyde])))
+

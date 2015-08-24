@@ -9,6 +9,7 @@
     [gh4st.board :refer [can-walk?
                          walkable-tiles
                          ghost-positions
+                         next-ghost-positions
                          ]]
     )
   )
@@ -71,9 +72,10 @@
         {:keys [pos dir prev-pos]} (-> state :actors name-)
         prev-pos (or prev-pos (sub-pos pos dir))
         ghost-pos? (set (ghost-positions (:actors state)))
+        next-ghost-pos? (set (next-ghost-positions (:actors state)))
         opens (->> (walkable-tiles pos (:board state))
-                   (remove ghost-pos?))
-        _ (println (pr-str opens))
+                   (remove ghost-pos?)
+                   (remove next-ghost-pos?))
         choices (if (= :dead-end (tile-type (count opens)))
                   (take 1 opens)
                   (remove #(= prev-pos %) opens)) ;; can't turn back
@@ -82,6 +84,16 @@
                    (sub-pos closest pos)
                    dir)]
     next-dir))
+
+(defmethod move-actor :pacman
+  [name- state]
+  (let [{:keys [pos dir] :as actor} (-> state :actors name-)
+        ghost-pos? (set (ghost-positions (:actors state)))
+        next-pos (add-pos pos dir)]
+    (if (and (can-walk? pos dir (:board state))
+             (not (ghost-pos? next-pos)))
+      next-pos
+      pos)))
 
 (defmethod move-actor :default
   [name- state]
