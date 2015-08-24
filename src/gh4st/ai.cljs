@@ -107,7 +107,7 @@
   [_name state]
   (let [pacman (-> state :actors :pacman)
         target (add-pos (:pos pacman)
-                        (scale-dir (:dir pacman) 3))]
+                        (scale-dir (:dir pacman) 2))]
     target))
 
 (defmethod target-to-chase :inky

@@ -61,8 +61,6 @@
 (def advancing?
   (atom false))
 
-(declare steer-all!)
-
 (defn check-game-over! []
   (let [actors (:actors @app-state)
         on-ghost? (set (ghost-positions actors))
@@ -83,22 +81,29 @@
 
       :else nil)))
 
-(defn move-actor!
-  [name-]
-  (when-not (:end @app-state)
-    (let [pos (get-in @app-state [:actors name- :pos])]
-      (swap! app-state #(assoc-in % [:actors name- :pos] (move-actor name- %)))
-      (swap! app-state #(assoc-in % [:actors name- :prev-pos] pos)))
-    (check-game-over!)
-    (steer-all!)))
-
 (defn steer-actor!
   [name-]
   (swap! app-state #(assoc-in % [:actors name- :dir] (steer-actor name- %))))
 
-(defn steer-all! []
-  (doseq [name- [:pacman :blinky :pinky :inky :clyde]]
-    (steer-actor! name-)))
+(defn move-actor!
+  [name-]
+  (when-not (:end @app-state)
+
+    ;; pacman is the only one who pre-steers
+    ;; (only changes direction due to ghosts)
+    (when (= :pacman name-)
+      (steer-actor! name-))
+
+    (let [pos (get-in @app-state [:actors name- :pos])]
+      (swap! app-state #(assoc-in % [:actors name- :pos] (move-actor name- %)))
+      (swap! app-state #(assoc-in % [:actors name- :prev-pos] pos)))
+
+    ;; ghosts immediately decide which way to face when landing on a tile
+    (when-not (= :pacman name-)
+      (steer-actor! name-))
+
+    (check-game-over!)
+    ))
 
 (defn advance!
   [name-]
