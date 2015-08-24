@@ -43,11 +43,21 @@
    }
   )
 
+(def text3
+  {:title "Decisions, decisions"
+   :desc [:p
+          "When he can't decide which turn smells better," [:br]
+          "he favors UP, RIGHT, DOWN, then LEFT (clockwise)." [:br]
+          "Press " [:kbd.blinky "1"] " to see him favor the RIGHT turn."
+          ]}
+  )
+
 (def texts
   [
    text0
    text1
    text2
+   text3
    
    ;; {:title "Decisions, decisions"}
    ;; {:title "Release the Ghost!"}
