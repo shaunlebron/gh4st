@@ -61,7 +61,7 @@
         choices (if (= :dead-end (tile-type (count opens)))
                   (take 1 opens)
                   (remove #(= prev-pos %) opens)) ;; can't turn back
-        closest (apply min-key #(dist-sq % target) choices)
+        closest (apply min-key #(dist-sq % target) (reverse choices))
         next-dir (sub-pos closest pos)]
     next-dir))
 
@@ -73,10 +73,11 @@
         ghost-pos? (set (ghost-positions (:actors state)))
         opens (->> (walkable-tiles pos (:board state))
                    (remove ghost-pos?))
+        _ (println (pr-str opens))
         choices (if (= :dead-end (tile-type (count opens)))
                   (take 1 opens)
                   (remove #(= prev-pos %) opens)) ;; can't turn back
-        closest (apply min-key #(dist-sq % target) choices)
+        closest (apply min-key #(dist-sq % target) (reverse choices))
         next-dir (if closest
                    (sub-pos closest pos)
                    dir)]
