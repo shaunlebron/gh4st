@@ -52,12 +52,21 @@
           ]}
   )
 
+(def text4
+  {:title "Release the ghost!"
+   :desc [:p "Meet " [:span.blinky "Blinky"] ". He behaves exactly like Pac-Man," [:br]
+          "except he prefers fruit of the Pac-Man variety :)" [:br]
+          "Press " [:kbd.blinky "1"] " to cycle Blinky until he catches Pac-Man."]
+   
+   })
+
 (def texts
   [
    text0
    text1
    text2
    text3
+   text4
    
    ;; {:title "Decisions, decisions"}
    ;; {:title "Release the Ghost!"}

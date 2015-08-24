@@ -491,11 +491,169 @@
  :wall 
  :wall]]})
 
+(def level4
+  {:actors
+   {:pacman {:pos [10 0], :dir [-1 0]},
+    :blinky {:pos [12 2], :dir [-1 0]},
+    :pinky {:pos nil, :dir [0 0]},
+    :inky {:pos nil, :dir [0 0]},
+    :clyde {:pos nil, :dir [0 0]},
+    :fruit {:pos [10 4]}},
+   :board
+   [[:wall
+     :wall
+     :wall
+     :wall
+     :wall
+     :wall
+     :wall
+     :wall
+     :floor
+     :floor
+     :floor
+     :wall
+     :wall
+     :wall
+     :wall
+     :wall
+     :wall
+     :wall
+     :wall
+     :wall
+     :wall]
+    [:wall
+     :wall
+     :wall
+     :wall
+     :wall
+     :wall
+     :wall
+     :wall
+     :floor
+     :wall
+     :wall
+     :wall
+     :wall
+     :wall
+     :wall
+     :wall
+     :wall
+     :wall
+     :wall
+     :wall
+     :wall]
+    [:wall
+     :wall
+     :wall
+     :wall
+     :wall
+     :wall
+     :wall
+     :wall
+     :floor
+     :floor
+     :floor
+     :floor
+     :floor
+     :wall
+     :wall
+     :wall
+     :wall
+     :wall
+     :wall
+     :wall
+     :wall]
+    [:wall
+     :wall
+     :wall
+     :wall
+     :wall
+     :wall
+     :wall
+     :wall
+     :floor
+     :wall
+     :floor
+     :wall
+     :floor
+     :wall
+     :wall
+     :wall
+     :wall
+     :wall
+     :wall
+     :wall
+     :wall]
+    [:wall
+     :wall
+     :wall
+     :wall
+     :wall
+     :wall
+     :wall
+     :wall
+     :floor
+     :floor
+     :floor
+     :floor
+     :floor
+     :wall
+     :wall
+     :wall
+     :wall
+     :wall
+     :wall
+     :wall
+     :wall]
+[:wall
+ :wall
+ :wall
+ :wall
+ :wall
+ :wall
+ :wall
+ :wall
+ :wall
+ :wall
+ :wall
+ :wall
+ :wall
+ :wall
+ :wall
+ :wall
+ :wall
+ :wall
+ :wall
+ :wall
+ :wall]
+[:wall
+ :wall
+ :wall
+ :wall
+ :wall
+ :wall
+ :wall
+ :wall
+ :wall
+ :wall
+ :wall 
+ :wall 
+ :wall 
+ :wall 
+ :wall 
+ :wall 
+ :wall 
+ :wall 
+ :wall 
+ :wall 
+ :wall]]})
+
 (def levels
   [level0
    level1
    level2
    level3
+   level4
    
    ])
 
