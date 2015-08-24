@@ -23,6 +23,7 @@
 
 (def cell-size 42)
 (def cell-pad 3)
+(def cell-grow 8)
 
 (defn normalize-end
   [end]
@@ -52,13 +53,13 @@
   [name- {:keys [dir pos]}]
   (let [[x y] pos
         s (+ cell-size cell-pad)
-        px (* x s)
-        py (* y s)
+        px (- (* x s) cell-grow)
+        py (- (* y s) cell-grow)
         transform (str "translate(" px "px, " py "px)")
         src (if pos (img-src name- dir) "")
         style (cond-> {:transform transform
-                       :width cell-size
-                       :height cell-size}
+                       :width (+ cell-size (* 2 cell-grow))
+                       :height (+ cell-size (* 2 cell-grow))}
                 (nil? pos) (assoc :display "none"))]
     [:img {:class "sprite"
            :src src
