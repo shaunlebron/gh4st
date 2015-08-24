@@ -1,0 +1,266 @@
+
+$bg: #222;
+body {
+  font-family: "Lato";
+  background: $bg;
+}
+
+// http://stackoverflow.com/a/25235486/142317
+@mixin clear-fix($where) {
+  &:#{$where} {
+    clear: both;
+    content: '';
+    display: block;
+  }
+} 
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+#app {
+  width: 100%;
+}
+
+$cols: 21;
+$cell-size: 42px;
+$cell-pad: 3px;
+
+$cell-grow: 8px;
+
+$width: $cols * ($cell-size + $cell-pad);
+
+$red: #FF0000;
+$pink: #FFB8FF;
+$cyan: #00FFFF;
+$orange: #FFB851;
+$yellow: #FFFF00;
+$green: #4BEE4B;
+
+$floor: #343434;
+$defeat-floor:#4D252C;
+$victory-floor:#254D3A;
+
+@keyframes blink-defeat {
+  from {
+    background: $floor;
+  }
+  to {
+    background: $defeat-floor;
+  }
+}
+
+@keyframes blink-victory {
+  from {
+    background: $floor;
+  }
+  to {
+    background: $victory-floor;
+  }
+}
+
+
+.board {
+  margin: 0px auto;
+  width: $width;
+
+  .row {
+    @include clear-fix('after');
+
+    .cell {
+      margin-right: $cell-pad;
+      margin-bottom: $cell-pad;
+      width: $cell-size;
+      height: $cell-size;
+      float: left;
+      position: relative;
+
+      .sprite {
+        position: absolute;
+        left: -$cell-grow;
+        top: -$cell-grow;
+        width: $cell-size + 2 * $cell-grow;
+        height: $cell-size + 2 * $cell-grow;
+      }
+    }
+
+    .wall {
+      background: $bg;
+    }
+
+    .floor {
+      background: #343434;
+
+      &.defeat {
+        animation: blink-defeat 0.2s steps(2, start) infinite;
+      }
+
+      &.victory {
+        animation: blink-victory 0.2s steps(2, start) infinite;
+      }
+    }
+
+    .selected-cell {
+      outline: 2px solid #AAA;
+    }
+
+    .selected-pacman {
+      outline-color: $yellow;
+    }
+    .selected-blinky {
+      outline-color: $red;
+    }
+    .selected-pinky {
+      outline-color: $pink;
+    }
+    .selected-inky {
+      outline-color: $cyan;
+    }
+    .selected-clyde {
+      outline-color: $orange;
+    }
+    .selected-fruit {
+      outline-color: $green;
+    }
+  }
+}
+
+
+$title-bump: 3px;
+$title-margin: 120px;
+$title-bottom: -10px;
+
+.home {
+  width: $width;
+  margin: 0 auto;
+  text-align: center;
+  color: #aaa;
+
+  h1 {
+    letter-spacing: 0.05em;
+    margin: $title-margin 0 $title-bottom;
+    font-size: 120px;
+    color: #F00;
+
+    .ghost {
+      height: 80px;
+    }
+    text-shadow: 0 $title-bump 0 #111;
+  }
+
+  .bump {
+    margin-top: $title-margin - $title-bump;
+    margin-bottom: $title-bottom + $title-bump;
+  }
+
+  a {
+    &:link,&:hover, &:visited, &:active {
+      color: #aaa;
+      text-decoration: none;
+    }
+  }
+
+  .author {
+    color: #444;
+    margin:0;
+    margin-bottom: 4px;
+  }
+
+  .details {
+    color: #444;
+    margin-bottom: 80px;
+    em {
+      color: #aaa;
+    }
+  }
+
+  .instruct {
+    margin-top: 80px;
+    margin-bottom: 80px;
+    color: #555;
+    font-weight: 300;
+    font-size: 30px;
+  }
+
+  .cljs {
+    color: #555;
+    img {
+      opacity: 0.5;
+      transition: opacity 0.2s;
+      vertical-align: middle;
+      width: 40px;
+    }
+  }
+
+  .cljs:hover img {
+    opacity: 1;
+  }
+
+  em {
+    color: #AAA;
+    font-style: normal;
+  }
+}
+
+.game {
+  .title {
+    width: $width;
+    margin: 80px auto 40px;
+    text-align: center;
+    color: #FAFEDE;
+    opacity: 0.4;
+    font-size: 42px;
+    font-weight: 300;
+  }
+
+  .desc {
+    height: 200px;
+    line-height: 1.5em;
+    width: $width;
+    font-weight: 300;
+    font-size: 28px;
+    margin: 20px auto;
+    color: #5D5E5B;
+    text-align: center;
+    .focus {
+      letter-spacing: 0.03em;
+      color: #FAFEDE;
+    }
+  }
+
+}
+
+a {
+  &:link,&:hover, &:visited, &:active {
+    color: #EEE;
+    text-decoration: none;
+  }
+}
+
+.pacman {
+  color: $yellow !important;
+}
+.blinky {
+  color: $red !important;
+}
+.pinky {
+  color: $pink !important;
+}
+.inky {
+  color: $cyan !important;
+}
+.clyde {
+  color: $orange !important;
+}
+.green {
+  color: $green !important;
+}
+
+kbd {
+  font-family: "Lato";
+  padding: 2px 10px;
+  margin: 0 3px;
+  background: #0d0d0d;
+  border-radius: 3px;
+}
