@@ -56,7 +56,9 @@
         py (* y s)
         transform (str "translate(" px "px, " py "px)")
         src (if pos (img-src name- dir) "")
-        style (cond-> {:transform transform}
+        style (cond-> {:transform transform
+                       :width cell-size
+                       :height cell-size}
                 (nil? pos) (assoc :display "none"))]
     [:img {:class "sprite"
            :src src
