@@ -107,6 +107,16 @@
    }
   )
 
+(def text10
+  {:title "To be continued..."
+   :desc [:p
+          "Sorry, I ran out of time :(" [:br]
+          [:span.inky "Inky"] " has really neat behavior that I hope to share soon." [:br]
+          "Happy Ludum Dare 33!" [:br]
+          [:a {:href "http://twitter.com/shaunlebron"} "@shaunlebron"]]
+   }
+  )
+
 (def texts
   [
    text0
@@ -119,6 +129,7 @@
    text7
    text8
    text9
+   text10
 
    ;; {:title "Decisions, decisions"}
    ;; {:title "Release the Ghost!"}

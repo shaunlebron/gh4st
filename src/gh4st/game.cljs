@@ -139,7 +139,7 @@
 
 (defn try-next-level! []
   (let [level (:level @app-state)]
-    (when (< level (count levels)) ;;(< level @max-level)
+    (when (< level @max-level)
       (load-level! (inc level)))))
 
 (defn try-prev-level! []

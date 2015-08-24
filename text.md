@@ -58,7 +58,7 @@ Press "2" to move Pinky, or "1" to move Blinky.
 ## Pinky is different
 
 Pinky actually doesn't chase Pac-Man like Blinky does.  Instead, he tries to
-get ahead of him by aiming two tiles ahead of where Pac-Man is looking.
+get ahead of him by aiming three tiles ahead of where Pac-Man is looking.
 This doesn't always work out, as you can see here...
 
 Press "2" to move Pinky.

@@ -1441,6 +1441,165 @@
    :wall]]} 
   )
 
+(def level10
+  {:allow-defeat false
+   :actors
+   {:pacman {:pos [3 2], :dir [1 0], :prev-pos [14 1]},
+    :blinky {:pos [4 6], :dir [0 -1]},
+    :pinky {:pos [17 4], :dir [-1 0], :prev-pos [13 2]},
+    :inky {:pos [9 0], :dir [1 0]},
+    :clyde {:pos [12 4], :dir [-1 0]},
+    :fruit {:pos [15 1]}},
+   :board
+   [[:wall
+     :floor
+     :floor
+     :floor
+     :wall
+     :floor
+     :floor
+     :floor
+     :floor
+     :floor
+     :floor
+     :floor
+     :floor
+     :floor
+     :floor
+     :floor
+     :wall
+     :wall
+     :wall
+     :wall
+     :wall]
+    [:wall
+     :floor
+     :wall
+     :floor
+     :wall
+     :floor
+     :wall
+     :wall
+     :floor
+     :wall
+     :wall
+     :wall
+     :wall
+     :floor
+     :wall
+     :floor
+     :wall
+     :wall
+     :wall
+     :wall
+     :wall]
+    [:floor
+     :floor
+     :floor
+     :floor
+     :floor
+     :floor
+     :floor
+     :floor
+     :floor
+     :wall
+     :floor
+     :floor
+     :wall
+     :floor
+     :floor
+     :floor
+     :wall
+     :floor
+     :floor
+     :floor
+     :floor]
+    [:floor
+     :wall
+     :wall
+     :floor
+     :wall
+     :wall
+     :wall
+     :wall
+     :floor
+     :wall
+     :wall
+     :floor
+     :wall
+     :floor
+     :wall
+     :wall
+     :wall
+     :wall
+     :wall
+     :floor
+     :wall]
+    [:floor
+     :wall
+     :floor
+     :floor
+     :floor
+     :wall
+     :floor
+     :floor
+     :floor
+     :floor
+     :floor
+     :floor
+     :floor
+     :floor
+     :wall
+     :floor
+     :floor
+     :floor
+     :floor
+     :floor
+     :wall]
+[:floor
+ :wall
+ :floor
+ :wall
+ :floor
+ :wall
+ :floor
+ :wall
+ :wall
+ :floor
+ :wall
+ :wall
+ :wall
+ :floor
+ :wall
+ :floor
+ :wall
+ :wall
+ :floor
+ :wall
+ :wall]
+[:floor
+ :floor
+ :floor
+ :wall
+ :floor
+ :floor
+ :floor
+ :floor
+ :floor
+ :floor
+ :wall
+ :wall 
+ :wall 
+ :floor 
+ :floor 
+ :floor 
+ :floor 
+ :floor 
+ :floor 
+ :wall 
+ :wall]]} 
+  )
+
 (def levels
   [level0
    level1
@@ -1452,6 +1611,7 @@
    level7
    level8
    level9
+   level10
    
    ])
 

@@ -39,7 +39,11 @@
              (= [x y] (:select-pos data)) (str " selected-cell")
              (:end data) (str " " (name (normalize-end (:end data))))
              (:select-actor data) (str " selected-" (name (:select-actor data))))
-    :on-click #(select-cell! pos)}
+
+    ;; FIXME: re-enable for mouse editor control
+    ;; :on-click #(select-cell! pos)
+    
+    }
    (actor (:actors data) pos)])
 
 (defcomponent game

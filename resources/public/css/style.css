@@ -104,6 +104,9 @@ body {
   .game .desc .focus {
     letter-spacing: 0.03em;
     color: #FAFEDE; }
+  .game .desc a:link, .game .desc a:hover, .game .desc a:visited, .game .desc a:active {
+    color: #EEE;
+    text-decoration: none; }
 
 .pacman {
   color: #FFFF00 !important; }

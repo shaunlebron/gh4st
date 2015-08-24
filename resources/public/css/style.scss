@@ -187,6 +187,12 @@ $title-margin: 120px;
       letter-spacing: 0.03em;
       color: #FAFEDE;
     }
+    a {
+      &:link,&:hover, &:visited, &:active {
+        color: #EEE;
+        text-decoration: none;
+      }
+    }
   }
 
 }
