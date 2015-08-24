@@ -98,7 +98,14 @@
          [:h1 {:class (cond-> (str (name name-))
                         (:home-bump data) (str " bump"))}
           "GH" [:img.ghost {:src (img-src name- [0 1])}] "ST"])
-       [:p "Press " [:em "ENTER"] " to start."]])))
+       [:p.instruct [:em "PRESS ENTER"]]
+       [:p.author "by " [:a {:href "http://twitter.com/shaunlebron"} "@shaunlebron"]]
+       [:p.details "Based on the " [:a {:href "http://pacman.shaunew.com/"} "original ghost AI"] " from the Pac-Man arcade."]
+       [:a {:href "http://github.com/shaunlebron/ld33-gh4st"}
+        [:p.cljs "Made in" [:img {:src "img/cljs.svg"}] "ClojureScript"]]
+       ]
+      
+      )))
 
 (defcomponent root
   [data owner]

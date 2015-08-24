@@ -65,9 +65,11 @@ body {
 .home {
   width: 945px;
   margin: 0 auto;
-  text-align: center; }
+  text-align: center;
+  color: #aaa; }
   .home h1 {
-    margin: 120px 0;
+    letter-spacing: 0.05em;
+    margin: 120px 0 -10px;
     font-size: 120px;
     color: #F00;
     text-shadow: 0 3px 0 #111; }
@@ -75,11 +77,34 @@ body {
       height: 80px; }
   .home .bump {
     margin-top: 117px;
-    margin-bottom: 123px; }
-  .home p {
+    margin-bottom: -7px; }
+  .home a:link, .home a:hover, .home a:visited, .home a:active {
+    color: #aaa;
+    text-decoration: none; }
+  .home .author {
+    color: #444;
+    margin: 0;
+    margin-bottom: 4px; }
+  .home .details {
+    color: #444;
+    margin-bottom: 80px; }
+    .home .details em {
+      color: #aaa; }
+  .home .instruct {
+    margin-top: 80px;
+    margin-bottom: 80px;
     color: #555;
     font-weight: 300;
     font-size: 30px; }
+  .home .cljs {
+    color: #555; }
+    .home .cljs img {
+      opacity: 0.5;
+      transition: opacity 0.2s;
+      vertical-align: middle;
+      width: 40px; }
+  .home .cljs:hover img {
+    opacity: 1; }
   .home em {
     color: #AAA;
     font-style: normal; }
@@ -104,9 +129,10 @@ body {
   .game .desc .focus {
     letter-spacing: 0.03em;
     color: #FAFEDE; }
-  .game .desc a:link, .game .desc a:hover, .game .desc a:visited, .game .desc a:active {
-    color: #EEE;
-    text-decoration: none; }
+
+a:link, a:hover, a:visited, a:active {
+  color: #EEE;
+  text-decoration: none; }
 
 .pacman {
   color: #FFFF00 !important; }
