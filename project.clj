@@ -32,6 +32,7 @@
              {:id "min"
               :source-paths ["src"]
               :compiler {:output-to "resources/public/js/compiled/gh4st.js"
+                         :externs ["externs/mousetrap-externs.js"]
                          :main gh4st.core
                          :optimizations :advanced
                          :pretty-print false}}]}
