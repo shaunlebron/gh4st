@@ -22,13 +22,13 @@
    })
 
 (def coords
-  {:pacman    {:x 0 :y 6 :anims pac-anims}
-   :mspacman  {:x 0 :y 7 :anims pac-anims}
-   :cookieman {:x 0 :y 8 :anims pac-anims}
-   :blinky    {:x 0 :y 1 :anims ghost-anims}
-   :pinky     {:x 0 :y 2 :anims ghost-anims}
-   :inky      {:x 0 :y 3 :anims ghost-anims}
-   :clyde     {:x 0 :y 4 :anims ghost-anims}
+  {:pacman    {:x 0 :y 6 :default-frame 1 :anims pac-anims}
+   :mspacman  {:x 0 :y 7 :default-frame 1 :anims pac-anims}
+   :cookieman {:x 0 :y 8 :default-frame 1 :anims pac-anims}
+   :blinky    {:x 0 :y 1 :default-frame 0 :anims ghost-anims}
+   :pinky     {:x 0 :y 2 :default-frame 1 :anims ghost-anims}
+   :inky      {:x 0 :y 3 :default-frame 1 :anims ghost-anims}
+   :clyde     {:x 0 :y 4 :default-frame 0 :anims ghost-anims}
 
    :cherry     {:x 0 :y 0}
    :strawberry {:x 1 :y 0}
@@ -39,3 +39,8 @@
    :pear       {:x 9 :y 0}
    :banana     {:x 10 :y 0}
    })
+
+(defn css-for-sprite
+  [{:keys [x y anims default-frame] :as data}]
+  
+  )
