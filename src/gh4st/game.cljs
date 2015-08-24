@@ -114,7 +114,7 @@
       (remember! @app-state)
       (go
         (move-actor! name-)
-        (<! (timeout 300))
+        (<! (timeout 100))
         (move-actor! :pacman)
         (reset! advancing? false)))))
 
