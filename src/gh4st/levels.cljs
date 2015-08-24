@@ -968,7 +968,7 @@
 (def level7
   {:allow-defeat true
    :actors
-   {:pacman {:pos [8 1], :dir [1 0], :prev-pos [14 1]},
+   {:pacman {:pos [9 1], :dir [1 0], :prev-pos [14 1]},
     :blinky {:pos nil, :dir [1 0]},
     :pinky {:pos [12 3], :dir [0 -1], :prev-pos [13 2]},
     :inky {:pos nil, :dir [0 0]},
