@@ -406,7 +406,7 @@
 
 .sprite-pacman-up-anim {
   animation-name: sprite-pacman-up-frames;
-  animation-duration: 0.3s;
+  animation-duration: 0.1s;
   animation-timing-function: steps(3);
   animation-iteration-count: infinite;
   animation-direction: alternate;
@@ -430,7 +430,7 @@
 
 .sprite-pacman-left-anim {
   animation-name: sprite-pacman-left-frames;
-  animation-duration: 0.3s;
+  animation-duration: 0.1s;
   animation-timing-function: steps(3);
   animation-iteration-count: infinite;
   animation-direction: alternate;
@@ -454,7 +454,7 @@
 
 .sprite-pacman-down-anim {
   animation-name: sprite-pacman-down-frames;
-  animation-duration: 0.3s;
+  animation-duration: 0.1s;
   animation-timing-function: steps(3);
   animation-iteration-count: infinite;
   animation-direction: alternate;
@@ -478,7 +478,7 @@
 
 .sprite-pacman-right-anim {
   animation-name: sprite-pacman-right-frames;
-  animation-duration: 0.3s;
+  animation-duration: 0.1s;
   animation-timing-function: steps(3);
   animation-iteration-count: infinite;
   animation-direction: alternate;
@@ -502,7 +502,7 @@
 
 .sprite-mspacman-up-anim {
   animation-name: sprite-mspacman-up-frames;
-  animation-duration: 0.3s;
+  animation-duration: 0.1s;
   animation-timing-function: steps(3);
   animation-iteration-count: infinite;
   animation-direction: alternate;
@@ -526,7 +526,7 @@
 
 .sprite-mspacman-left-anim {
   animation-name: sprite-mspacman-left-frames;
-  animation-duration: 0.3s;
+  animation-duration: 0.1s;
   animation-timing-function: steps(3);
   animation-iteration-count: infinite;
   animation-direction: alternate;
@@ -550,7 +550,7 @@
 
 .sprite-mspacman-down-anim {
   animation-name: sprite-mspacman-down-frames;
-  animation-duration: 0.3s;
+  animation-duration: 0.1s;
   animation-timing-function: steps(3);
   animation-iteration-count: infinite;
   animation-direction: alternate;
@@ -574,7 +574,7 @@
 
 .sprite-mspacman-right-anim {
   animation-name: sprite-mspacman-right-frames;
-  animation-duration: 0.3s;
+  animation-duration: 0.1s;
   animation-timing-function: steps(3);
   animation-iteration-count: infinite;
   animation-direction: alternate;
@@ -598,7 +598,7 @@
 
 .sprite-cookieman-up-anim {
   animation-name: sprite-cookieman-up-frames;
-  animation-duration: 0.3s;
+  animation-duration: 0.1s;
   animation-timing-function: steps(3);
   animation-iteration-count: infinite;
   animation-direction: alternate;
@@ -622,7 +622,7 @@
 
 .sprite-cookieman-left-anim {
   animation-name: sprite-cookieman-left-frames;
-  animation-duration: 0.3s;
+  animation-duration: 0.1s;
   animation-timing-function: steps(3);
   animation-iteration-count: infinite;
   animation-direction: alternate;
@@ -646,7 +646,7 @@
 
 .sprite-cookieman-down-anim {
   animation-name: sprite-cookieman-down-frames;
-  animation-duration: 0.3s;
+  animation-duration: 0.1s;
   animation-timing-function: steps(3);
   animation-iteration-count: infinite;
   animation-direction: alternate;
@@ -670,7 +670,7 @@
 
 .sprite-cookieman-right-anim {
   animation-name: sprite-cookieman-right-frames;
-  animation-duration: 0.3s;
+  animation-duration: 0.1s;
   animation-timing-function: steps(3);
   animation-iteration-count: infinite;
   animation-direction: alternate;

@@ -12,7 +12,7 @@
 
 (def pac-anim
   {:framelength 3
-   :fps 10
+   :fps 30
    :direction :alternate
    :anims [:up :left :down :right]})
 
