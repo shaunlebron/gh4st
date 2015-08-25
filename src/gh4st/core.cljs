@@ -8,7 +8,7 @@
     [om.core :as om]
     [gh4st.state :refer [app-state]]
     [gh4st.ui :refer [select-cell!]]
-    [gh4st.img :refer [actor-order img-src]]
+    [gh4st.img :refer [actor-order sprite-class]]
     [gh4st.game :refer [start-game!]]
     [gh4st.board :refer [decode-tile
                          board-size
@@ -24,6 +24,8 @@
 (def cell-size 42)
 (def cell-pad 3)
 (def cell-grow 8)
+
+(def sprite-size 66) ;; make sure to sync with spritesheet.css
 
 (defn normalize-end
   [end]
@@ -50,19 +52,21 @@
     }])
 
 (defn actor
-  [name- {:keys [dir pos]}]
+  [name- {:keys [dir pos anim?]}]
   (let [[x y] pos
-        s (+ cell-size cell-pad)
-        px (- (* x s) cell-grow)
-        py (- (* y s) cell-grow)
-        transform (str "translate(" px "px, " py "px)")
-        src (if pos (img-src name- dir) "")
-        style (cond-> {:transform transform
-                       :width (+ cell-size (* 2 cell-grow))
-                       :height (+ cell-size (* 2 cell-grow))}
+        mult (+ cell-size cell-pad)
+        offset (/ (- sprite-size cell-size) 2)
+        px (- (* x mult) offset)
+        py (- (* y mult) offset)
+        transform (str 
+                    "translate(" px "px, " py "px) "
+                    "scale(0.9)" 
+                    )
+        classname (cond-> (sprite-class name- dir)
+                    anim? (str "-anim"))
+        style (cond-> {:transform transform}
                 (nil? pos) (assoc :display "none"))]
-    [:img {:class "sprite"
-           :src src
+    [:div {:class (str "spritesheet " classname)
            :style style}]))
 
 (defcomponent game
@@ -122,7 +126,8 @@
        (let [name- (:home-actor data)]
          [:h1 {:class (cond-> (str (name name-))
                         (:home-bump data) (str " bump"))}
-          "GH" [:img.ghost {:src (img-src name- [0 1])}] "ST"])
+          "GH" [:div {:class (str "ghost spritesheet "
+                                  (sprite-class name- [0 1]) "-anim")}] "ST"])
        [:p.instruct [:em "PRESS ENTER"]]
        [:p.author "by " [:a {:href "http://twitter.com/shaunlebron"} "@shaunlebron"]]
        [:p.details "Based on the " [:a {:href "http://pacman.shaunew.com/"} "original ghost AI"] " from the Pac-Man arcade."]

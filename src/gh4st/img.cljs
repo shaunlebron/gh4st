@@ -11,15 +11,30 @@
      :pacman
      :fruit]))
 
-(def dir->name
-  {[0 1]  "-d"
-   [0 -1] "-u"
-   [1 0]  "-r"
-   [-1 0] "-l"})
+(def fruits
+  ["cherry"
+   "strawberry"
+   "orange"
+   "apple"
+   "melon"
+   "pretzel"
+   "pear"
+   "banana"])
 
-(defn img-src
+(defn level->fruit
+  [level]
+  (let [index (mod level (count fruits))]
+    (fruits index)))
+
+(def dir-name
+  {[0 1]  "down"
+   [0 -1] "up"
+   [1 0]  "right"
+   [-1 0] "left"})
+
+(defn sprite-class
   [name- dir]
   (if (= name- :fruit)
-    (str "img/" (name name-) (js-mod (:level @app-state) 5) ".png")
-    (str "img/" (name name-) (dir->name dir) ".png")))
+    (str "sprite-" (level->fruit (:level @app-state)))
+    (str "sprite-" (name name-) "-" (dir-name dir))))
 

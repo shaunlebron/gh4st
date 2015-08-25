@@ -22,7 +22,7 @@ body {
 .board {
   position: relative;
   margin: 0px auto; }
-  .board .sprite {
+  .board .spritesheet {
     position: absolute;
     top: 0;
     left: 0;
@@ -69,7 +69,8 @@ body {
     color: #F00;
     text-shadow: 0 3px 0 #111; }
     .home h1 .ghost {
-      height: 80px; }
+      transform: scale(1.2);
+      display: inline-block; }
   .home .bump {
     margin-top: 117px;
     margin-bottom: -7px; }
@@ -95,7 +96,7 @@ body {
     color: #555; }
     .home .cljs img {
       opacity: 0.5;
-      transition: opacity 0.2s;
+      transition: opacity 0.3s;
       vertical-align: middle;
       width: 40px; }
   .home .cljs:hover img {

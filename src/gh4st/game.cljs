@@ -98,6 +98,13 @@
       (swap! app-state #(assoc-in % [:actors name- :pos] (move-actor name- %)))
       (swap! app-state #(assoc-in % [:actors name- :prev-pos] pos)))
 
+    (go
+      (let [set-anim! (fn [on]
+                       (swap! app-state #(assoc-in % [:actors name- :anim?] on)))]
+        (set-anim! true)
+        (<! (timeout 300))
+        (set-anim! false)))
+
     ;; ghosts immediately decide which way to face when landing on a tile
     (when-not (= :pacman name-)
       (steer-actor! name-))
