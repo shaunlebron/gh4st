@@ -5,8 +5,7 @@
   (:require
     [cljs.core.async :refer [timeout <!]]
     [gh4st.state :refer [app-state]]
-    [gh4st.ai :refer [move-actor
-                      steer-actor]]
+    [gh4st.ai :refer [tick-actor!]]
     [gh4st.board :refer [ghost-positions]]
     [gh4st.levels :refer [levels]]
     [gh4st.texts :refer [texts]]
@@ -81,36 +80,11 @@
 
       :else nil)))
 
-(defn steer-actor!
-  [name-]
-  (swap! app-state #(assoc-in % [:actors name- :dir] (steer-actor name- %))))
-
-(defn move-actor!
+(defn try-tick-actor!
   [name-]
   (when-not (:end @app-state)
-
-    ;; pacman is the only one who pre-steers
-    ;; (only changes direction due to ghosts)
-    (when (= :pacman name-)
-      (steer-actor! name-))
-
-    (let [pos (get-in @app-state [:actors name- :pos])]
-      (swap! app-state #(assoc-in % [:actors name- :pos] (move-actor name- %)))
-      (swap! app-state #(assoc-in % [:actors name- :prev-pos] pos)))
-
-    (go
-      (let [set-anim! (fn [on]
-                       (swap! app-state #(assoc-in % [:actors name- :anim?] on)))]
-        (set-anim! true)
-        (<! (timeout 300))
-        (set-anim! false)))
-
-    ;; ghosts immediately decide which way to face when landing on a tile
-    (when-not (= :pacman name-)
-      (steer-actor! name-))
-
-    (check-game-over!)
-    ))
+    (tick-actor! name-)
+    (check-game-over!)))
 
 (defn advance!
   [name-]
@@ -120,9 +94,9 @@
       (reset! advancing? true)
       (remember! @app-state)
       (go
-        (move-actor! name-)
+        (try-tick-actor! name-)
         (<! (timeout 100))
-        (move-actor! :pacman)
+        (try-tick-actor! :pacman)
         (reset! advancing? false)))))
 
 

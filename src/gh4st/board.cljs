@@ -44,16 +44,15 @@
     [(bound 0 x (dec w))
      (bound 0 y (dec h))]))
 
-(defn can-walk?
-  [pos dir board]
-  (let [[x y] (add-pos pos dir)]
-    (= (encode-tile :floor) (get-in board [y x]))))
+(defn floor?
+  [[x y] board]
+  (= (encode-tile :floor) (get-in board [y x])))
 
-(defn walkable-tiles
+(defn adjacent-tiles
   [pos board]
   (->> [[0 -1] [1 0] [0 1] [-1 0]]
-       (filter #(can-walk? pos % board))
-       (map #(add-pos pos %))))
+       (map #(add-pos pos %))
+       (filter #(floor? % board))))
 
 (defn ghost-positions
   [actors]

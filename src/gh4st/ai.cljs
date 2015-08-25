@@ -1,16 +1,22 @@
 (ns gh4st.ai
+  (:require-macros
+    [cljs.core.async.macros :refer [go]]
+    )
   (:require
+    [cljs.core.async :refer [timeout <!]]
+    [clojure.set :refer [union]]
     [gh4st.math :refer [add-pos
                         sub-pos
                         scale-dir
                         reflect-pos
                         dist-sq
                         ]]
-    [gh4st.board :refer [can-walk?
-                         walkable-tiles
+    [gh4st.board :refer [floor?
+                         adjacent-tiles
                          ghost-positions
                          next-ghost-positions
                          ]]
+    [gh4st.state :refer [app-state]]
     )
   )
 
@@ -26,12 +32,12 @@
       (derive :inky :ghost)
       (derive :clyde :ghost)))
 
-(defmulti move-actor
+(defmulti next-actor-pos
   "Determines the next position for the given actor."
   (fn [name- state] name-)
   :hierarchy #'actor-hierarchy)
 
-(defmulti steer-actor
+(defmulti next-actor-dir
   "Determines the next direction for the given actor."
   (fn [name- state] name-)
   :hierarchy #'actor-hierarchy)
@@ -41,68 +47,117 @@
   (fn [name- state] name-)
   :hierarchy #'actor-hierarchy)
 
+(defmulti tick-actor!
+  "Run one tick of the actor's AI."
+  identity
+  :hierarchy #'actor-hierarchy)
+
 ;;-----------------------------------------------------------------------
-;; Moving/Steering
+;; Moving/Steering state functions
 ;;-----------------------------------------------------------------------
 
-(def tile-type
-  "# of open adjacent tiles -> type"
-  {0 :dead-end
-   1 :dead-end
-   2 :tunnel
-   3 :intersection
-   4 :intersection})
+(defn steer-actor!
+  "Common function for steering the given actor in the game."
+  [name-]
+  (swap! app-state #(assoc-in % [:actors name- :dir] (next-actor-dir name- %))))
 
-(defmethod steer-actor :default
-  [name- state]
-  (let [target (target-to-chase name- state)
+(defn move-actor*
+  "Common function for moving the given actor in the game."
+  [name-]
+
+  ;; move to next position, remembering the previous.
+  (let [pos (get-in @app-state [:actors name- :pos])]
+    (swap! app-state #(assoc-in % [:actors name- :pos] (next-actor-pos name- %)))
+    (swap! app-state #(assoc-in % [:actors name- :prev-pos] pos)))
+
+  ;; animate them for a short time to show motion.
+  (go
+    (let [set-anim! (fn [on] (swap! app-state #(assoc-in % [:actors name- :anim?] on)))]
+      (set-anim! true)
+      (<! (timeout 300))
+      (set-anim! false))))
+
+(defmethod tick-actor! :ghost
+  [name-]
+  ;; ghosts move to their last committed direction,
+  ;; then determine next direction.
+  (move-actor* name-)
+  (steer-actor! name-))
+
+(defmethod tick-actor! :pacman
+  [name-]
+  ;; pacman determines next direction, then moves there immediately.
+  (steer-actor! name-)
+  (move-actor* name-))
+
+;;-----------------------------------------------------------------------
+;; Determining next position and direction
+;;-----------------------------------------------------------------------
+
+(defn next-actor-dir*
+  "Common logic for determining next direction."
+  [name- state & {:keys [off-limits?] :or {off-limits? #{}}}]
+  (let [;; get actor data
         {:keys [pos dir prev-pos]} (-> state :actors name-)
         prev-pos (or prev-pos (sub-pos pos dir))
-        opens (walkable-tiles pos (:board state))
-        choices (if (= :dead-end (tile-type (count opens)))
-                  (take 1 opens)
-                  (remove #(= prev-pos %) opens)) ;; can't turn back
-        closest (apply min-key #(dist-sq % target) (reverse choices))
-        next-dir (sub-pos closest pos)]
-    next-dir))
 
-(defmethod steer-actor :pacman
-  [name- state]
-  (let [target (target-to-chase name- state)
-        {:keys [pos dir prev-pos]} (-> state :actors name-)
-        prev-pos (or prev-pos (sub-pos pos dir))
-        ghost-pos? (set (ghost-positions (:actors state)))
-        trap? (-> (set (next-ghost-positions (:actors state)))
-                  (disj (get-in state [:actors :fruit :pos])))
-        opens (->> (walkable-tiles pos (:board state))
-                   (remove ghost-pos?)
-                   (remove trap?))
-        choices (if (= :dead-end (tile-type (count opens)))
-                  (take 1 opens)
-                  (remove #(= prev-pos %) opens)) ;; can't turn back
-        closest (apply min-key #(dist-sq % target) (reverse choices))
+        ;; get available openings
+        openings (->> (adjacent-tiles pos (:board state))
+                      (remove off-limits?))
+
+        ;; make turning back the last resort
+        openings (cond->> openings
+                   (> (count openings) 1) (remove #{prev-pos}))
+
+        ;; choose the opening closest to the target
+        target (target-to-chase name- state)
+        closest (apply min-key #(dist-sq % target)
+                  (reverse openings)) ;; reversing so it chooses the first min
+
+        ;; stay the course unless a valid tile found
         next-dir (if closest
                    (sub-pos closest pos)
                    dir)]
     next-dir))
 
-(defmethod move-actor :pacman
-  [name- state]
-  (let [{:keys [pos dir] :as actor} (-> state :actors name-)
-        ghost-pos? (set (ghost-positions (:actors state)))
-        next-pos (add-pos pos dir)]
-    (if (and (can-walk? pos dir (:board state))
-             (not (ghost-pos? next-pos)))
-      next-pos
-      pos)))
+(defn next-actor-pos*
+  "Common logic for determining next position."
+  [name- state & {:keys [off-limits?] :or {off-limits? #{}}}]
+  (let [;; get actor data
+        {:keys [pos dir]} (-> state :actors name-)
+        next-pos (add-pos pos dir)
 
-(defmethod move-actor :default
-  [name- state]
-  (let [{:keys [pos dir] :as actor} (-> state :actors name-)
-        next-pos (if (can-walk? pos dir (:board state))
-                   (add-pos pos dir)
-                   pos)]
+        ;; decide if next position is valid
+        valid? (and (floor? next-pos (:board state))
+                    (not (off-limits? next-pos)))
+
+        ;; stay put unless valid tile found
+        next-pos (if valid? next-pos pos)]
     next-pos))
+
+(defmethod next-actor-dir :ghost
+  [name- state]
+  (next-actor-dir* name- state))
+
+(defmethod next-actor-pos :ghost
+  [name- state]
+  (next-actor-pos* name- state))
+
+(defmethod next-actor-dir :pacman
+  [name- state]
+  ;;; pacman needs to steer away from ghosts and potential traps
+  (let [ghost-pos? (set (ghost-positions (:actors state)))
+        trap? (-> (set (next-ghost-positions (:actors state)))
+                  (disj (get-in state [:actors :fruit :pos])))]
+    (next-actor-dir* name- state
+      :off-limits? (union ghost-pos? trap?))))
+
+(defmethod next-actor-pos :pacman
+  [name- state]
+  ;;; pacman should never walk onto a ghost
+  (let [ghost-pos? (set (ghost-positions (:actors state)))]
+    (next-actor-pos* name- state
+      :off-limits? ghost-pos?)))
 
 ;;-----------------------------------------------------------------------
 ;; Targetting
