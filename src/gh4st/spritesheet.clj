@@ -47,8 +47,9 @@
   "background-position property value in garden format
   [[a b c d]]   ->   a b c d   (space delimited)"
   [[x y]]
-  (let [tx (* size x)
-        ty (* size y)]
+  ;; we have to negate and scale the positions
+  (let [tx (- (* size x))
+        ty (- (* size y))]
     [[:left (str tx "px")
       :top  (str ty "px")]]))
 

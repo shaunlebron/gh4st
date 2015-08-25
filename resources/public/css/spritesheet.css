@@ -5,17 +5,17 @@
 }
 
 .sprite-blinky-up {
-  background-position: left 0px top 66px;
+  background-position: left 0px top -66px;
 }
 
 @keyframes sprite-blinky-up-frames {
 
   from {
-    background-position: left 0px top 66px;
+    background-position: left 0px top -66px;
   }
   
   to {
-    background-position: left 66px top 66px;
+    background-position: left -66px top -66px;
   }
 
 }
@@ -29,17 +29,17 @@
 }
 
 .sprite-blinky-left {
-  background-position: left 132px top 66px;
+  background-position: left -132px top -66px;
 }
 
 @keyframes sprite-blinky-left-frames {
 
   from {
-    background-position: left 132px top 66px;
+    background-position: left -132px top -66px;
   }
   
   to {
-    background-position: left 198px top 66px;
+    background-position: left -198px top -66px;
   }
 
 }
@@ -53,17 +53,17 @@
 }
 
 .sprite-blinky-down {
-  background-position: left 264px top 66px;
+  background-position: left -264px top -66px;
 }
 
 @keyframes sprite-blinky-down-frames {
 
   from {
-    background-position: left 264px top 66px;
+    background-position: left -264px top -66px;
   }
   
   to {
-    background-position: left 330px top 66px;
+    background-position: left -330px top -66px;
   }
 
 }
@@ -77,17 +77,17 @@
 }
 
 .sprite-blinky-right {
-  background-position: left 396px top 66px;
+  background-position: left -396px top -66px;
 }
 
 @keyframes sprite-blinky-right-frames {
 
   from {
-    background-position: left 396px top 66px;
+    background-position: left -396px top -66px;
   }
   
   to {
-    background-position: left 462px top 66px;
+    background-position: left -462px top -66px;
   }
 
 }
@@ -101,17 +101,17 @@
 }
 
 .sprite-pinky-up {
-  background-position: left 66px top 132px;
+  background-position: left -66px top -132px;
 }
 
 @keyframes sprite-pinky-up-frames {
 
   from {
-    background-position: left 0px top 132px;
+    background-position: left 0px top -132px;
   }
   
   to {
-    background-position: left 66px top 132px;
+    background-position: left -66px top -132px;
   }
 
 }
@@ -125,17 +125,17 @@
 }
 
 .sprite-pinky-left {
-  background-position: left 198px top 132px;
+  background-position: left -198px top -132px;
 }
 
 @keyframes sprite-pinky-left-frames {
 
   from {
-    background-position: left 132px top 132px;
+    background-position: left -132px top -132px;
   }
   
   to {
-    background-position: left 198px top 132px;
+    background-position: left -198px top -132px;
   }
 
 }
@@ -149,17 +149,17 @@
 }
 
 .sprite-pinky-down {
-  background-position: left 330px top 132px;
+  background-position: left -330px top -132px;
 }
 
 @keyframes sprite-pinky-down-frames {
 
   from {
-    background-position: left 264px top 132px;
+    background-position: left -264px top -132px;
   }
   
   to {
-    background-position: left 330px top 132px;
+    background-position: left -330px top -132px;
   }
 
 }
@@ -173,17 +173,17 @@
 }
 
 .sprite-pinky-right {
-  background-position: left 462px top 132px;
+  background-position: left -462px top -132px;
 }
 
 @keyframes sprite-pinky-right-frames {
 
   from {
-    background-position: left 396px top 132px;
+    background-position: left -396px top -132px;
   }
   
   to {
-    background-position: left 462px top 132px;
+    background-position: left -462px top -132px;
   }
 
 }
@@ -197,17 +197,17 @@
 }
 
 .sprite-inky-up {
-  background-position: left 66px top 198px;
+  background-position: left -66px top -198px;
 }
 
 @keyframes sprite-inky-up-frames {
 
   from {
-    background-position: left 0px top 198px;
+    background-position: left 0px top -198px;
   }
   
   to {
-    background-position: left 66px top 198px;
+    background-position: left -66px top -198px;
   }
 
 }
@@ -221,17 +221,17 @@
 }
 
 .sprite-inky-left {
-  background-position: left 198px top 198px;
+  background-position: left -198px top -198px;
 }
 
 @keyframes sprite-inky-left-frames {
 
   from {
-    background-position: left 132px top 198px;
+    background-position: left -132px top -198px;
   }
   
   to {
-    background-position: left 198px top 198px;
+    background-position: left -198px top -198px;
   }
 
 }
@@ -245,17 +245,17 @@
 }
 
 .sprite-inky-down {
-  background-position: left 330px top 198px;
+  background-position: left -330px top -198px;
 }
 
 @keyframes sprite-inky-down-frames {
 
   from {
-    background-position: left 264px top 198px;
+    background-position: left -264px top -198px;
   }
   
   to {
-    background-position: left 330px top 198px;
+    background-position: left -330px top -198px;
   }
 
 }
@@ -269,17 +269,17 @@
 }
 
 .sprite-inky-right {
-  background-position: left 462px top 198px;
+  background-position: left -462px top -198px;
 }
 
 @keyframes sprite-inky-right-frames {
 
   from {
-    background-position: left 396px top 198px;
+    background-position: left -396px top -198px;
   }
   
   to {
-    background-position: left 462px top 198px;
+    background-position: left -462px top -198px;
   }
 
 }
@@ -293,17 +293,17 @@
 }
 
 .sprite-clyde-up {
-  background-position: left 0px top 264px;
+  background-position: left 0px top -264px;
 }
 
 @keyframes sprite-clyde-up-frames {
 
   from {
-    background-position: left 0px top 264px;
+    background-position: left 0px top -264px;
   }
   
   to {
-    background-position: left 66px top 264px;
+    background-position: left -66px top -264px;
   }
 
 }
@@ -317,17 +317,17 @@
 }
 
 .sprite-clyde-left {
-  background-position: left 132px top 264px;
+  background-position: left -132px top -264px;
 }
 
 @keyframes sprite-clyde-left-frames {
 
   from {
-    background-position: left 132px top 264px;
+    background-position: left -132px top -264px;
   }
   
   to {
-    background-position: left 198px top 264px;
+    background-position: left -198px top -264px;
   }
 
 }
@@ -341,17 +341,17 @@
 }
 
 .sprite-clyde-down {
-  background-position: left 264px top 264px;
+  background-position: left -264px top -264px;
 }
 
 @keyframes sprite-clyde-down-frames {
 
   from {
-    background-position: left 264px top 264px;
+    background-position: left -264px top -264px;
   }
   
   to {
-    background-position: left 330px top 264px;
+    background-position: left -330px top -264px;
   }
 
 }
@@ -365,17 +365,17 @@
 }
 
 .sprite-clyde-right {
-  background-position: left 396px top 264px;
+  background-position: left -396px top -264px;
 }
 
 @keyframes sprite-clyde-right-frames {
 
   from {
-    background-position: left 396px top 264px;
+    background-position: left -396px top -264px;
   }
   
   to {
-    background-position: left 462px top 264px;
+    background-position: left -462px top -264px;
   }
 
 }
@@ -389,17 +389,17 @@
 }
 
 .sprite-pacman-up {
-  background-position: left 66px top 396px;
+  background-position: left -66px top -396px;
 }
 
 @keyframes sprite-pacman-up-frames {
 
   from {
-    background-position: left 0px top 396px;
+    background-position: left 0px top -396px;
   }
   
   to {
-    background-position: left 132px top 396px;
+    background-position: left -132px top -396px;
   }
 
 }
@@ -413,17 +413,17 @@
 }
 
 .sprite-pacman-left {
-  background-position: left 264px top 396px;
+  background-position: left -264px top -396px;
 }
 
 @keyframes sprite-pacman-left-frames {
 
   from {
-    background-position: left 198px top 396px;
+    background-position: left -198px top -396px;
   }
   
   to {
-    background-position: left 330px top 396px;
+    background-position: left -330px top -396px;
   }
 
 }
@@ -437,17 +437,17 @@
 }
 
 .sprite-pacman-down {
-  background-position: left 462px top 396px;
+  background-position: left -462px top -396px;
 }
 
 @keyframes sprite-pacman-down-frames {
 
   from {
-    background-position: left 396px top 396px;
+    background-position: left -396px top -396px;
   }
   
   to {
-    background-position: left 528px top 396px;
+    background-position: left -528px top -396px;
   }
 
 }
@@ -461,17 +461,17 @@
 }
 
 .sprite-pacman-right {
-  background-position: left 660px top 396px;
+  background-position: left -660px top -396px;
 }
 
 @keyframes sprite-pacman-right-frames {
 
   from {
-    background-position: left 594px top 396px;
+    background-position: left -594px top -396px;
   }
   
   to {
-    background-position: left 726px top 396px;
+    background-position: left -726px top -396px;
   }
 
 }
@@ -485,17 +485,17 @@
 }
 
 .sprite-mspacman-up {
-  background-position: left 66px top 462px;
+  background-position: left -66px top -462px;
 }
 
 @keyframes sprite-mspacman-up-frames {
 
   from {
-    background-position: left 0px top 462px;
+    background-position: left 0px top -462px;
   }
   
   to {
-    background-position: left 132px top 462px;
+    background-position: left -132px top -462px;
   }
 
 }
@@ -509,17 +509,17 @@
 }
 
 .sprite-mspacman-left {
-  background-position: left 264px top 462px;
+  background-position: left -264px top -462px;
 }
 
 @keyframes sprite-mspacman-left-frames {
 
   from {
-    background-position: left 198px top 462px;
+    background-position: left -198px top -462px;
   }
   
   to {
-    background-position: left 330px top 462px;
+    background-position: left -330px top -462px;
   }
 
 }
@@ -533,17 +533,17 @@
 }
 
 .sprite-mspacman-down {
-  background-position: left 462px top 462px;
+  background-position: left -462px top -462px;
 }
 
 @keyframes sprite-mspacman-down-frames {
 
   from {
-    background-position: left 396px top 462px;
+    background-position: left -396px top -462px;
   }
   
   to {
-    background-position: left 528px top 462px;
+    background-position: left -528px top -462px;
   }
 
 }
@@ -557,17 +557,17 @@
 }
 
 .sprite-mspacman-right {
-  background-position: left 660px top 462px;
+  background-position: left -660px top -462px;
 }
 
 @keyframes sprite-mspacman-right-frames {
 
   from {
-    background-position: left 594px top 462px;
+    background-position: left -594px top -462px;
   }
   
   to {
-    background-position: left 726px top 462px;
+    background-position: left -726px top -462px;
   }
 
 }
@@ -581,17 +581,17 @@
 }
 
 .sprite-cookieman-up {
-  background-position: left 66px top 528px;
+  background-position: left -66px top -528px;
 }
 
 @keyframes sprite-cookieman-up-frames {
 
   from {
-    background-position: left 0px top 528px;
+    background-position: left 0px top -528px;
   }
   
   to {
-    background-position: left 132px top 528px;
+    background-position: left -132px top -528px;
   }
 
 }
@@ -605,17 +605,17 @@
 }
 
 .sprite-cookieman-left {
-  background-position: left 264px top 528px;
+  background-position: left -264px top -528px;
 }
 
 @keyframes sprite-cookieman-left-frames {
 
   from {
-    background-position: left 198px top 528px;
+    background-position: left -198px top -528px;
   }
   
   to {
-    background-position: left 330px top 528px;
+    background-position: left -330px top -528px;
   }
 
 }
@@ -629,17 +629,17 @@
 }
 
 .sprite-cookieman-down {
-  background-position: left 462px top 528px;
+  background-position: left -462px top -528px;
 }
 
 @keyframes sprite-cookieman-down-frames {
 
   from {
-    background-position: left 396px top 528px;
+    background-position: left -396px top -528px;
   }
   
   to {
-    background-position: left 528px top 528px;
+    background-position: left -528px top -528px;
   }
 
 }
@@ -653,17 +653,17 @@
 }
 
 .sprite-cookieman-right {
-  background-position: left 660px top 528px;
+  background-position: left -660px top -528px;
 }
 
 @keyframes sprite-cookieman-right-frames {
 
   from {
-    background-position: left 594px top 528px;
+    background-position: left -594px top -528px;
   }
   
   to {
-    background-position: left 726px top 528px;
+    background-position: left -726px top -528px;
   }
 
 }
@@ -681,29 +681,29 @@
 }
 
 .sprite-strawberry {
-  background-position: left 66px top 0px;
+  background-position: left -66px top 0px;
 }
 
 .sprite-orange {
-  background-position: left 132px top 0px;
+  background-position: left -132px top 0px;
 }
 
 .sprite-apple {
-  background-position: left 198px top 0px;
+  background-position: left -198px top 0px;
 }
 
 .sprite-melon {
-  background-position: left 264px top 0px;
+  background-position: left -264px top 0px;
 }
 
 .sprite-pretzel {
-  background-position: left 528px top 0px;
+  background-position: left -528px top 0px;
 }
 
 .sprite-pear {
-  background-position: left 594px top 0px;
+  background-position: left -594px top 0px;
 }
 
 .sprite-banana {
-  background-position: left 660px top 0px;
+  background-position: left -660px top 0px;
 }
