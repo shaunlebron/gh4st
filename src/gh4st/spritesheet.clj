@@ -104,7 +104,7 @@
 
 (def spritesheet-class
   [".spritesheet"
-   {:background-image "url(img/spritesheet.png)"
+   {:background-image "url(../img/spritesheet.png)"
     :width (px size)
     :height (px size)
     }])
