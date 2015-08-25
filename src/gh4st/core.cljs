@@ -99,11 +99,10 @@
 (def stop-welcome-anim nil)
 
 (def next-home-actor
-  {:pacman :blinky
-   :blinky :pinky
+  {:blinky :pinky
    :pinky :inky
    :inky :clyde
-   :clyde :pacman})
+   :clyde :blinky})
 
 (defcomponent welcome
   [data owner]
@@ -126,13 +125,16 @@
        (let [name- (:home-actor data)]
          [:h1 {:class (cond-> (str (name name-))
                         (:home-bump data) (str " bump"))}
-          "GH" [:div {:class (str "ghost spritesheet "
-                                  (sprite-class name- [0 1]) "-anim")}] "ST"])
+          [:div.letter "GH"]
+          [:div {:class (str "ghost spritesheet "
+                             (sprite-class name- [0 1]) "-anim")}]
+          [:div.letter "ST"]
+          ])
        [:p.instruct [:em "PRESS ENTER"]]
-       [:p.author "by " [:a {:href "http://twitter.com/shaunlebron"} "@shaunlebron"]]
-       [:p.details "Based on the " [:a {:href "http://pacman.shaunew.com/"} "original ghost AI"] " from the Pac-Man arcade."]
-       [:a {:href "http://github.com/shaunlebron/ld33-gh4st"}
-        [:p.cljs "Made in" [:img {:src "img/cljs.svg"}] "ClojureScript"]]
+       [:p.author
+        "by " [:a {:href "http://twitter.com/shaunlebron"} "@shaunlebron"]
+        " on " [:a {:href "https://github.com/shaunlebron/gh4st"} "github"]]
+       [:p.details "Based on the ghost AI of the original Pac-Man."]
        ]
       
       )))
