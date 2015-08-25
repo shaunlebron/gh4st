@@ -105,9 +105,9 @@
         openings (->> (adjacent-tiles pos (:board state))
                       (remove off-limits?))
 
-        ;; make turning back the last resort
-        openings (cond->> openings
-                   (> (count openings) 1) (remove #{prev-pos}))
+        ;; avoid turning back if possible
+        openings (or (seq (remove #{prev-pos} openings))
+                     openings)
 
         ;; choose the opening closest to the target
         target (target-to-chase name- state)
