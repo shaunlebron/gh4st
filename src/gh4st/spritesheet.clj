@@ -1,6 +1,6 @@
 (ns gh4st.spritesheet
   (:require
-    [garden.core :refer [css]]
+    [garden.units :refer [s px]]
     [garden.stylesheet :refer [at-keyframes]]))
 
 ;; spritesheet source: http://pacman.shaunew.com/play/sprites
@@ -12,13 +12,13 @@
 
 (def pac-anim
   {:framelength 3
-   :fps 30
+   :fps 10
    :direction :alternate
    :anims [:up :left :down :right]})
 
 (def ghost-anim
   {:framelength 2
-   :fps 30
+   :fps 10
    :direction :normal
    :anims [:up :left :down :right]})
 
@@ -52,20 +52,21 @@
     [[:left (str tx "px")
       :top  (str ty "px")]]))
 
-(defmulti sprite-css
+(defmulti sprite-css*
+  "Return a sequence of css garden styles for the given sprite."
   (fn [sprite]
-    (if (:anims sprite)
+    (if (:anim sprite)
       :anim
       :static)))
 
-(defmethod sprite-css :static
+(defmethod sprite-css* :static
   [sprite]
   (let [rule (str ".sprite-" (name (:name sprite)))]
-    (css
+    (list
       [rule
        {:background-position (bg-pos (:pos sprite))}])))
 
-(defmethod sprite-css :anim
+(defmethod sprite-css* :anim
   [sprite]
   (let [prefix (str ".sprite-" (name (:name sprite)))
         frame (:default-frame sprite)
@@ -73,23 +74,45 @@
                 fps
                 direction
                 anims]} (:anim sprite)
-        [x y] (:pos sprite)]
-    (apply css (apply concat
-      (for [[i aname] (map-indexed vector anims)]
-        (let [rule (str prefix "-" (name aname))
-              frames-id (str (subs rule 1) "-frames")
-              anim-rule (str rule "-anim")
-              dx (* framelength i)]
-          (list
-            [rule
-             {:background-position (bg-pos [(+ x dx (or frame 0)) y])}]
-            (at-keyframes
-              frames-id
-              [:from {:background-position (bg-pos [(+ x dx) y])}]
-              [:to   {:background-position (bg-pos [(+ x dx (dec framelength)) y])}])
-            [anim-rule
-             {:animation-name frames-id
-              :animation-duration (str (* framelength (/ 1 fps)) "s")
-              :animation-timing-function (str "steps(" framelength ")")
-              :animation-iteration-count "infinite"
-              :animation-direction direction}])))))))
+        [x y] (:pos sprite)
+
+        anim-styles 
+        ;; return a list of styles needed for this animation
+        (fn [i aname]
+          (let [rule (str prefix "-" (name aname))
+                frames-id (str (subs rule 1) "-frames")
+                anim-rule (str rule "-anim")
+                dx (* framelength i)]
+            (list
+              [rule
+               {:background-position (bg-pos [(+ x dx (or frame 0)) y])}]
+              (at-keyframes
+                frames-id
+                [:from {:background-position (bg-pos [(+ x dx) y])}]
+                [:to   {:background-position (bg-pos [(+ x dx (dec framelength)) y])}])
+              [anim-rule
+               {:animation-name frames-id
+                :animation-duration (s (* framelength (/ 1 fps)))
+                :animation-timing-function (str "steps(" framelength ")")
+                :animation-iteration-count "infinite"
+                :animation-direction direction}])))]
+
+    (->> anims                     ;; each animation for this sprite
+         (map-indexed anim-styles) ;; seq of styles for each animation
+         (apply concat)            ;; seq of styles for all animations
+         )))
+
+(def spritesheet-class
+  [".spritesheet"
+   {:background-image "url(img/spritesheet.png)"
+    :width (px size)
+    :height (px size)
+    }])
+
+(def sprites-css
+  "a sequence of the css garden styles for all sprites."
+  (->> sprites
+       (map sprite-css*)
+       (apply concat)
+       (cons spritesheet-class)))
+

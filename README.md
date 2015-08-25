@@ -22,3 +22,9 @@ cd resources/public/css
 sass --watch style.scss:style.css
 ```
 
+Sprites are animated using a spritesheet, indexed and animated with generated
+CSS:
+
+```
+lein garden auto
+```

@@ -13,11 +13,22 @@
                  [garden "1.2.5"]]
 
   :plugins [[lein-cljsbuild "1.0.5"]
-            [lein-figwheel "0.3.5"]]
+            [lein-figwheel "0.3.5"]
+            [lein-garden "0.2.6"]]
 
   :source-paths ["src"]
 
   :clean-targets ^{:protect false} ["resources/public/js/compiled" "target"]
+
+  :garden {:builds [{;; Source paths where the stylesheet source code is
+                     :source-paths ["src"]
+                     ;; The var containing your stylesheet:
+                     :stylesheet gh4st.spritesheet/sprites-css
+                     ;; Compiler flags passed to `garden.core/css`:
+                     :compiler {;; Where to save the file:
+                                :output-to "resources/public/css/spritesheet.css"
+                                ;; Compress the output?
+                                :pretty-print? true}}]}
 
   :cljsbuild {
     :builds [{:id "dev"
