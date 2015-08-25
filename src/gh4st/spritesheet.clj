@@ -90,7 +90,7 @@
               (at-keyframes
                 frames-id
                 [:from {:background-position (bg-pos [(+ x dx) y])}]
-                [:to   {:background-position (bg-pos [(+ x dx (dec framelength)) y])}])
+                [:to   {:background-position (bg-pos [(+ x dx framelength) y])}])
               [anim-rule
                {:animation-name frames-id
                 :animation-duration (s (* framelength (/ 1 fps)))
