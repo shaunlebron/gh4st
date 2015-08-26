@@ -19,6 +19,9 @@ body {
     background: #343434; }
   to {
     background: #254D3A; } }
+.board.no-transitions .spritesheet {
+  transition: transform 0s; }
+
 .board {
   position: relative;
   margin: 0px auto; }

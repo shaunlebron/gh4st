@@ -98,10 +98,18 @@
 (js/Mousetrap.bind "z" try-undo!)
 (js/Mousetrap.bind "y" try-redo!)
 
+(defn prevent-actor-transitions! []
+  (let [no-trans! #(swap! app-state assoc :no-transitions? %)]
+    (no-trans! true)
+    (go
+      (<! (timeout 100))
+      (no-trans! false))))
+
 (defn load-level!
   [n]
   (let [data (get levels n)]
     (history/forget-all!)
+    (prevent-actor-transitions!)
     (swap! app-state assoc :level n)
     (swap! max-level max n)
     (swap! app-state assoc :end nil)

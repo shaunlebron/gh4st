@@ -56,6 +56,11 @@ $victory-floor:#254D3A;
   }
 }
 
+.board.no-transitions {
+  .spritesheet {
+    transition: transform 0s;
+  }
+}
 
 .board {
   position: relative;
@@ -117,7 +122,6 @@ $victory-floor:#254D3A;
     }
   }
 }
-
 
 $title-bump: 3px;
 $title-margin: 120px;

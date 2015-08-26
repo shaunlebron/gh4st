@@ -86,7 +86,9 @@
               (= end :defeat-allowed) allow-defeat-text
               :else (-> @data :level-text :desc)))]
          
-         [:div.board {:style {:width width}}
+         [:div {:class (cond-> "board"
+                         (:no-transitions? data) (str " no-transitions"))
+                :style {:width width}}
           (for [[y row] (map-indexed vector (:board data))]
             [:div.row
              (for [[x value] (map-indexed vector row)]
