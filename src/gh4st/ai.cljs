@@ -9,8 +9,7 @@
     [gh4st.board :refer [floor?
                          adjacent-tiles
                          ghost-positions
-                         next-ghost-positions]]
-    [gh4st.state :refer [app-state]]))
+                         next-ghost-positions]]))
 
 ;;-----------------------------------------------------------------------
 ;; AI dispatch
