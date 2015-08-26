@@ -62,13 +62,24 @@
 
       :else nil)))
 
+(def last-anim-id
+  (atom {:pacman 0
+         :blinky 0
+         :pinky 0
+         :inky 0
+         :clyde 0}))
+
 (defn animate-actor!
   [name-]
   (go
-    (let [set-anim! (fn [on] (swap! app-state #(assoc-in % [:actors name- :anim?] on)))]
+    (let [set-anim! (fn [on](swap! app-state #(assoc-in % [:actors name- :anim?] on)))
+          curr-id #(get @last-anim-id name-)
+          id (inc (curr-id))]
+      (swap! last-anim-id assoc name- id)
       (set-anim! true)
       (<! (timeout 300))
-      (set-anim! false))))
+      (when (= id (curr-id))
+        (set-anim! false)))))
 
 (defn try-tick-actor!
   [name-]
