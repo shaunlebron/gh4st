@@ -9,56 +9,38 @@
     [gh4st.board :refer [ghost-positions]]
     [gh4st.levels :refer [levels]]
     [gh4st.texts :refer [texts]]
+    [gh4st.history :as history]
     ))
-
-;;----------------------------------------------------------------------
-;; History Stack
-;;----------------------------------------------------------------------
-
-(declare advancing?)
 
 (defonce max-level
   (atom 0))
 
-(defonce history-index
-  ;; "index where next item will be remembered"
-  (atom 0))
-
-(defonce history-stack
-  (atom []))
-
-(defn undo! [curr-state]
-  (when-not @advancing?
-    (when (pos? @history-index)
-
-      ;; Allow us to redo what we're undoing if this moment isn't remembered yet.
-      (when-not (get @history-stack @history-index)
-        (swap! history-stack conj curr-state))
-
-      (swap! history-index dec)
-      (reset! app-state (get @history-stack @history-index)))))
-
-(defn redo! []
-  (when-not @advancing?
-    (when-let [state (get @history-stack (inc @history-index))]
-      (reset! app-state state)
-      (swap! history-index inc))))
-
-(defn remember! [curr-state]
-  (swap! history-stack subvec 0 @history-index)
-  (swap! history-stack conj curr-state)
-  (swap! history-index inc))
-
-(defn flush-history! []
-  (reset! history-index 0)
-  (swap! history-stack empty))
-
-;;----------------------------------------------------------------------
-;; State progression
-;;----------------------------------------------------------------------
-
 (def advancing?
+  "True from the time a Ghost moves to the time Pacman stops moving."
   (atom false))
+
+(defn try-undo! []
+  (when-not @advancing?
+    (history/undo! @app-state)))
+
+(defn try-redo! []
+  (when-not @advancing?
+    (history/redo!)))
+
+(defn remembered-state
+  "Get the current state without the animation flags."
+  [state]
+  (reduce 
+    (fn [state name-]
+      (let [path [:actors name- :anim?]]
+        (cond-> state
+          (get-in state path) (assoc-in path false))))
+    state
+    [:blinky :pinky :inky :clyde :pacman]))
+
+(defn remember! []
+  (let [state (remembered-state @app-state)]
+    (history/commit! state)))
 
 (defn check-game-over! []
   (let [actors (:actors @app-state)
@@ -101,26 +83,25 @@
                 (:end @app-state))
     (when (get-in @app-state [:actors name- :pos])
       (reset! advancing? true)
-      (remember! @app-state)
+      (remember!)
       (go
         (try-tick-actor! name-)
         (<! (timeout 100))
         (try-tick-actor! :pacman)
         (reset! advancing? false)))))
 
-
 (js/Mousetrap.bind "1" #(advance! :blinky))
 (js/Mousetrap.bind "2" #(advance! :pinky))
 (js/Mousetrap.bind "4" #(advance! :inky))
 (js/Mousetrap.bind "3" #(advance! :clyde))
 
-(js/Mousetrap.bind "z" #(undo! @app-state))
-(js/Mousetrap.bind "y" redo!)
+(js/Mousetrap.bind "z" try-undo!)
+(js/Mousetrap.bind "y" try-redo!)
 
 (defn load-level!
   [n]
   (let [data (get levels n)]
-    (flush-history!)
+    (history/forget-all!)
     (swap! app-state assoc :level n)
     (swap! max-level max n)
     (swap! app-state assoc :end nil)
