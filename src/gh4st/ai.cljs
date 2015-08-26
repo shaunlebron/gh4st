@@ -32,7 +32,7 @@
   (fn [state name-] name-)
   :hierarchy #'actor-hierarchy)
 
-(defmulti target-to-chase
+(defmulti actor-target
   "Determines target tile for the given actor."
   (fn [state name-] name-)
   :hierarchy #'actor-hierarchy)
@@ -133,7 +133,7 @@
                      openings)
 
         ;; choose the opening closest to the target
-        target (target-to-chase state name-)
+        target (actor-target state name-)
         closest (apply min-key #(dist-sq % target)
                   (reverse openings)) ;; reversing so it chooses the first min
 
@@ -186,17 +186,17 @@
 ;; Targetting
 ;;-----------------------------------------------------------------------
 
-(defmethod target-to-chase :pacman
+(defmethod actor-target :pacman
   ;;; Target the fruit.
   [state _name]
   (-> state :actors :fruit :pos))
 
-(defmethod target-to-chase :blinky
+(defmethod actor-target :blinky
   ;;; Target pacman.
   [state _name]
   (-> state :actors :pacman :pos))
 
-(defmethod target-to-chase :pinky
+(defmethod actor-target :pinky
   ;;; Try to get ahead of pacman.
   [state _name]
   (let [pacman (-> state :actors :pacman)
@@ -204,7 +204,7 @@
                         (scale-dir (:dir pacman) 2))]
     target))
 
-(defmethod target-to-chase :inky
+(defmethod actor-target :inky
   ;;; Try to flank pacman from side opposite to blinky.
   [state _name]
   (let [blinky (-> state :actors :blinky)
@@ -213,7 +213,7 @@
         target (reflect-pos nose (:pos blinky))]
     target))
 
-(defmethod target-to-chase :clyde
+(defmethod actor-target :clyde
   ;;; Target pacman, but flee if he gets too close.
   [state _name]
   (let [pos (-> state :actors :clyde :pos)
