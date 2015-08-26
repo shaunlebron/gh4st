@@ -63,19 +63,31 @@ body {
   text-align: center;
   color: #aaa; }
   .home h1 {
+    text-align: left;
+    width: 428px;
     letter-spacing: 0.05em;
-    margin: 120px 0 -10px;
+    margin: 120px auto -10px;
     font-size: 120px;
     color: #F00;
     text-shadow: 0 3px 0 #111; }
+    .home h1 .letter {
+      float: left;
+      width: 180px;
+      margin: 0;
+      padding: 0; }
     .home h1 .ghost {
       transform: scale(1.2);
-      display: inline-block; }
+      float: left;
+      margin-top: 50px; }
+    .home h1:after {
+      clear: both;
+      content: '';
+      display: block; }
   .home .bump {
     margin-top: 117px;
     margin-bottom: -7px; }
   .home a:link, .home a:hover, .home a:visited, .home a:active {
-    color: #aaa;
+    color: #555;
     text-decoration: none; }
   .home .author {
     color: #444;

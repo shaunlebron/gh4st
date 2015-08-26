@@ -130,16 +130,27 @@ $title-bottom: -10px;
   color: #aaa;
 
   h1 {
+    text-align: left;
+    width: 428px;
     letter-spacing: 0.05em;
-    margin: $title-margin 0 $title-bottom;
+    margin: $title-margin auto $title-bottom;
     font-size: 120px;
     color: #F00;
 
+    .letter {
+      float:left;
+      width: 180px;
+      margin: 0;
+      padding:0;
+    }
+
     .ghost {
       transform: scale(1.2);
-      display: inline-block;
+      float:left;
+      margin-top: 50px;
     }
     text-shadow: 0 $title-bump 0 #111;
+    @include clear-fix('after');
   }
 
   .bump {
@@ -149,7 +160,7 @@ $title-bottom: -10px;
 
   a {
     &:link,&:hover, &:visited, &:active {
-      color: #aaa;
+      color: #555;
       text-decoration: none;
     }
   }
