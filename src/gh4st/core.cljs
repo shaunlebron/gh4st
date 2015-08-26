@@ -111,7 +111,7 @@
   (will-mount [_this]
     (set! stop-welcome-anim (chan))
     (go-loop []
-      (let [[c v] (alts! [(timeout 400) stop-welcome-anim])]
+      (let [[v c] (alts! [(timeout 400) stop-welcome-anim])]
         (when-not (= c stop-welcome-anim)
           (swap! app-state update-in [:home-actor] next-home-actor)
           (swap! app-state assoc :home-bump true)
