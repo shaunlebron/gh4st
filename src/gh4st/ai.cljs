@@ -7,7 +7,6 @@
                         reflect-pos
                         dist-sq]]
     [gh4st.board :refer [floor?
-                         adjacent-tiles
                          ghost-positions
                          next-ghost-positions]]))
 
@@ -105,6 +104,15 @@
 ;; Determining next position and direction
 ;;-----------------------------------------------------------------------
 
+(def priority-directions
+  "counter-clockwise directions used when disputing path distance.
+  lower index = higher priority"
+  [[ 0 -1] ;; up
+   [-1  0] ;; left
+   [ 0  1]  ;; down
+   [ 1  0]  ;; right
+   ])
+
 (defn next-actor-dir*
   "Common logic for determining next direction."
   [state name- & {:keys [off-limits?] :or {off-limits? #{}}}]
@@ -112,9 +120,13 @@
         {:keys [pos dir prev-pos]} (-> state :actors name-)
         prev-pos (or prev-pos (sub-pos pos dir))
 
+        ;; get adjacent tiles
+        adjacents (->> priority-directions
+                       (map #(add-pos pos %))
+                       (filter #(floor? % (:board state))))
+
         ;; get available openings
-        openings (->> (adjacent-tiles pos (:board state))
-                      (remove off-limits?))
+        openings (remove off-limits? adjacents)
 
         ;; avoid turning back if possible
         openings (or (seq (remove #{prev-pos} openings))

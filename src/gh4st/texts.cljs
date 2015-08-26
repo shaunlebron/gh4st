@@ -47,8 +47,8 @@
   {:title "Decisions, decisions"
    :desc [:p
           "When he can't decide which turn smells better," [:br]
-          "he favors UP, RIGHT, DOWN, then LEFT (clockwise)." [:br]
-          "Press " [:kbd.blinky "1"] " to see him favor the RIGHT turn."
+          "he favors UP, LEFT, DOWN, then RIGHT (counter-clockwise)." [:br]
+          "Press " [:kbd.blinky "1"] " to see him favor the LEFT turn."
           ]}
   )
 

@@ -48,12 +48,6 @@
   [[x y] board]
   (= (encode-tile :floor) (get-in board [y x])))
 
-(defn adjacent-tiles
-  [pos board]
-  (->> [[0 -1] [1 0] [0 1] [-1 0]]
-       (map #(add-pos pos %))
-       (filter #(floor? % board))))
-
 (defn ghost-positions
   [actors]
   (map #(get-in actors [% :pos]) [:blinky :pinky :inky :clyde]))
