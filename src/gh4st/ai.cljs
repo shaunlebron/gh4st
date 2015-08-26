@@ -39,7 +39,7 @@
   :hierarchy #'actor-hierarchy)
 
 (defmulti tick-actor
-  "Run one tick of the actor's AI for the given game state, returning a new state."
+  "Calculate the next game state after running the given actor's AI."
   (fn [state name-] name-)
   :hierarchy #'actor-hierarchy)
 
@@ -62,17 +62,41 @@
         (assoc-in [:actors name- :pos] next-pos)
         (assoc-in [:actors name- :prev-pos] prev-pos))))
 
+;;-----------------------------------------------------------------------
+;; AI tick functions
+;;-----------------------------------------------------------------------
+
+;;; SUBTLY NOTE:
+;;;
+;;; Ghosts and Pacman differ by the order at which they STEER and MOVE on each
+;;; turn. This is very important for game balancing since it slows down Ghosts
+;;; reaction time, while quickening Pacman:
+;;;
+;;;                            (quick reaction)
+;;;                                v-----v
+;;; PACMAN ->                   [STEER, MOVE]
+;;;
+;;;                 t=0              t=1               t=2
+;;;             -----|----------------|-----------------|--------------> TIME
+;;;
+;;;  GHOST ->  [MOVE, STEER]                       [MOVE, STEER]
+;;;                     ^----------------------------^
+;;;                            (slow reaction)
+
+;;; RELATION TO ORIGINAL GAME AI:
+;;; 
+;;; In the original game, the Ghost's eyes are always broadcasting its next
+;;; move for a *full tile* before every turn, giving the player some time to
+;;; react.  Pacman had no such restriction for committing to turns.
+
 (defmethod tick-actor :ghost
   [state name-]
-  ;; ghosts move to their last committed direction,
-  ;; then determine next direction.
   (-> state
       (move-actor name-)
       (steer-actor name-)))
 
 (defmethod tick-actor :pacman
   [state name-]
-  ;; pacman determines next direction, then moves there immediately.
   (-> state
       (steer-actor name-)
       (move-actor name-)))
@@ -151,14 +175,17 @@
 ;;-----------------------------------------------------------------------
 
 (defmethod target-to-chase :pacman
+  ;;; Target the fruit.
   [state _name]
   (-> state :actors :fruit :pos))
 
 (defmethod target-to-chase :blinky
+  ;;; Target pacman.
   [state _name]
   (-> state :actors :pacman :pos))
 
 (defmethod target-to-chase :pinky
+  ;;; Try to get ahead of pacman.
   [state _name]
   (let [pacman (-> state :actors :pacman)
         target (add-pos (:pos pacman)
@@ -166,6 +193,7 @@
     target))
 
 (defmethod target-to-chase :inky
+  ;;; Try to flank pacman from side opposite to blinky.
   [state _name]
   (let [blinky (-> state :actors :blinky)
         pacman (-> state :actors :pacman)
@@ -174,11 +202,12 @@
     target))
 
 (defmethod target-to-chase :clyde
+  ;;; Target pacman, but flee if he gets too close.
   [state _name]
   (let [pos (-> state :actors :clyde :pos)
         pacpos (-> state :actors :pacman :pos)
-        r 2
-        too-close? (<= (dist-sq pos pacpos) (* r r))
+        radius 2
+        too-close? (<= (dist-sq pos pacpos) (* radius radius))
         target (if too-close?
                  (reflect-pos pos pacpos)
                  pacpos)]
