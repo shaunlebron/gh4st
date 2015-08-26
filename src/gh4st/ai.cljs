@@ -1,24 +1,16 @@
 (ns gh4st.ai
-  (:require-macros
-    [cljs.core.async.macros :refer [go]]
-    )
   (:require
-    [cljs.core.async :refer [timeout <!]]
     [clojure.set :refer [union]]
     [gh4st.math :refer [add-pos
                         sub-pos
                         scale-dir
                         reflect-pos
-                        dist-sq
-                        ]]
+                        dist-sq]]
     [gh4st.board :refer [floor?
                          adjacent-tiles
                          ghost-positions
-                         next-ghost-positions
-                         ]]
-    [gh4st.state :refer [app-state]]
-    )
-  )
+                         next-ghost-positions]]
+    [gh4st.state :refer [app-state]]))
 
 ;;-----------------------------------------------------------------------
 ;; AI dispatch
@@ -34,61 +26,57 @@
 
 (defmulti next-actor-pos
   "Determines the next position for the given actor."
-  (fn [name- state] name-)
+  (fn [state name-] name-)
   :hierarchy #'actor-hierarchy)
 
 (defmulti next-actor-dir
   "Determines the next direction for the given actor."
-  (fn [name- state] name-)
+  (fn [state name-] name-)
   :hierarchy #'actor-hierarchy)
 
 (defmulti target-to-chase
-  "Determines target tile for the given actor and state of the board."
-  (fn [name- state] name-)
+  "Determines target tile for the given actor."
+  (fn [state name-] name-)
   :hierarchy #'actor-hierarchy)
 
-(defmulti tick-actor!
-  "Run one tick of the actor's AI."
-  identity
+(defmulti tick-actor
+  "Run one tick of the actor's AI for the given game state, returning a new state."
+  (fn [state name-] name-)
   :hierarchy #'actor-hierarchy)
 
 ;;-----------------------------------------------------------------------
 ;; Moving/Steering state functions
 ;;-----------------------------------------------------------------------
 
-(defn steer-actor!
-  "Common function for steering the given actor in the game."
-  [name-]
-  (swap! app-state #(assoc-in % [:actors name- :dir] (next-actor-dir name- %))))
+(defn steer-actor
+  "Steer the given actor in the given game state."
+  [state name-]
+  (assoc-in state [:actors name- :dir]
+    (next-actor-dir state name-)))
 
-(defn move-actor*
-  "Common function for moving the given actor in the game."
-  [name-]
+(defn move-actor
+  "Move the given actor in the game."
+  [state name-]
+  (let [prev-pos (get-in state [:actors name- :pos])
+        next-pos (next-actor-pos state name-)]
+    (-> state
+        (assoc-in [:actors name- :pos] next-pos)
+        (assoc-in [:actors name- :prev-pos] prev-pos))))
 
-  ;; move to next position, remembering the previous.
-  (let [pos (get-in @app-state [:actors name- :pos])]
-    (swap! app-state #(assoc-in % [:actors name- :pos] (next-actor-pos name- %)))
-    (swap! app-state #(assoc-in % [:actors name- :prev-pos] pos)))
-
-  ;; animate them for a short time to show motion.
-  (go
-    (let [set-anim! (fn [on] (swap! app-state #(assoc-in % [:actors name- :anim?] on)))]
-      (set-anim! true)
-      (<! (timeout 300))
-      (set-anim! false))))
-
-(defmethod tick-actor! :ghost
-  [name-]
+(defmethod tick-actor :ghost
+  [state name-]
   ;; ghosts move to their last committed direction,
   ;; then determine next direction.
-  (move-actor* name-)
-  (steer-actor! name-))
+  (-> state
+      (move-actor name-)
+      (steer-actor name-)))
 
-(defmethod tick-actor! :pacman
-  [name-]
+(defmethod tick-actor :pacman
+  [state name-]
   ;; pacman determines next direction, then moves there immediately.
-  (steer-actor! name-)
-  (move-actor* name-))
+  (-> state
+      (steer-actor name-)
+      (move-actor name-)))
 
 ;;-----------------------------------------------------------------------
 ;; Determining next position and direction
@@ -96,7 +84,7 @@
 
 (defn next-actor-dir*
   "Common logic for determining next direction."
-  [name- state & {:keys [off-limits?] :or {off-limits? #{}}}]
+  [state name- & {:keys [off-limits?] :or {off-limits? #{}}}]
   (let [;; get actor data
         {:keys [pos dir prev-pos]} (-> state :actors name-)
         prev-pos (or prev-pos (sub-pos pos dir))
@@ -110,7 +98,7 @@
                      openings)
 
         ;; choose the opening closest to the target
-        target (target-to-chase name- state)
+        target (target-to-chase state name-)
         closest (apply min-key #(dist-sq % target)
                   (reverse openings)) ;; reversing so it chooses the first min
 
@@ -122,7 +110,7 @@
 
 (defn next-actor-pos*
   "Common logic for determining next position."
-  [name- state & {:keys [off-limits?] :or {off-limits? #{}}}]
+  [state name- & {:keys [off-limits?] :or {off-limits? #{}}}]
   (let [;; get actor data
         {:keys [pos dir]} (-> state :actors name-)
         next-pos (add-pos pos dir)
@@ -136,27 +124,27 @@
     next-pos))
 
 (defmethod next-actor-dir :ghost
-  [name- state]
-  (next-actor-dir* name- state))
+  [state name-]
+  (next-actor-dir* state name-))
 
 (defmethod next-actor-pos :ghost
-  [name- state]
-  (next-actor-pos* name- state))
+  [state name-]
+  (next-actor-pos* state name-))
 
 (defmethod next-actor-dir :pacman
-  [name- state]
+  [state name-]
   ;;; pacman needs to steer away from ghosts and potential traps
   (let [ghost-pos? (set (ghost-positions (:actors state)))
         trap? (-> (set (next-ghost-positions (:actors state)))
                   (disj (get-in state [:actors :fruit :pos])))]
-    (next-actor-dir* name- state
+    (next-actor-dir* state name-
       :off-limits? (union ghost-pos? trap?))))
 
 (defmethod next-actor-pos :pacman
-  [name- state]
+  [state name-]
   ;;; pacman should never walk onto a ghost
   (let [ghost-pos? (set (ghost-positions (:actors state)))]
-    (next-actor-pos* name- state
+    (next-actor-pos* state name-
       :off-limits? ghost-pos?)))
 
 ;;-----------------------------------------------------------------------
@@ -164,22 +152,22 @@
 ;;-----------------------------------------------------------------------
 
 (defmethod target-to-chase :pacman
-  [_name state]
+  [state _name]
   (-> state :actors :fruit :pos))
 
 (defmethod target-to-chase :blinky
-  [_name state]
+  [state _name]
   (-> state :actors :pacman :pos))
 
 (defmethod target-to-chase :pinky
-  [_name state]
+  [state _name]
   (let [pacman (-> state :actors :pacman)
         target (add-pos (:pos pacman)
                         (scale-dir (:dir pacman) 2))]
     target))
 
 (defmethod target-to-chase :inky
-  [_name state]
+  [state _name]
   (let [blinky (-> state :actors :blinky)
         pacman (-> state :actors :pacman)
         nose (add-pos (:pos pacman) (:dir pacman))
@@ -187,7 +175,7 @@
     target))
 
 (defmethod target-to-chase :clyde
-  [_name state]
+  [state _name]
   (let [pos (-> state :actors :clyde :pos)
         pacpos (-> state :actors :pacman :pos)
         r 2

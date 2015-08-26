@@ -5,7 +5,7 @@
   (:require
     [cljs.core.async :refer [timeout <!]]
     [gh4st.state :refer [app-state]]
-    [gh4st.ai :refer [tick-actor!]]
+    [gh4st.ai :refer [tick-actor]]
     [gh4st.board :refer [ghost-positions]]
     [gh4st.levels :refer [levels]]
     [gh4st.texts :refer [texts]]
@@ -80,10 +80,19 @@
 
       :else nil)))
 
+(defn animate-actor!
+  [name-]
+  (go
+    (let [set-anim! (fn [on] (swap! app-state #(assoc-in % [:actors name- :anim?] on)))]
+      (set-anim! true)
+      (<! (timeout 300))
+      (set-anim! false))))
+
 (defn try-tick-actor!
   [name-]
   (when-not (:end @app-state)
-    (tick-actor! name-)
+    (swap! app-state tick-actor name-)
+    (animate-actor! name-)
     (check-game-over!)))
 
 (defn advance!
