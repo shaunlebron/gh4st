@@ -65,7 +65,7 @@
 ;; AI tick functions
 ;;-----------------------------------------------------------------------
 
-;;; SUBTLY NOTE:
+;;; SUBTLETY NOTE:
 ;;;
 ;;; Ghosts and Pacman differ by the order at which they STEER and MOVE on each
 ;;; turn. This is very important for game balancing since it slows down Ghosts
