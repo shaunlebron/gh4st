@@ -21,7 +21,7 @@
                          defeat-text
                          allow-defeat-text
                          ]]
-    [gh4st.ai :refer [actor-target]]
+    [gh4st.viz :refer [actor-target-viz]]
     ))
 
 ;;----------------------------------------------------------------------
@@ -136,7 +136,7 @@
                             (string/join " " [d d cols rows]))}
                 (for [name- (remove #{:fruit} actor-order)]
                   (when (get-in data [:actors name- :pos])
-                    (:viz (actor-target data name-))))])
+                    (actor-target-viz data name-)))])
              }}]]
          [:div.controls]]))))
 

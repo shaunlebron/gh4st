@@ -183,20 +183,6 @@
       :off-limits? ghost-pos?)))
 
 ;;-----------------------------------------------------------------------
-;; Targetting Viz
-;;-----------------------------------------------------------------------
-
-(defn target-point
-  [[x y]  name-]
-  [:circle
-   {:class (str "target target-" (name name-))
-    :cx x :cy y :r 0.1}])
-
-(defn guide-line
-  [[x1 y1] [x2 y2]]
-  [:line.guide-line {:x1 x1 :y1 y1 :x2 x2 :y2 y2}])
-
-;;-----------------------------------------------------------------------
 ;; Targetting
 ;;-----------------------------------------------------------------------
 
@@ -205,14 +191,14 @@
   [state _name]
   (let [target (-> state :actors :fruit :pos)]
     {:pos target
-     :viz nil}))
+     :viz-data nil}))
 
 (defmethod actor-target :blinky
   ;;; Target pacman.
   [state _name]
   (let [target (-> state :actors :pacman :pos)]
     {:pos target
-     :viz nil}))
+     :viz-data nil}))
 
 (defmethod actor-target :pinky
   ;;; Try to get ahead of pacman.
@@ -221,9 +207,7 @@
         target (add-pos (:pos pacman)
                         (scale-dir (:dir pacman) 2))]
     {:pos target
-     :viz [:g
-           (guide-line (:pos pacman) target)
-           (target-point target name-)]}))
+     :viz-data {:pacman-pos (:pos pacman)}}))
 
 (defmethod actor-target :inky
   ;;; Try to flank pacman from side opposite to blinky.
@@ -234,24 +218,24 @@
         [nx ny] nose
         target (reflect-pos nose (:pos blinky))]
     {:pos target
-     :viz [:g
-           (guide-line (:pos pacman) nose)
-           (guide-line (:pos blinky) target)
-           [:circle.hinge {:cx nx :cy ny :r 0.075}]
-           (target-point target name-)]}))
+     :viz-data {:pacman-pos (:pos pacman)
+                :blinky-pos (:pos blinky)
+                :nose nose}}))
 
 (defmethod actor-target :clyde
   ;;; Target pacman, but flee if he gets too close.
   [state _name]
   (let [pos (-> state :actors :clyde :pos)
         pacpos (-> state :actors :pacman :pos)
-        [cx cy] pacpos
         radius 2
         too-close? (<= (dist-sq pos pacpos) (* radius radius))
+        run-pos (reflect-pos pos pacpos)
         target (if too-close?
-                 (reflect-pos pos pacpos)
+                 run-pos
                  pacpos)]
     {:pos target
-     :viz [:circle
-           {:class (cond-> "clyde-boundary" too-close? (str " inside"))
-            :cx cx :cy cy :r radius}]}))
+     :viz-data {:radius radius
+                :too-close? too-close?
+                :run-pos run-pos
+                :pacman-pos pacpos}}))
+
