@@ -1,8 +1,11 @@
 (ns gh4st.view
   (:require-macros
+    [hiccups.core :as hiccups]
     [cljs.core.async.macros :refer [go go-loop]])
   (:require
+    [clojure.string :as string]
     [cljs.core.async :refer [<! timeout chan close! alts!]]
+    [hiccups.runtime]
     [sablono.core :refer-macros [html]]
     [om-tools.core :refer-macros [defcomponent]]
     [om.core :as om]
@@ -13,11 +16,13 @@
     [gh4st.board :refer [decode-tile
                          board-size
                          ]]
+    [gh4st.math :refer [add-pos]]
     [gh4st.texts :refer [victory-text
                          defeat-text
                          allow-defeat-text
                          ]]
-    )) 
+    [gh4st.ai :refer [actor-target]]
+    ))
 
 ;;----------------------------------------------------------------------
 ;; Game screen
@@ -60,9 +65,9 @@
         offset (/ (- sprite-size cell-size) 2)
         px (- (* x mult) offset)
         py (- (* y mult) offset)
-        transform (str 
+        transform (str
                     "translate(" px "px, " py "px) "
-                    "scale(0.9)" 
+                    "scale(0.9)"
                     )
         classname (cond-> (sprite-class name- dir)
                     anim? (str "-anim"))
@@ -75,7 +80,9 @@
   [data owner]
   (render [_this]
     (let [[cols rows] (board-size (:board data))
-          width (* cols (+ cell-size cell-pad))]
+          scale (+ cell-size cell-pad)
+          width (* cols scale)
+          height (* rows scale)]
       (html
         [:div.game
          [:div.title {:style {:width width}}
@@ -87,19 +94,50 @@
               (= end :defeat) defeat-text
               (= end :defeat-allowed) allow-defeat-text
               :else (-> @data :level-text :desc)))]
-         
+
          [:div {:class (cond-> "board"
                          (:no-transitions? data) (str " no-transitions"))
-                :style {:width width}}
+                :style {:width width
+                        :height height}}
           (for [[y row] (map-indexed vector (:board data))]
             [:div.row
              (for [[x value] (map-indexed vector row)]
                (cell data value [x y]))])
+
+          ;; draw sprites
           (for [name- actor-order]
            (actor name- (get-in data [:actors name-])))
-          ()
-          ]
-         
+
+          ;; draw viz layer
+          [:div.viz-layer-wrapper
+           {;; using raw HTML since svg animation attributes are removed by React
+            :dangerouslySetInnerHTML
+            {:__html
+             (hiccups/html
+               [:svg.viz-layer
+                {:width width
+                 :height height
+
+                 ;; SVG ViewBox:
+                 ;;    Transforms [col,row] coords to the center pixels
+                 ;;    of the respective cells.
+                 ;;
+                 ;; .---------------
+                 ;; |dxd  ^     |  |
+                 ;; |     |     |  |
+                 ;; |<----O     |  |  A 1x1 Box
+                 ;; |           |  |
+                 ;; | (cell)    |  |  O = desired origin
+                 ;; |-----------/  |  dxd = desired offset size
+                 ;; | (pad)        |
+                 ;; |--------------/ 
+                 :viewBox (let [mult (+ cell-size cell-pad)
+                                d (- (/ cell-size mult 2))]
+                            (string/join " " [d d cols rows]))}
+                (for [name- (remove #{:fruit} actor-order)]
+                  (when (get-in data [:actors name- :pos])
+                    (:viz (actor-target data name-))))])
+             }}]]
          [:div.controls]]))))
 
 ;;----------------------------------------------------------------------
@@ -146,6 +184,5 @@
         " on " [:a {:href "https://github.com/shaunlebron/gh4st"} "github"]]
        [:p.details "Based on the ghost AI of the original Pac-Man."]
        ]
-      
       )))
 

@@ -133,7 +133,7 @@
                      openings)
 
         ;; choose the opening closest to the target
-        target (actor-target state name-)
+        target (:pos (actor-target state name-))
         closest (apply min-key #(dist-sq % target)
                   (reverse openings)) ;; reversing so it chooses the first min
 
@@ -183,44 +183,75 @@
       :off-limits? ghost-pos?)))
 
 ;;-----------------------------------------------------------------------
+;; Targetting Viz
+;;-----------------------------------------------------------------------
+
+(defn target-point
+  [[x y]  name-]
+  [:circle
+   {:class (str "target target-" (name name-))
+    :cx x :cy y}])
+
+(defn guide-line
+  [[x1 y1] [x2 y2]]
+  [:line.guide-line {:x1 x1 :y1 y1 :x2 x2 :y2 y2}])
+
+;;-----------------------------------------------------------------------
 ;; Targetting
 ;;-----------------------------------------------------------------------
 
 (defmethod actor-target :pacman
   ;;; Target the fruit.
   [state _name]
-  (-> state :actors :fruit :pos))
+  (let [target (-> state :actors :fruit :pos)]
+    {:pos target
+     :viz nil}))
 
 (defmethod actor-target :blinky
   ;;; Target pacman.
   [state _name]
-  (-> state :actors :pacman :pos))
+  (let [target (-> state :actors :pacman :pos)]
+    {:pos target
+     :viz nil}))
 
 (defmethod actor-target :pinky
   ;;; Try to get ahead of pacman.
-  [state _name]
+  [state name-]
   (let [pacman (-> state :actors :pacman)
         target (add-pos (:pos pacman)
                         (scale-dir (:dir pacman) 2))]
-    target))
+    {:pos target
+     :viz [:g
+           (guide-line (:pos pacman) target)
+           (target-point target name-)]}))
 
 (defmethod actor-target :inky
   ;;; Try to flank pacman from side opposite to blinky.
-  [state _name]
+  [state name-]
   (let [blinky (-> state :actors :blinky)
         pacman (-> state :actors :pacman)
         nose (add-pos (:pos pacman) (:dir pacman))
+        [nx ny] nose
         target (reflect-pos nose (:pos blinky))]
-    target))
+    {:pos target
+     :viz [:g
+           (guide-line (:pos pacman) nose)
+           (guide-line (:pos blinky) target)
+           [:circle.hinge {:cx nx :cy ny}]
+           (target-point target name-)]}))
 
 (defmethod actor-target :clyde
   ;;; Target pacman, but flee if he gets too close.
   [state _name]
   (let [pos (-> state :actors :clyde :pos)
         pacpos (-> state :actors :pacman :pos)
+        [cx cy] pacpos
         radius 2
         too-close? (<= (dist-sq pos pacpos) (* radius radius))
         target (if too-close?
                  (reflect-pos pos pacpos)
                  pacpos)]
-    target))
+    {:pos target
+     :viz [:circle
+           {:class (cond-> "clyde-boundary" too-close? (str " inside"))
+            :cx cx :cy cy :r radius}]}))
