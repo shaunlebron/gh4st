@@ -13,6 +13,13 @@
    :select-pos nil,
    :select-actor nil,
 
+   :settings
+   {:paths {:enabled false
+            :actors #{}}
+    :targets #{:enabled false
+               :actors #{}}
+    }
+
    ;; game
    :board (empty-board), 
    :level 0,

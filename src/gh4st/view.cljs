@@ -26,6 +26,22 @@
     ))
 
 ;;----------------------------------------------------------------------
+;; In-Game Settings
+;;----------------------------------------------------------------------
+
+(defcomponent settings
+  [data owner]
+  (render [_this]
+    (html
+      [:div.settings
+       [:div.settings-title "insight"]
+       [:div.button "Paths"]
+       [:div.button "Targets"]
+       ]
+      )
+    ))
+
+;;----------------------------------------------------------------------
 ;; Game screen
 ;;----------------------------------------------------------------------
 
@@ -86,6 +102,7 @@
           height (* rows scale)]
       (html
         [:div.game
+         (om/build settings (:settings data))
          [:div.title {:style {:width width}}
           (-> data :level-text :title)]
          [:div.desc {:style {:width width}}

@@ -179,6 +179,41 @@ body {
   .game .desc .focus {
     letter-spacing: 0.03em;
     color: #FAFEDE; }
+.game .settings {
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 200px;
+  height: 400px;
+  margin-top: 140px;
+  padding: 0;
+  transition: transform 1s, opacity 0.5s;
+  z-index: 200;
+  opacity: 0.3; }
+  .game .settings .settings-title {
+    letter-spacing: 0.04em;
+    width: 80px;
+    margin: 20px auto;
+    text-align: center;
+    color: #B4C8CE;
+    font-size: 22px;
+    font-weight: 300;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #B4C8CE; }
+  .game .settings .button {
+    cursor: pointer;
+    letter-spacing: 0.04em;
+    width: 100px;
+    margin: 30px auto;
+    text-align: center;
+    color: #B4C8CE;
+    font-size: 18px;
+    font-weight: 300;
+    text-transform: uppercase; }
+    .game .settings .button.enabled {
+      border: 1px solid #B4C8CE; }
+  .game .settings:hover {
+    opacity: 0.95; }
 
 a:link, a:hover, a:visited, a:active {
   color: #EEE;

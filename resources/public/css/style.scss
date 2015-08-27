@@ -313,6 +313,58 @@ $title-bottom: -10px;
     }
   }
 
+  .settings {
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 200px;
+    height: 400px;
+
+    margin-top: 140px;
+    padding: 0;
+
+    transition: transform 1s, opacity 0.5s;
+    z-index: 200;
+
+    .settings-title {
+      letter-spacing: 0.04em;
+      width: 80px;
+      margin: 20px auto;
+      text-align: center;
+      color: #B4C8CE;
+      font-size: 22px;
+      font-weight: 300;
+
+      padding-bottom: 10px;
+      border-bottom: 1px solid #B4C8CE;
+    }
+
+    .button {
+      cursor: pointer;
+
+      letter-spacing: 0.04em;
+      width: 100px;
+      margin: 30px auto;
+      text-align: center;
+      color: #B4C8CE;
+      font-size: 18px;
+      font-weight: 300;
+
+      text-transform: uppercase;
+
+      &.enabled {
+        border: 1px solid #B4C8CE;
+      }
+
+    }
+
+    opacity: 0.3;
+    &:hover {
+      opacity: 0.95;
+    }
+
+  }
+
 }
 
 a {
