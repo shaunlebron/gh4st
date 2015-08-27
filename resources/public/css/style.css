@@ -60,6 +60,7 @@ body {
   .board .row .selected-fruit {
     outline-color: #4BEE4B; }
   .board .viz-layer {
+    overflow: visible;
     position: absolute;
     left: 0;
     top: 0; }
