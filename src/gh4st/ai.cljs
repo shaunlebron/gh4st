@@ -190,7 +190,7 @@
   [[x y]  name-]
   [:circle
    {:class (str "target target-" (name name-))
-    :cx x :cy y}])
+    :cx x :cy y :r 0.1}])
 
 (defn guide-line
   [[x1 y1] [x2 y2]]
@@ -237,7 +237,7 @@
      :viz [:g
            (guide-line (:pos pacman) nose)
            (guide-line (:pos blinky) target)
-           [:circle.hinge {:cx nx :cy ny}]
+           [:circle.hinge {:cx nx :cy ny :r 0.075}]
            (target-point target name-)]}))
 
 (defmethod actor-target :clyde

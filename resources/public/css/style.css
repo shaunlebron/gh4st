@@ -63,8 +63,6 @@ body {
     position: absolute;
     left: 0;
     top: 0; }
-  .board .viz-layer .target {
-    r: 0.1; }
   .board .viz-layer .target-pacman {
     fill: #FFFF00; }
   .board .viz-layer .target-blinky {
@@ -79,7 +77,6 @@ body {
     stroke: rgba(255, 255, 255, 0.3);
     stroke-width: 0.05; }
   .board .viz-layer .hinge {
-    r: 0.075;
     fill: rgba(255, 255, 255, 0.8); }
   .board .viz-layer .clyde-boundary {
     fill: none;
