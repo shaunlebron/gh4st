@@ -132,7 +132,7 @@
               [:svg svg-props
                (for [name- (remove #{:fruit} actor-order)]
                  (when (get-in data [:actors name- :pos])
-                   (actor-path-viz data name- 8)))]
+                   (actor-path-viz data name- 9)))]
 
               ;; draw sprites
               (for [name- actor-order]

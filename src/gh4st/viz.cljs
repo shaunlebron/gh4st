@@ -1,7 +1,10 @@
 (ns gh4st.viz
   (:require
     [clojure.string :as string]
-    [gh4st.math :refer [add-pos]]
+    [gh4st.math :refer [add-pos
+                        sub-pos
+                        scale-dir
+                        ]]
     [gh4st.ai :refer [tick-actor
                       actor-target]]
     )
@@ -81,22 +84,71 @@
   (let [target (:pos (actor-target state name-))]
     (loop [points []
            curr-state state]
-      (if (and (not= (last points) target)
-               (< (count points) len))
-        (let [next-state (tick-actor curr-state name-)]
+      (let [last-pos (last points)
+            new-pos (get-in curr-state [:actors name- :pos])]
+        (cond
+          ;; stop if we are stuck in a position or have reached our target
+          (or (= last-pos new-pos)
+              (= last-pos target))
+          points
+
+          ;; stop if we are at the path length limit
+          (< (count points) len)
           (recur
-            (conj points (get-in curr-state [:actors name- :pos]))
-            next-state))
-        points))))
+            (conj points new-pos)
+            (tick-actor curr-state name-))
+
+          :else points)))))
 
 (defn actor-path-viz
   [state name- len]
-  (let [points (actor-path state name- len)
-        d (get actor-path-offset name-)]
-    [:g
-     [:polyline
-      {:class (str "path path-" (name name-))
-       :points (->> points
-                    (map #(add-pos % [d d]))
-                    (map #(string/join "," %))
-                    (string/join " "))}]]))
+  (let [path-points (actor-path state name- len)
+
+        ;; offset
+        offset (get actor-path-offset name-)
+
+        [p1 p2] (take-last 2 path-points)
+        arrow? (and p1 p2)
+
+        ;; height direction
+        [dx dy :as hdir] (when arrow?
+                           (sub-pos p2 p1))
+
+        ;; width direction 
+        wdir [(- dy) dx] 
+
+        al 0.5 ;; arrow length
+        aw 0.1 ;; arrow width
+        ah 0.1 ;; arrow height
+
+        end (when arrow? (add-pos p1 (scale-dir hdir al)))
+
+        arrow-point
+        (fn [side]
+          (-> end
+              (sub-pos (scale-dir hdir ah))
+              (add-pos (scale-dir wdir (* side aw)))))
+
+        arrow-points (when arrow? [(arrow-point -1) end (arrow-point 1)])
+
+        line-points (cond-> path-points
+                      arrow? (-> butlast (concat [end])))
+
+        make-svg-points
+        (fn [pts]
+          (->> pts
+               (map #(add-pos % [offset offset]))
+               (map #(string/join "," %))
+               (string/join " ")))
+
+        classname (str "path path-" (name name-))
+        ]
+    (when arrow?
+      [:g
+       [:polyline
+        {:class classname
+         :points (make-svg-points line-points)}]
+       [:polyline
+        {:class classname
+         :points (make-svg-points arrow-points)}]
+       ])))
