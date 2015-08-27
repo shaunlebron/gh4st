@@ -24,6 +24,10 @@
   [[x1 y1] [x2 y2]]
   [:line.guide-line {:x1 x1 :y1 y1 :x2 x2 :y2 y2}])
 
+(defn hinge
+  [[x y]]
+  [:circle.hinge {:cx x :cy y :r 0.075}])
+
 (defmulti actor-target-viz
   (fn [state name-] name-))
 
@@ -52,18 +56,24 @@
     [:g
      (guide-line (:pacman-pos viz-data) (:nose viz-data))
      (guide-line (:blinky-pos viz-data) pos)
-     (let [[nx ny] (:nose viz-data)]
-       [:circle.hinge {:cx nx :cy ny :r 0.075}])
+     (hinge (:nose viz-data))
      (target-point pos name-)]))
 
 (defmethod actor-target-viz :clyde
   [state name-]
   (let [{:keys [pos viz-data]} (actor-target state name-)
-        [cx cy] (:pacman-pos viz-data)
+        {:keys [too-close? run-pos pacman-pos radius reflect-pos]} viz-data
+        [cx cy] pacman-pos
         ]
-    [:circle
-     {:class (cond-> "clyde-boundary" (:too-close? viz-data) (str " inside"))
-      :cx cx :cy cy :r (:radius viz-data)}]))
+    [:g
+     [:circle
+      {:class (cond-> "clyde-boundary" too-close? (str " inside"))
+       :cx cx :cy cy :r radius}]
+     (when too-close?
+       (list
+         (guide-line pacman-pos run-pos)
+         (hinge reflect-pos)
+         (target-point pos name-)))]))
 
 ;;----------------------------------------------------------------------
 ;; Future Path Viz

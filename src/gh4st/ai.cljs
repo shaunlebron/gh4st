@@ -227,7 +227,7 @@
   [state _name]
   (let [pos (-> state :actors :clyde :pos)
         pacpos (-> state :actors :pacman :pos)
-        radius 2
+        radius 3
         too-close? (<= (dist-sq pos pacpos) (* radius radius))
         run-pos (reflect-pos pos pacpos)
         target (if too-close?
@@ -237,5 +237,6 @@
      :viz-data {:radius radius
                 :too-close? too-close?
                 :run-pos run-pos
+                :reflect-pos pos
                 :pacman-pos pacpos}}))
 
