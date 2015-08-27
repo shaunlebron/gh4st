@@ -122,14 +122,10 @@ $victory-floor:#254D3A;
     }
   }
 
-  .viz-layer-wrapper {
+  .viz-layer {
     position: absolute;
     left: 0;
     top: 0;
-
-  }
-
-  .viz-layer {
 
     .target {
     }
@@ -154,8 +150,37 @@ $victory-floor:#254D3A;
       fill: $orange;
     }
 
+    .path {
+      fill: none;
+      stroke-width: 0.05;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    $path-alpha: 0.5;
+
+    .path-pacman {
+      stroke: rgba($yellow, $path-alpha);
+    }
+
+    .path-blinky {
+      stroke: rgba($red, $path-alpha);
+    }
+
+    .path-pinky {
+      stroke: rgba($pink, $path-alpha);
+    }
+
+    .path-inky {
+      stroke: rgba($cyan, $path-alpha);
+    }
+
+    .path-clyde {
+      stroke: rgba($orange, $path-alpha);
+    }
+
     .guide-line {
-      stroke: rgba(255,255,255,0.3);
+      stroke: rgba(255,255,255,0.4);
       stroke-width: 0.05;
     }
 

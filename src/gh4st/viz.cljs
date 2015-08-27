@@ -1,8 +1,15 @@
 (ns gh4st.viz
   (:require
-    [gh4st.ai :refer [actor-target]]
+    [clojure.string :as string]
+    [gh4st.math :refer [add-pos]]
+    [gh4st.ai :refer [tick-actor
+                      actor-target]]
     )
   )
+
+;;----------------------------------------------------------------------
+;; Actor Target Viz
+;;----------------------------------------------------------------------
 
 (defn target-point
   [[x y]  name-]
@@ -54,3 +61,42 @@
     [:circle
      {:class (cond-> "clyde-boundary" (:too-close? viz-data) (str " inside"))
       :cx cx :cy cy :r (:radius viz-data)}]))
+
+;;----------------------------------------------------------------------
+;; Future Path Viz
+;;----------------------------------------------------------------------
+
+(def offset-factor 0.06)
+
+(def actor-path-offset
+  "Offsets so you can see overlaid paths"
+  {:pacman (* offset-factor 0)
+   :blinky (* offset-factor 1)
+   :pinky (* offset-factor 2)
+   :inky (* offset-factor -1)
+   :clyde (* offset-factor -2)})
+
+(defn actor-path
+  [state name- len]
+  (let [target (:pos (actor-target state name-))]
+    (loop [points []
+           curr-state state]
+      (if (and (not= (last points) target)
+               (< (count points) len))
+        (let [next-state (tick-actor curr-state name-)]
+          (recur
+            (conj points (get-in curr-state [:actors name- :pos]))
+            next-state))
+        points))))
+
+(defn actor-path-viz
+  [state name- len]
+  (let [points (actor-path state name- len)
+        d (get actor-path-offset name-)]
+    [:g
+     [:polyline
+      {:class (str "path path-" (name name-))
+       :points (->> points
+                    (map #(add-pos % [d d]))
+                    (map #(string/join "," %))
+                    (string/join " "))}]]))

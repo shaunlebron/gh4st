@@ -21,7 +21,8 @@
                          defeat-text
                          allow-defeat-text
                          ]]
-    [gh4st.viz :refer [actor-target-viz]]
+    [gh4st.viz :refer [actor-target-viz
+                       actor-path-viz]]
     ))
 
 ;;----------------------------------------------------------------------
@@ -105,39 +106,44 @@
                (cell data value [x y]))])
 
           ;; draw sprites
-          (for [name- actor-order]
-           (actor name- (get-in data [:actors name-])))
+          (let [;; SVG ViewBox:
+                ;;    Transforms [col,row] coords to the center pixels
+                ;;    of the respective cells.
+                ;;
+                ;; .---------------
+                ;; |dxd  ^     |  |
+                ;; |     |     |  |
+                ;; |<----O     |  |  A 1x1 Box
+                ;; |           |  |
+                ;; | (cell)    |  |  O = desired origin
+                ;; |-----------/  |  dxd = desired offset size
+                ;; | (pad)        |
+                ;; |--------------/ 
+                svg-props {:class "viz-layer"
+                           :width width
+                           :height height
+                           :view-box 
+                           (let [mult (+ cell-size cell-pad)
+                                 d (- (/ cell-size mult 2))]
+                             (string/join " " [d d cols rows]))}]
 
-          ;; draw viz layer
-          [:div.viz-layer-wrapper
-           {;; using raw HTML since svg animation attributes are removed by React
-            :dangerouslySetInnerHTML
-            {:__html
-             (hiccups/html
-               [:svg.viz-layer
-                {:width width
-                 :height height
+            (list
+              ;; draw paths
+              [:svg svg-props
+               (for [name- (remove #{:fruit} actor-order)]
+                 (when (get-in data [:actors name- :pos])
+                   (actor-path-viz data name- 8)))]
 
-                 ;; SVG ViewBox:
-                 ;;    Transforms [col,row] coords to the center pixels
-                 ;;    of the respective cells.
-                 ;;
-                 ;; .---------------
-                 ;; |dxd  ^     |  |
-                 ;; |     |     |  |
-                 ;; |<----O     |  |  A 1x1 Box
-                 ;; |           |  |
-                 ;; | (cell)    |  |  O = desired origin
-                 ;; |-----------/  |  dxd = desired offset size
-                 ;; | (pad)        |
-                 ;; |--------------/ 
-                 :viewBox (let [mult (+ cell-size cell-pad)
-                                d (- (/ cell-size mult 2))]
-                            (string/join " " [d d cols rows]))}
-                (for [name- (remove #{:fruit} actor-order)]
-                  (when (get-in data [:actors name- :pos])
-                    (actor-target-viz data name-)))])
-             }}]]
+              ;; draw sprites
+              (for [name- actor-order]
+                (actor name- (get-in data [:actors name-])))
+
+              ;; draw targets
+              [:svg svg-props
+               (for [name- (remove #{:fruit} actor-order)]
+                 (when (get-in data [:actors name- :pos])
+                   (actor-target-viz data name-)))]))
+          ]
          [:div.controls]]))))
 
 ;;----------------------------------------------------------------------
