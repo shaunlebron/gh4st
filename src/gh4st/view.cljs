@@ -129,20 +129,22 @@
 
             (list
               ;; draw paths
-              [:svg svg-props
-               (for [name- (remove #{:fruit} actor-order)]
-                 (when (get-in data [:actors name- :pos])
-                   (actor-path-viz data name- 9)))]
+              (when-not (:end data)
+                [:svg svg-props
+                 (for [name- (remove #{:fruit} actor-order)]
+                   (when (get-in data [:actors name- :pos])
+                     (actor-path-viz data name- 9)))])
 
               ;; draw sprites
               (for [name- actor-order]
                 (actor name- (get-in data [:actors name-])))
 
               ;; draw targets
-              [:svg svg-props
-               (for [name- (remove #{:fruit} actor-order)]
-                 (when (get-in data [:actors name- :pos])
-                   (actor-target-viz data name-)))]))
+              (when-not (:end data)
+                [:svg svg-props
+                 (for [name- (remove #{:fruit} actor-order)]
+                   (when (get-in data [:actors name- :pos])
+                     (actor-target-viz data name-)))])))
           ]
          [:div.controls]]))))
 
