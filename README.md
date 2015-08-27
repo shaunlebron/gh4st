@@ -1,5 +1,7 @@
 # GH4ST
 
+![screen](http://i.imgur.com/6fIt5OH.png)
+
 Coordinate the four ghosts, which adhere to the actual AI from the original
 Pac-Man arcade. Your only power to catch Pac-Man is to choose which ghost is
 allowed to move per turn.
