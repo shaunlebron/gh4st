@@ -12,7 +12,7 @@ body {
     content: '';
     display: block;
   }
-} 
+}
 
 * {
   margin: 0;
@@ -56,6 +56,11 @@ $victory-floor:#254D3A;
   }
 }
 
+.board.no-transitions {
+  .spritesheet {
+    transition: transform 0s;
+  }
+}
 
 .board {
   position: relative;
@@ -116,8 +121,61 @@ $victory-floor:#254D3A;
       outline-color: $green;
     }
   }
-}
 
+  .viz-layer-wrapper {
+    position: absolute;
+    left: 0;
+    top: 0;
+
+  }
+
+  .viz-layer {
+
+    .target {
+      r: 0.1;
+    }
+
+    .target-pacman {
+      fill: $yellow;
+    }
+
+    .target-blinky {
+      fill: $red;
+    }
+
+    .target-pinky {
+      fill: $pink;
+    }
+
+    .target-inky {
+      fill: $cyan;
+    }
+
+    .target-clyde {
+      fill: $orange;
+    }
+
+    .guide-line {
+      stroke: rgba(255,255,255,0.3);
+      stroke-width: 0.05;
+    }
+
+    .hinge {
+      r: 0.075;
+      fill: rgba(255,255,255,0.8);
+    }
+
+    .clyde-boundary {
+      fill: none;
+      stroke: rgba(255,255,255,0.3);
+      stroke-width: 0.05;
+
+      &.inside {
+        stroke: rgba(255,255,255,0.1);
+      }
+    }
+  }
+}
 
 $title-bump: 3px;
 $title-margin: 120px;

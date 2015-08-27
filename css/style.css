@@ -19,6 +19,9 @@ body {
     background: #343434; }
   to {
     background: #254D3A; } }
+.board.no-transitions .spritesheet {
+  transition: transform 0s; }
+
 .board {
   position: relative;
   margin: 0px auto; }
@@ -56,6 +59,34 @@ body {
     outline-color: #FFB851; }
   .board .row .selected-fruit {
     outline-color: #4BEE4B; }
+  .board .viz-layer-wrapper {
+    position: absolute;
+    left: 0;
+    top: 0; }
+  .board .viz-layer .target {
+    r: 0.1; }
+  .board .viz-layer .target-pacman {
+    fill: #FFFF00; }
+  .board .viz-layer .target-blinky {
+    fill: #FF0000; }
+  .board .viz-layer .target-pinky {
+    fill: #FFB8FF; }
+  .board .viz-layer .target-inky {
+    fill: #00FFFF; }
+  .board .viz-layer .target-clyde {
+    fill: #FFB851; }
+  .board .viz-layer .guide-line {
+    stroke: rgba(255, 255, 255, 0.3);
+    stroke-width: 0.05; }
+  .board .viz-layer .hinge {
+    r: 0.075;
+    fill: rgba(255, 255, 255, 0.8); }
+  .board .viz-layer .clyde-boundary {
+    fill: none;
+    stroke: rgba(255, 255, 255, 0.3);
+    stroke-width: 0.05; }
+    .board .viz-layer .clyde-boundary.inside {
+      stroke: rgba(255, 255, 255, 0.1); }
 
 .home {
   width: 1000px;
