@@ -44,7 +44,8 @@
     [:_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :O :_ :_ :_ :_ :_ :_ :_ :_ :_ :_]]})
 
 (def level3
-  {:actors
+  {:allow-defeat true
+   :actors
    {:pacman {:pos [10 0], :dir [0 1]},
     :blinky {:pos [8 6], :dir [1 0]},
     :fruit {:pos [10 4]}},
@@ -58,7 +59,8 @@
     [:_ :_ :_ :_ :_ :_ :_ :_ :O :O :O :O :O :_ :_ :_ :_ :_ :_ :_ :_]]})
 
 (def level4
-  {:actors
+  {:allow-defeat false
+   :actors
    {:pacman {:pos [10 0], :dir [-1 0]},
     :blinky {:pos [12 2], :dir [-1 0]},
     :fruit {:pos [10 4]}},
@@ -87,7 +89,7 @@
     [:_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_]]})
 
 (def level6
-  {:allow-defeat true
+  {:allow-defeat false
    :actors
    {:pacman {:pos [11 1], :dir [1 0]},
     :blinky {:pos [8 1], :dir [1 0]},
