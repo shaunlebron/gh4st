@@ -1,4 +1,3 @@
-spritesheet.png: http://pacman.shaunew.com/play/sprites/
-    (with modification to atlas.js: https://gist.github.com/shaunlebron/ca13cd4058fc2cbf415b)
+spritesheet.png: (see src/gh4st/spritesheet.clj for source details)
 
 brain.svg: https://thenounproject.com/term/brain/685/
