@@ -10,9 +10,9 @@
     [om-tools.core :refer-macros [defcomponent]]
     [om.core :as om]
     [gh4st.state :refer [app-state]]
-    [gh4st.ui :refer [select-cell!]]
+    [gh4st.editor :as editor :refer [select-cell!]]
     [gh4st.img :refer [actor-order sprite-class]]
-    [gh4st.game :refer [start-game!]]
+    [gh4st.game :as game :refer [start-game!]]
     [gh4st.board :refer [decode-tile
                          board-size
                          ]]
@@ -24,6 +24,14 @@
     [gh4st.viz :refer [actor-target-viz
                        actor-path-viz]]
     ))
+
+(defn enable-keys [keyfuncs]
+  (doseq [[k f] keyfuncs]
+    (js/Mousetrap.bind k f)))
+
+(defn disable-keys [keyfuncs]
+  (doseq [[k f] keyfuncs]
+    (js/Mousetrap.unbind k)))
 
 ;;----------------------------------------------------------------------
 ;; In-Game Settings
@@ -105,8 +113,21 @@
     [:div {:class (str "spritesheet " classname)
            :style style}]))
 
+(def escape-keys
+  {"escape" #(swap! app-state assoc :screen :home)})
+
 (defcomponent game
   [data owner]
+  (will-mount [_this]
+    (enable-keys editor/key-functions)
+    (enable-keys game/key-functions)
+    (enable-keys escape-keys)
+    )
+  (will-unmount [_this]
+    (disable-keys editor/key-functions)
+    (disable-keys game/key-functions)
+    (disable-keys escape-keys)
+    )
   (render [_this]
     (let [[cols rows] (board-size (:board data))
           scale (+ cell-size cell-pad)
@@ -199,6 +220,10 @@
    :inky :clyde
    :clyde :blinky})
 
+(def welcome-keys
+  {"enter" #(start-game!)}
+  )
+
 (defcomponent welcome
   [data owner]
   (will-mount [_this]
@@ -211,8 +236,10 @@
           (<! (timeout 20))
           (swap! app-state assoc :home-bump false)
           (recur))))
-    (js/Mousetrap.bind "enter" #(start-game!)))
+    (enable-keys welcome-keys)
+    )
   (will-unmount [_this]
+    (disable-keys welcome-keys)
     (close! stop-welcome-anim))
   (render [_this]
     (html

@@ -1,4 +1,4 @@
-(ns gh4st.ui
+(ns gh4st.editor
   (:require
     [cljs.pprint :refer [pprint]]
     [gh4st.state :refer [app-state]]
@@ -42,26 +42,35 @@
 (defn disable-select! []
   (swap! app-state assoc :select-pos nil))
 
-(js/Mousetrap.bind "shift+x" toggle-selected-tile!)
-(js/Mousetrap.bind "ctrl+x" #(disable-select!))
+(def key-functions
+  {"shift+x" toggle-selected-tile!
+   "ctrl+x" disable-select!
 
-(js/Mousetrap.bind "shift+k" #(move-selection! [0 -1]))
-(js/Mousetrap.bind "shift+j" #(move-selection! [0 1]))
-(js/Mousetrap.bind "shift+h" #(move-selection! [-1 0]))
-(js/Mousetrap.bind "shift+l" #(move-selection! [1 0]))
+   "shift+k" #(move-selection! [0 -1])
+   "shift+j" #(move-selection! [0 1])
+   "shift+h" #(move-selection! [-1 0])
+   "shift+l" #(move-selection! [1 0])
 
-(js/Mousetrap.bind "ctrl+k" #(set-select-dir! [0 -1]))
-(js/Mousetrap.bind "ctrl+j" #(set-select-dir! [0 1]))
-(js/Mousetrap.bind "ctrl+h" #(set-select-dir! [-1 0]))
-(js/Mousetrap.bind "ctrl+l" #(set-select-dir! [1 0]))
+   "ctrl+k" #(set-select-dir! [0 -1])
+   "ctrl+j" #(set-select-dir! [0 1])
+   "ctrl+h" #(set-select-dir! [-1 0])
+   "ctrl+l" #(set-select-dir! [1 0])
 
-(js/Mousetrap.bind "shift+1" #(set-mode! nil))
-(js/Mousetrap.bind "shift+2" #(set-mode! :pacman))
-(js/Mousetrap.bind "shift+3" #(set-mode! :fruit))
-(js/Mousetrap.bind "shift+q" #(set-mode! :blinky))
-(js/Mousetrap.bind "shift+w" #(set-mode! :pinky))
-(js/Mousetrap.bind "shift+e" #(set-mode! :inky))
-(js/Mousetrap.bind "shift+r" #(set-mode! :clyde))
+   "shift+1" #(set-mode! nil)
+   "shift+2" #(set-mode! :pacman)
+   "shift+3" #(set-mode! :fruit)
+   "shift+q" #(set-mode! :blinky)
+   "shift+w" #(set-mode! :pinky)
+   "shift+e" #(set-mode! :inky)
+   "shift+r" #(set-mode! :clyde)
 
-(js/Mousetrap.bind "shift+p" #(pprint @app-state))
+   "shift+p" #(pprint @app-state)
+   })
 
+(defn enable-keys []
+  (doseq [[k f] key-functions]
+    (js/Mousetrap.bind k f)))
+
+(defn disable-keys []
+  (doseq [[k f] key-functions]
+    (js/Mousetrap.unbind k)))

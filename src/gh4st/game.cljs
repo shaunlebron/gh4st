@@ -90,14 +90,6 @@
         (try-tick-actor! :pacman)
         (reset! advancing? false)))))
 
-(js/Mousetrap.bind "1" #(advance! :blinky))
-(js/Mousetrap.bind "2" #(advance! :pinky))
-(js/Mousetrap.bind "4" #(advance! :inky))
-(js/Mousetrap.bind "3" #(advance! :clyde))
-
-(js/Mousetrap.bind "z" try-undo!)
-(js/Mousetrap.bind "y" try-redo!)
-
 (defn prevent-actor-transitions! []
   (let [no-trans! #(swap! app-state assoc :no-transitions? %)]
     (no-trans! true)
@@ -119,8 +111,6 @@
 (defn restart-level! []
   (load-level! (:level @app-state)))
 
-(js/Mousetrap.bind "r" restart-level!)
-
 (defn try-next-level! []
   (let [level (:level @app-state)]
     (when (< level @max-level)
@@ -131,10 +121,21 @@
     (when (> level 0)
       (load-level! (dec level)))))
 
-(js/Mousetrap.bind "shift+right" try-next-level!)
-(js/Mousetrap.bind "shift+left" try-prev-level!)
-
 (defn start-game! []
   (swap! app-state assoc :screen :game)
   (load-level! 0))
+
+(def key-functions
+  {"1" #(advance! :blinky)
+   "2" #(advance! :pinky)
+   "4" #(advance! :inky)
+   "3" #(advance! :clyde)
+
+   "z" try-undo!
+   "y" try-redo!
+
+   "shift+right" try-next-level!
+   "shift+left" try-prev-level!
+
+   "r" restart-level!})
 
