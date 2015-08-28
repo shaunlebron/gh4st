@@ -43,7 +43,7 @@
     (let [enabled (:enabled data)]
       (html
         [:div
-         {:class (cond-> "button" enabled (str " enabled"))
+         {:class (cond-> "settings-button" enabled (str " enabled"))
           :on-click #(om/transact! data :enabled not)}
          caption
          ])))
@@ -236,10 +236,8 @@
           (<! (timeout 20))
           (swap! app-state assoc :home-bump false)
           (recur))))
-    (enable-keys welcome-keys)
     )
   (will-unmount [_this]
-    (disable-keys welcome-keys)
     (close! stop-welcome-anim))
   (render [_this]
     (html
@@ -252,11 +250,19 @@
                              (sprite-class name- [0 1]) "-anim")}]
           [:div.letter "ST"]
           ])
-       [:p.instruct [:em "PRESS ENTER"]]
+       [:div.menu
+        [:div.menu-button.main
+         {:on-click start-game!}
+         "START"]
+        [:div.menu-button "Select Level"]
+        [:div.menu-button "Editor"]]
        [:p.author
         "by " [:a {:href "http://twitter.com/shaunlebron"} "@shaunlebron"]
         " on " [:a {:href "https://github.com/shaunlebron/gh4st"} "github"]]
-       [:p.details "Based on the ghost AI of the original Pac-Man."]
+       [:div.details "Based on the ghost AI of the original Pac-Man."
+          [:div {:class (str "mini-pacman spritesheet "
+                             (sprite-class "pacman" [-1 0]) "-anim")}]
+        ]
        ]
       )))
 

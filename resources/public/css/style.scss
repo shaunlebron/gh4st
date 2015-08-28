@@ -235,11 +235,11 @@ $title-bottom: -10px;
     }
     text-shadow: 0 $title-bump 0 #111;
     @include clear-fix('after');
+
   }
 
   .bump {
-    margin-top: $title-margin - $title-bump;
-    margin-bottom: $title-bottom + $title-bump;
+    transform: translate(0, -$title-bump);
   }
 
   a {
@@ -258,10 +258,16 @@ $title-bottom: -10px;
   .details {
     color: #444;
     margin-bottom: 80px;
-    em {
-      color: #aaa;
-    }
+    position: relative;
   }
+
+    .mini-pacman {
+      opacity: 0.2;
+      position: absolute;
+      transform: scale(0.4);
+      top: -23px;
+      right: 294px;
+    }
 
   .instruct {
     margin-top: 80px;
@@ -271,18 +277,36 @@ $title-bottom: -10px;
     font-size: 30px;
   }
 
-  .cljs {
-    color: #555;
-    img {
-      opacity: 0.5;
-      transition: opacity 0.3s;
-      vertical-align: middle;
-      width: 40px;
-    }
-  }
+  $menu-light: #B4C8CE;
+  $menu-dark: #4E5759;
 
-  .cljs:hover img {
-    opacity: 1;
+  .menu {
+    margin-bottom: 40px;
+  }
+  .menu-button {
+    cursor: pointer;
+
+    letter-spacing: 0.04em;
+    font-size: 24px;
+    font-weight: 300;
+    text-align: center;
+
+    width: 300px;
+    margin: 0px auto;
+
+    color: $menu-dark;
+
+    &.main {
+      margin: 30px auto;
+      font-size: 40px;
+      font-weight: 700;
+    }
+
+    border: 1px solid $bg;
+    &:hover {
+      color: $menu-light;
+    }
+
   }
 
   em {
@@ -346,7 +370,7 @@ $title-bottom: -10px;
 
     }
 
-    .button {
+    .settings-button {
       cursor: pointer;
 
       letter-spacing: 0.04em;
