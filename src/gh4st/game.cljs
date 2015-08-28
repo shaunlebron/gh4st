@@ -121,9 +121,11 @@
     (when (> level 0)
       (load-level! (dec level)))))
 
-(defn start-game! []
-  (swap! app-state assoc :screen :game)
-  (load-level! 0))
+(defn start-game!
+  ([] (start-game! 0))
+  ([i]
+   (swap! app-state assoc :screen :game)
+   (load-level! i)))
 
 (def key-functions
   {"1" #(advance! :blinky)

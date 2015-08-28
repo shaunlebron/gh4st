@@ -203,6 +203,53 @@ $victory-floor:#254D3A;
   }
 }
 
+$level-light: #B4C8CE;
+$level-dark: #4E5759;
+
+.level-select {
+  width: 1000px;
+  margin: 0 auto;
+  text-align: center;
+  color: #aaa;
+
+  .title {
+    margin:80px;
+    letter-spacing: 0.04em;
+    font-size: 40px;
+  }
+
+  ul {
+    text-align: left;
+    width: 400px;
+    margin: 0 auto;
+    li {
+      list-style-type: none;
+      font-size: 24px;
+      font-weight: 300;
+      color: $level-dark;
+      cursor: pointer;
+      &:hover {
+        color: $level-light;
+      }
+      .ghosts {
+        height: 30px;
+        float: right;
+        opacity: 0.3;
+        .spritesheet {
+          margin: -20px -20px;
+          float:right;
+          transform: scale(0.5);
+        }
+      }
+      @include clear-fix('after');
+    }
+
+    li:hover .ghosts {
+      opacity: 1;
+    }
+  }
+}
+
 $title-bump: 3px;
 $title-margin: 120px;
 $title-bottom: -10px;

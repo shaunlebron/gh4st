@@ -20,9 +20,11 @@
     [gh4st.texts :refer [victory-text
                          defeat-text
                          allow-defeat-text
+                         texts
                          ]]
     [gh4st.viz :refer [actor-target-viz
                        actor-path-viz]]
+    [gh4st.levels :refer [levels]]
     ))
 
 (defn enable-keys [keyfuncs]
@@ -254,7 +256,9 @@
         [:div.menu-button.main
          {:on-click start-game!}
          "START"]
-        [:div.menu-button "Select Level"]
+        [:div.menu-button
+         {:on-click #(swap! app-state assoc :screen :level-select)}
+         "Select Level"]
         [:div.menu-button "Editor"]]
        [:p.author
         "by " [:a {:href "http://twitter.com/shaunlebron"} "@shaunlebron"]
@@ -265,4 +269,43 @@
         ]
        ]
       )))
+
+;;----------------------------------------------------------------------
+;; Level Select
+;;----------------------------------------------------------------------
+
+(defcomponent level-select
+  [data owner]
+  (will-mount [_this]
+    (enable-keys escape-keys)
+    )
+  (will-unmount [_this]
+    (disable-keys escape-keys)
+    )
+  (render [_this]
+    (html
+      [:div.level-select
+       [:div.title
+        "Select Level"]
+       [:ul
+        (for [[i level text] (map vector (range) levels texts)]
+          [:li
+           {:on-click #(start-game! i)}
+           (str (inc i) ". " (:title text))
+           [:div.ghosts
+            (let [actors (set (keys (:actors level)))]
+              (for [a [:blinky :pinky :inky :clyde]]
+                (when (actors a)
+                  [:div
+                   {:class (str "spritesheet sprite-" (name a) "-left")}
+                   ])
+                ))
+            ]
+           
+           ]
+          )]
+
+       ])
+    )
+  )
 

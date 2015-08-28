@@ -4,7 +4,7 @@
     [om-tools.core :refer-macros [defcomponent]]
     [om.core :as om]
     [gh4st.state :refer [app-state]]
-    [gh4st.view :refer [welcome game]]
+    [gh4st.view :refer [welcome game level-select]]
     ))
 
 (enable-console-print!)
@@ -16,6 +16,7 @@
       (case (:screen data)
         :home (om/build welcome data)
         :game (om/build game data)
+        :level-select (om/build level-select data)
         nil))))
 
 (om/root
