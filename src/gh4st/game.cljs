@@ -19,6 +19,10 @@
   "True from the time a Ghost moves to the time Pacman stops moving."
   (atom false))
 
+(defn remember! []
+  (let [state @app-state]
+    (history/commit! state)))
+
 (defn try-undo! []
   (when-not @advancing?
     (history/undo! @app-state)))
@@ -26,21 +30,6 @@
 (defn try-redo! []
   (when-not @advancing?
     (history/redo!)))
-
-(defn remembered-state
-  "Get the current state without the animation flags."
-  [state]
-  (reduce 
-    (fn [state name-]
-      (let [path [:actors name- :anim?]]
-        (cond-> state
-          (get-in state path) (assoc-in path false))))
-    state
-    [:blinky :pinky :inky :clyde :pacman]))
-
-(defn remember! []
-  (let [state (remembered-state @app-state)]
-    (history/commit! state)))
 
 (defn check-game-over! []
   (let [actors (:actors @app-state)

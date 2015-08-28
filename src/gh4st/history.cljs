@@ -2,6 +2,9 @@
   (:require
     [gh4st.state :refer [app-state]]))
 
+(declare cherry-pick)
+(declare cherry-merge)
+
 ;;; This undo/redo model assumes that the user will call `commit!` right before
 ;;; entering a new state.
 
@@ -36,23 +39,51 @@
 
     ;; Allow us to redo what we're undoing if this moment isn't remembered yet.
     (when-not (get @history-stack @history-index)
-      (swap! history-stack conj curr-state))
+      (swap! history-stack conj (cherry-pick curr-state)))
 
     (swap! history-index dec)
-    (reset! app-state (get @history-stack @history-index))))
+    (swap! app-state cherry-merge (get @history-stack @history-index))))
 
 (defn redo! []
   (when-let [state (get @history-stack (inc @history-index))]
-    (reset! app-state state)
+    (swap! app-state cherry-merge state)
     (swap! history-index inc)))
 
 (defn commit!
   "Call this right before entering a new state."
   [curr-state]
   (swap! history-stack subvec 0 @history-index)
-  (swap! history-stack conj curr-state)
+  (swap! history-stack conj (cherry-pick curr-state))
   (swap! history-index inc))
 
 (defn forget-all! []
   (reset! history-index 0)
   (swap! history-stack empty))
+
+;;----------------------------------------------------------------------
+;; Cherry picking and merging
+;; (i.e. only remembering and restoring state that we want)
+;;----------------------------------------------------------------------
+
+(defn remove-actor-anim
+  "Remove actors animation state (shouldn't be remembered)"
+  [actors]
+  (reduce 
+    (fn [state name-]
+      (let [path [name- :anim?]]
+        (cond-> actors
+          (get-in actors path) (assoc-in path false))))
+    actors
+    [:blinky :pinky :inky :clyde :pacman]))
+
+(defn cherry-pick
+  "Only pick the parts of the state we want to remember."
+  [curr-state]
+  (-> curr-state
+      (select-keys [:board :actors :end])
+      (update-in [:actors] remove-actor-anim)))
+
+(defn cherry-merge
+  "Restore the given cherry-picked state onto the app-state."
+  [curr-state cherry-state]
+  (merge curr-state cherry-state))
