@@ -69,10 +69,10 @@
   "Remove actors animation state (shouldn't be remembered)"
   [actors]
   (reduce 
-    (fn [state name-]
+    (fn [result name-]
       (let [path [name- :anim?]]
-        (cond-> actors
-          (get-in actors path) (assoc-in path false))))
+        (cond-> result
+          (get-in result path) (assoc-in path false))))
     actors
     [:blinky :pinky :inky :clyde :pacman]))
 
