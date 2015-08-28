@@ -4,6 +4,7 @@
     [gh4st.state :refer [app-state]]
     [gh4st.board :refer [bound-pos
                          toggle-tile]]
+    [gh4st.history :refer [commit!]]
     )
   )
 
@@ -13,6 +14,7 @@
 
 (defn toggle-actor
   [actor pos]
+  (commit! @app-state)
   (if (:pos actor)
     (assoc actor :pos nil)
     (assoc actor :pos pos
@@ -20,6 +22,7 @@
 
 (defn toggle-selected-tile! []
   (when-let [[x y] (:select-pos @app-state)]
+    (commit! @app-state)
     (if-let [actor (:select-actor @app-state)]
       (swap! app-state update-in [:actors actor] toggle-actor [x y])
       (swap! app-state update-in [:board y x] toggle-tile))))
@@ -31,6 +34,7 @@
 (defn set-select-dir!
   [dir]
   (when-let [actor (:select-actor @app-state)]
+    (commit! @app-state)
     (swap! app-state assoc-in [:actors actor :dir] dir)
     (swap! app-state assoc-in [:actors actor :prev-pos] nil)))
 
