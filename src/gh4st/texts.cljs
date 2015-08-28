@@ -116,6 +116,16 @@
    }
   )
 
+(def text11
+  {:title "Blinky and Clyde"
+   :desc [:p
+          "Enable the Paths/Target visuals on the right" [:br]
+          "to help Clyde charge at the right moment." [:br]
+          "Press " [:kbd.blinky "1"] " to move Blinky. " [:kbd.clyde "3"] " for Clyde."
+          ]
+   }
+  )
+
 (def text-end
   {:title "That's all for now"
    :desc [:p
@@ -137,6 +147,7 @@
    text8
    text9
    text10
+   text11
 
    text-end
 

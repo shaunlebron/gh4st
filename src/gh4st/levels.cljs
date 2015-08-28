@@ -165,6 +165,22 @@
     [:_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :O :O :O :O :O :O :_ :_ :_ :_ :_]
     [:_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_]]})
 
+(def level11
+  {:allow-defeat false
+   :actors
+   {:pacman {:pos [5 2], :dir [1 0], :prev-pos nil, :anim? false},
+    :clyde {:pos [13 4], :dir [-1 0], :prev-pos nil, :anim? false},
+    :fruit {:pos [12 2], :prev-pos nil},
+    :blinky {:prev-pos nil, :dir [0 -1], :pos [8 5]}},
+   :board
+   [[:_ :_ :_ :_ :_ :_ :_ :_ :O :O :O :_ :_ :_ :_ :_ :_ :_ :_ :_ :_]
+    [:_ :_ :_ :_ :_ :_ :_ :_ :O :_ :O :_ :_ :_ :_ :_ :_ :_ :_ :_ :_]
+    [:_ :_ :_ :_ :O :O :O :O :O :_ :O :O :O :_ :O :_ :_ :_ :_ :_ :_]
+    [:_ :_ :_ :_ :_ :_ :O :_ :_ :_ :O :_ :O :_ :O :_ :_ :_ :_ :_ :_]
+    [:_ :_ :_ :_ :_ :_ :O :O :O :O :O :O :O :O :O :_ :_ :_ :_ :_ :_]
+    [:_ :_ :_ :_ :_ :_ :O :_ :O :_ :_ :_ :O :_ :_ :_ :_ :_ :_ :_ :_]
+    [:_ :_ :_ :_ :_ :_ :O :O :O :_ :_ :_ :O :_ :_ :_ :_ :_ :_ :_ :_]]})
+
 (def freeplay
   {:allow-defeat false
    :actors
@@ -195,6 +211,7 @@
    level8
    level9
    level10
+   level11
 
    freeplay
    
