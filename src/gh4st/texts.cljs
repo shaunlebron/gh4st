@@ -108,11 +108,18 @@
   )
 
 (def text10
-  {:title "To be continued..."
+  {:title "Forced Bravery"
    :desc [:p
-          "Sorry, I ran out of time :(" [:br]
-          [:span.inky "Inky"] " has really neat behavior that I hope to share soon." [:br]
-          "Happy Ludum Dare 33!" [:br]
+          "Despite Clyde's fear, he can still spook Pac-Man since" [:br]
+          "Clyde can only change his mind at intersections." [:br]
+          "Press" [:kbd.clyde "3"]  " to move Clyde."]
+   }
+  )
+
+(def text-end
+  {:title "That's all for now"
+   :desc [:p
+          "Still a work in progress.  Thanks for playing!" [:br]
           [:a {:href "http://twitter.com/shaunlebron"} "@shaunlebron"]]
    }
   )
@@ -130,6 +137,8 @@
    text8
    text9
    text10
+
+   text-end
 
    ;; {:title "Decisions, decisions"}
    ;; {:title "Release the Ghost!"}

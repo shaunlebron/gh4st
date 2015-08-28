@@ -31,7 +31,8 @@
 (defn set-select-dir!
   [dir]
   (when-let [actor (:select-actor @app-state)]
-    (swap! app-state assoc-in [:actors actor :dir] dir)))
+    (swap! app-state assoc-in [:actors actor :dir] dir)
+    (swap! app-state assoc-in [:actors actor :prev-pos] nil)))
 
 (defn move-selection! [[dx dy]]
   (if-let [[x y] (:select-pos @app-state)]

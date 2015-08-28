@@ -151,6 +151,21 @@
     [:_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_]]} )
 
 (def level10
+  {:allow-defeat true,
+   :actors
+   {:pacman {:pos [15 3], :dir [-1 0], :prev-pos nil, :anim? false},
+    :clyde {:pos [10 1], :dir [0 1], :prev-pos nil, :anim? false},
+    :fruit {:pos [7 2], :prev-pos nil}},
+   :board
+   [[:_ :_ :_ :_ :_ :_ :_ :O :O :O :O :_ :_ :_ :_ :O :_ :_ :_ :_ :_]
+    [:_ :_ :_ :_ :_ :_ :_ :O :_ :_ :O :_ :_ :_ :_ :O :_ :_ :_ :_ :_]
+    [:_ :_ :_ :_ :_ :_ :_ :O :O :O :O :_ :_ :_ :_ :O :_ :_ :_ :_ :_]
+    [:_ :_ :_ :_ :_ :_ :_ :O :_ :_ :O :O :O :O :O :O :_ :_ :_ :_ :_]
+    [:_ :_ :_ :_ :_ :_ :_ :O :O :O :O :_ :_ :_ :_ :O :_ :_ :_ :_ :_]
+    [:_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :O :O :O :O :O :O :_ :_ :_ :_ :_]
+    [:_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_]]})
+
+(def freeplay
   {:allow-defeat false
    :actors
    {:pacman {:pos [3 2], :dir [1 0], :prev-pos [14 1]},
@@ -180,6 +195,8 @@
    level8
    level9
    level10
+
+   freeplay
    
    ])
 
