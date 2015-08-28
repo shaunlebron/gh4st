@@ -15,7 +15,8 @@
   [actor pos]
   (if (:pos actor)
     (assoc actor :pos nil)
-    (assoc actor :pos pos)))
+    (assoc actor :pos pos
+                 :prev-pos nil)))
 
 (defn toggle-selected-tile! []
   (when-let [[x y] (:select-pos @app-state)]
