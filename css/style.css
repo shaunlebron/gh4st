@@ -102,6 +102,41 @@ body {
       .board .viz-layer .clyde-boundary.inside {
         stroke: rgba(255, 255, 255, 0.1); }
 
+.level-select {
+  width: 1000px;
+  margin: 0 auto;
+  text-align: center;
+  color: #aaa; }
+  .level-select .title {
+    margin: 80px;
+    letter-spacing: 0.04em;
+    font-size: 40px; }
+  .level-select ol {
+    text-align: left;
+    width: 400px;
+    margin: 0 auto; }
+    .level-select ol li {
+      font-size: 24px;
+      font-weight: 300;
+      color: #4E5759;
+      cursor: pointer; }
+      .level-select ol li:hover {
+        color: #B4C8CE; }
+      .level-select ol li .ghosts {
+        height: 30px;
+        float: right;
+        opacity: 0.3; }
+        .level-select ol li .ghosts .spritesheet {
+          margin: -20px -20px;
+          float: right;
+          transform: scale(0.5); }
+      .level-select ol li:after {
+        clear: both;
+        content: '';
+        display: block; }
+    .level-select ol li:hover .ghosts {
+      opacity: 1; }
+
 .home {
   width: 1000px;
   margin: 0 auto;
@@ -129,8 +164,7 @@ body {
       content: '';
       display: block; }
   .home .bump {
-    margin-top: 117px;
-    margin-bottom: -7px; }
+    transform: translate(0, -3px); }
   .home a:link, .home a:hover, .home a:visited, .home a:active {
     color: #555;
     text-decoration: none; }
@@ -140,24 +174,38 @@ body {
     margin-bottom: 4px; }
   .home .details {
     color: #444;
-    margin-bottom: 80px; }
-    .home .details em {
-      color: #aaa; }
+    margin-bottom: 80px;
+    position: relative; }
+  .home .mini-pacman {
+    opacity: 0.2;
+    position: absolute;
+    transform: scale(0.4);
+    top: -23px;
+    right: 294px; }
   .home .instruct {
     margin-top: 80px;
     margin-bottom: 80px;
     color: #555;
     font-weight: 300;
     font-size: 30px; }
-  .home .cljs {
-    color: #555; }
-    .home .cljs img {
-      opacity: 0.5;
-      transition: opacity 0.3s;
-      vertical-align: middle;
-      width: 40px; }
-  .home .cljs:hover img {
-    opacity: 1; }
+  .home .menu {
+    margin-bottom: 40px; }
+  .home .menu-button {
+    cursor: pointer;
+    letter-spacing: 0.04em;
+    font-size: 24px;
+    font-weight: 300;
+    text-align: center;
+    width: 300px;
+    margin: 0px auto;
+    color: #4E5759;
+    border: 1px solid #222; }
+    .home .menu-button.main {
+      margin: 30px auto;
+      font-size: 40px;
+      font-weight: 700; }
+    .home .menu-button:hover {
+      color: #B4C8CE; }
   .home em {
     color: #AAA;
     font-style: normal; }
@@ -201,7 +249,7 @@ body {
     font-weight: 300;
     padding-bottom: 10px;
     border-bottom: 1px solid #4E5759; }
-  .game .settings .button {
+  .game .settings .settings-button {
     cursor: pointer;
     letter-spacing: 0.04em;
     font-size: 16px;
@@ -213,10 +261,10 @@ body {
     color: #4E5759;
     text-transform: uppercase;
     border: 1px solid #4E5759; }
-    .game .settings .button.enabled {
+    .game .settings .settings-button.enabled {
       color: #B4C8CE;
       border: 1px solid #B4C8CE; }
-    .game .settings .button:hover {
+    .game .settings .settings-button:hover {
       border: 1px solid #B4C8CE; }
   .game .settings:hover {
     opacity: 0.95; }
