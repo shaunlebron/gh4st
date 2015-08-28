@@ -63,7 +63,8 @@ body {
     overflow: visible;
     position: absolute;
     left: 0;
-    top: 0; }
+    top: 0;
+    transition: opacity 0.5s; }
     .board .viz-layer .target-pacman {
       fill: #FFFF00; }
     .board .viz-layer .target-blinky {
@@ -189,28 +190,33 @@ body {
   padding: 0;
   transition: transform 1s, opacity 0.5s;
   z-index: 200;
-  opacity: 0.3; }
+  opacity: 0.4; }
   .game .settings .settings-title {
     letter-spacing: 0.04em;
     width: 80px;
     margin: 20px auto;
     text-align: center;
-    color: #B4C8CE;
+    color: #4E5759;
     font-size: 22px;
     font-weight: 300;
     padding-bottom: 10px;
-    border-bottom: 1px solid #B4C8CE; }
+    border-bottom: 1px solid #4E5759; }
   .game .settings .button {
     cursor: pointer;
     letter-spacing: 0.04em;
-    width: 100px;
-    margin: 30px auto;
-    text-align: center;
-    color: #B4C8CE;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 300;
-    text-transform: uppercase; }
+    text-align: center;
+    width: 100px;
+    padding: 10px;
+    margin: 30px auto;
+    color: #4E5759;
+    text-transform: uppercase;
+    border: 1px solid #4E5759; }
     .game .settings .button.enabled {
+      color: #B4C8CE;
+      border: 1px solid #B4C8CE; }
+    .game .settings .button:hover {
       border: 1px solid #B4C8CE; }
   .game .settings:hover {
     opacity: 0.95; }

@@ -29,14 +29,26 @@
 ;; In-Game Settings
 ;;----------------------------------------------------------------------
 
+(defcomponent settings-button
+  [data owner {:keys [caption] :as opts}]
+  (render [_this]
+    (let [enabled (:enabled data)]
+      (html
+        [:div
+         {:class (cond-> "button" enabled (str " enabled"))
+          :on-click #(om/transact! data :enabled not)}
+         caption
+         ])))
+  )
+
 (defcomponent settings
   [data owner]
   (render [_this]
     (html
       [:div.settings
        [:div.settings-title "insight"]
-       [:div.button "Paths"]
-       [:div.button "Targets"]
+       (om/build settings-button (:paths data) {:opts {:caption "Paths"}})
+       (om/build settings-button (:targets data) {:opts {:caption "Targets"}})
        ]
       )
     ))
@@ -142,26 +154,36 @@
                            :view-box 
                            (let [mult (+ cell-size cell-pad)
                                  d (- (/ cell-size mult 2))]
-                             (string/join " " [d d cols rows]))}]
+                             (string/join " " [d d cols rows]))}
+                
+                settings (:settings data)
+
+                game-over? (:end data)
+
+                get-svg-props
+                (fn [type-]
+                  (let [visible? (and (not game-over?)
+                                      (:enabled (get settings type-)))]
+                    (merge svg-props
+                           {:style {:opacity (if visible? 1 0)}})))
+                ]
 
             (list
               ;; draw paths
-              (when-not (:end data)
-                [:svg svg-props
-                 (for [name- (remove #{:fruit} actor-order)]
-                   (when (get-in data [:actors name- :pos])
-                     (actor-path-viz data name- 9)))])
+              [:svg (get-svg-props :paths)
+               (for [name- (remove #{:fruit} actor-order)]
+                 (when (get-in data [:actors name- :pos])
+                   (actor-path-viz data name- 9)))]
 
               ;; draw sprites
               (for [name- actor-order]
                 (actor name- (get-in data [:actors name-])))
 
               ;; draw targets
-              (when-not (:end data)
-                [:svg svg-props
-                 (for [name- (remove #{:fruit} actor-order)]
-                   (when (get-in data [:actors name- :pos])
-                     (actor-target-viz data name-)))])))
+              [:svg (get-svg-props :targets)
+               (for [name- (remove #{:fruit} actor-order)]
+                 (when (get-in data [:actors name- :pos])
+                   (actor-target-viz data name-)))]))
           ]
          [:div.controls]]))))
 

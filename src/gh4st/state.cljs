@@ -16,7 +16,7 @@
    :settings
    {:paths {:enabled false
             :actors #{}}
-    :targets #{:enabled false
+    :targets {:enabled false
                :actors #{}}
     }
 

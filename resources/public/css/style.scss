@@ -128,6 +128,8 @@ $victory-floor:#254D3A;
     left: 0;
     top: 0;
 
+    transition: opacity 0.5s;
+
     .target {
     }
 
@@ -313,6 +315,10 @@ $title-bottom: -10px;
     }
   }
 
+
+  $settings-light: #B4C8CE;
+  $settings-dark: #4E5759;
+
   .settings {
     position: fixed;
     right: 0;
@@ -331,34 +337,44 @@ $title-bottom: -10px;
       width: 80px;
       margin: 20px auto;
       text-align: center;
-      color: #B4C8CE;
+      color: $settings-dark;
       font-size: 22px;
       font-weight: 300;
 
       padding-bottom: 10px;
-      border-bottom: 1px solid #B4C8CE;
+      border-bottom: 1px solid $settings-dark;
+
     }
 
     .button {
       cursor: pointer;
 
       letter-spacing: 0.04em;
-      width: 100px;
-      margin: 30px auto;
-      text-align: center;
-      color: #B4C8CE;
-      font-size: 18px;
+      font-size: 16px;
       font-weight: 300;
+      text-align: center;
+
+      width: 100px;
+      padding: 10px;
+      margin: 30px auto;
+
+      color: $settings-dark;
 
       text-transform: uppercase;
 
       &.enabled {
-        border: 1px solid #B4C8CE;
+        color: $settings-light;
+        border: 1px solid $settings-light;
+      }
+
+      border: 1px solid $settings-dark;
+      &:hover {
+        border: 1px solid $settings-light;
       }
 
     }
 
-    opacity: 0.3;
+    opacity: 0.4;
     &:hover {
       opacity: 0.95;
     }
