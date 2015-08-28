@@ -111,31 +111,30 @@ body {
     margin: 80px;
     letter-spacing: 0.04em;
     font-size: 40px; }
-  .level-select ul {
+  .level-select ol {
     text-align: left;
     width: 400px;
     margin: 0 auto; }
-    .level-select ul li {
-      list-style-type: none;
+    .level-select ol li {
       font-size: 24px;
       font-weight: 300;
       color: #4E5759;
       cursor: pointer; }
-      .level-select ul li:hover {
+      .level-select ol li:hover {
         color: #B4C8CE; }
-      .level-select ul li .ghosts {
+      .level-select ol li .ghosts {
         height: 30px;
         float: right;
         opacity: 0.3; }
-        .level-select ul li .ghosts .spritesheet {
+        .level-select ol li .ghosts .spritesheet {
           margin: -20px -20px;
           float: right;
           transform: scale(0.5); }
-      .level-select ul li:after {
+      .level-select ol li:after {
         clear: both;
         content: '';
         display: block; }
-    .level-select ul li:hover .ghosts {
+    .level-select ol li:hover .ghosts {
       opacity: 1; }
 
 .home {

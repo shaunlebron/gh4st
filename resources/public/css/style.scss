@@ -218,12 +218,11 @@ $level-dark: #4E5759;
     font-size: 40px;
   }
 
-  ul {
+  ol {
     text-align: left;
     width: 400px;
     margin: 0 auto;
     li {
-      list-style-type: none;
       font-size: 24px;
       font-weight: 300;
       color: $level-dark;

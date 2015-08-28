@@ -254,7 +254,7 @@
           ])
        [:div.menu
         [:div.menu-button.main
-         {:on-click start-game!}
+         {:on-click #(start-game!)}
          "START"]
         [:div.menu-button
          {:on-click #(swap! app-state assoc :screen :level-select)}
@@ -287,11 +287,11 @@
       [:div.level-select
        [:div.title
         "Select Level"]
-       [:ul
+       [:ol
         (for [[i level text] (map vector (range) levels texts)]
           [:li
            {:on-click #(start-game! i)}
-           (str (inc i) ". " (:title text))
+           (:title text)
            [:div.ghosts
             (let [actors (set (keys (:actors level)))]
               (for [a [:blinky :pinky :inky :clyde]]
