@@ -122,17 +122,15 @@ $victory-floor:#254D3A;
     }
   }
 
-  .viz-layer-wrapper {
+  .viz-layer {
+    overflow: visible;
     position: absolute;
     left: 0;
     top: 0;
 
-  }
-
-  .viz-layer {
+    transition: opacity 0.5s;
 
     .target {
-      r: 0.1;
     }
 
     .target-pacman {
@@ -155,13 +153,41 @@ $victory-floor:#254D3A;
       fill: $orange;
     }
 
+    .path {
+      fill: none;
+      stroke-width: 0.05;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    $path-alpha: 0.5;
+
+    .path-pacman {
+      stroke: rgba($yellow, $path-alpha);
+    }
+
+    .path-blinky {
+      stroke: rgba($red, $path-alpha);
+    }
+
+    .path-pinky {
+      stroke: rgba($pink, $path-alpha);
+    }
+
+    .path-inky {
+      stroke: rgba($cyan, $path-alpha);
+    }
+
+    .path-clyde {
+      stroke: rgba($orange, $path-alpha);
+    }
+
     .guide-line {
-      stroke: rgba(255,255,255,0.3);
+      stroke: rgba(255,255,255,0.4);
       stroke-width: 0.05;
     }
 
     .hinge {
-      r: 0.075;
       fill: rgba(255,255,255,0.8);
     }
 
@@ -287,6 +313,72 @@ $title-bottom: -10px;
       letter-spacing: 0.03em;
       color: #FAFEDE;
     }
+  }
+
+
+  $settings-light: #B4C8CE;
+  $settings-dark: #4E5759;
+
+  .settings {
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 200px;
+    height: 400px;
+
+    margin-top: 140px;
+    padding: 0;
+
+    transition: transform 1s, opacity 0.5s;
+    z-index: 200;
+
+    .settings-title {
+      letter-spacing: 0.04em;
+      width: 80px;
+      margin: 20px auto;
+      text-align: center;
+      color: $settings-dark;
+      font-size: 22px;
+      font-weight: 300;
+
+      padding-bottom: 10px;
+      border-bottom: 1px solid $settings-dark;
+
+    }
+
+    .button {
+      cursor: pointer;
+
+      letter-spacing: 0.04em;
+      font-size: 16px;
+      font-weight: 300;
+      text-align: center;
+
+      width: 100px;
+      padding: 10px;
+      margin: 30px auto;
+
+      color: $settings-dark;
+
+      text-transform: uppercase;
+
+      &.enabled {
+        color: $settings-light;
+        border: 1px solid $settings-light;
+      }
+
+      border: 1px solid $settings-dark;
+      &:hover {
+        border: 1px solid $settings-light;
+      }
+
+    }
+
+    opacity: 0.4;
+    &:hover {
+      opacity: 0.95;
+    }
+
   }
 
 }

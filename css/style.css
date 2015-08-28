@@ -59,34 +59,48 @@ body {
     outline-color: #FFB851; }
   .board .row .selected-fruit {
     outline-color: #4BEE4B; }
-  .board .viz-layer-wrapper {
+  .board .viz-layer {
+    overflow: visible;
     position: absolute;
     left: 0;
-    top: 0; }
-  .board .viz-layer .target {
-    r: 0.1; }
-  .board .viz-layer .target-pacman {
-    fill: #FFFF00; }
-  .board .viz-layer .target-blinky {
-    fill: #FF0000; }
-  .board .viz-layer .target-pinky {
-    fill: #FFB8FF; }
-  .board .viz-layer .target-inky {
-    fill: #00FFFF; }
-  .board .viz-layer .target-clyde {
-    fill: #FFB851; }
-  .board .viz-layer .guide-line {
-    stroke: rgba(255, 255, 255, 0.3);
-    stroke-width: 0.05; }
-  .board .viz-layer .hinge {
-    r: 0.075;
-    fill: rgba(255, 255, 255, 0.8); }
-  .board .viz-layer .clyde-boundary {
-    fill: none;
-    stroke: rgba(255, 255, 255, 0.3);
-    stroke-width: 0.05; }
-    .board .viz-layer .clyde-boundary.inside {
-      stroke: rgba(255, 255, 255, 0.1); }
+    top: 0;
+    transition: opacity 0.5s; }
+    .board .viz-layer .target-pacman {
+      fill: #FFFF00; }
+    .board .viz-layer .target-blinky {
+      fill: #FF0000; }
+    .board .viz-layer .target-pinky {
+      fill: #FFB8FF; }
+    .board .viz-layer .target-inky {
+      fill: #00FFFF; }
+    .board .viz-layer .target-clyde {
+      fill: #FFB851; }
+    .board .viz-layer .path {
+      fill: none;
+      stroke-width: 0.05;
+      stroke-linecap: round;
+      stroke-linejoin: round; }
+    .board .viz-layer .path-pacman {
+      stroke: rgba(255, 255, 0, 0.5); }
+    .board .viz-layer .path-blinky {
+      stroke: rgba(255, 0, 0, 0.5); }
+    .board .viz-layer .path-pinky {
+      stroke: rgba(255, 184, 255, 0.5); }
+    .board .viz-layer .path-inky {
+      stroke: rgba(0, 255, 255, 0.5); }
+    .board .viz-layer .path-clyde {
+      stroke: rgba(255, 184, 81, 0.5); }
+    .board .viz-layer .guide-line {
+      stroke: rgba(255, 255, 255, 0.4);
+      stroke-width: 0.05; }
+    .board .viz-layer .hinge {
+      fill: rgba(255, 255, 255, 0.8); }
+    .board .viz-layer .clyde-boundary {
+      fill: none;
+      stroke: rgba(255, 255, 255, 0.3);
+      stroke-width: 0.05; }
+      .board .viz-layer .clyde-boundary.inside {
+        stroke: rgba(255, 255, 255, 0.1); }
 
 .home {
   width: 1000px;
@@ -166,6 +180,46 @@ body {
   .game .desc .focus {
     letter-spacing: 0.03em;
     color: #FAFEDE; }
+.game .settings {
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 200px;
+  height: 400px;
+  margin-top: 140px;
+  padding: 0;
+  transition: transform 1s, opacity 0.5s;
+  z-index: 200;
+  opacity: 0.4; }
+  .game .settings .settings-title {
+    letter-spacing: 0.04em;
+    width: 80px;
+    margin: 20px auto;
+    text-align: center;
+    color: #4E5759;
+    font-size: 22px;
+    font-weight: 300;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #4E5759; }
+  .game .settings .button {
+    cursor: pointer;
+    letter-spacing: 0.04em;
+    font-size: 16px;
+    font-weight: 300;
+    text-align: center;
+    width: 100px;
+    padding: 10px;
+    margin: 30px auto;
+    color: #4E5759;
+    text-transform: uppercase;
+    border: 1px solid #4E5759; }
+    .game .settings .button.enabled {
+      color: #B4C8CE;
+      border: 1px solid #B4C8CE; }
+    .game .settings .button:hover {
+      border: 1px solid #B4C8CE; }
+  .game .settings:hover {
+    opacity: 0.95; }
 
 a:link, a:hover, a:visited, a:active {
   color: #EEE;
