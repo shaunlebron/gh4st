@@ -281,20 +281,19 @@ $title-bump: 5px;
 
 }
 
-.home.fadein .board {
-  opacity: 1;
-}
-
 .home {
   width: 1000px;
   margin: 100px auto;
   text-align: center;
   color: #aaa;
 
-  .board {
-    opacity: 0;
-    transition: opacity 1s;
+  opacity: 0;
+  transition: opacity 0.5s;
+  &.fadein {
+    opacity: 1;
+  }
 
+  .board {
     transform: scale(0.8);
   }
 

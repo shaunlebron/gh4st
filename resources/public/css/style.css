@@ -160,17 +160,16 @@ body {
   .splash.fadein {
     opacity: 1; }
 
-.home.fadein .board {
-  opacity: 1; }
-
 .home {
   width: 1000px;
   margin: 100px auto;
   text-align: center;
-  color: #aaa; }
+  color: #aaa;
+  opacity: 0;
+  transition: opacity 0.5s; }
+  .home.fadein {
+    opacity: 1; }
   .home .board {
-    opacity: 0;
-    transition: opacity 1s;
     transform: scale(0.8); }
   .home a:link, .home a:hover, .home a:visited, .home a:active {
     color: #555;

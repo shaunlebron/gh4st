@@ -256,14 +256,14 @@
 
     ;; change viz settings periodically
     (go-loop []
-      (let [[v c] (alts! [(timeout 2000) stop-welcome-anim])]
+2     (let [[v c] (alts! [(timeout 2000) stop-welcome-anim])]
         (when-not (= c stop-welcome-anim)
           (swap! app-state update-in [:settings :targets :enabled] not)
           (recur))))
 
     ;; fade in
     (go
-      (<! (timeout 500))
+      (<! (timeout 1000))
       (swap! app-state assoc :home-fadein true)))
 
   (will-unmount [_this]
@@ -310,6 +310,8 @@
   (will-mount
     [_this]
 
+    (.play (js/document.getElementById "intro-song"))
+
     ;; bump animation
     (set! stop-splash-bump (chan))
     (go-loop []
@@ -324,7 +326,7 @@
     ;; fade out
     (go
       (swap! app-state assoc :splash-fadein true)
-      (<! (timeout 3000))
+      (<! (timeout 4000))
       (swap! app-state dissoc :splash-fadein)
       (<! (timeout 1000))
       (swap! app-state assoc :screen :home))
