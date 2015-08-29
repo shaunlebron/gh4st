@@ -286,7 +286,7 @@
        [:p.author
         "by " [:a {:href "http://twitter.com/shaunlebron"} "@shaunlebron"]
         " on " [:a {:href "https://github.com/shaunlebron/gh4st"} "github"]]
-       [:div.details "Based on the ghost AI of the original Pac-Man."
+       [:div.details "Based on the ghost A.I. of the original Pac-Man."
           [:div {:class (str "mini-pacman spritesheet "
                              (sprite-class "pacman" [-1 0]) "-anim")}]
         ]
