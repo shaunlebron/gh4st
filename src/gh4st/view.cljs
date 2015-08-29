@@ -244,12 +244,13 @@
     ;; move actors
     (go-loop []
       (let [wait (rand-nth [1000 500 200])
-            [v c] (alts! [(timeout 1000) stop-welcome-anim])]
+            [v c] (alts! [(timeout wait) stop-welcome-anim])]
         (when-not (= c stop-welcome-anim)
           (if (:end @app-state)
             (do
               (<! (timeout 3000))
-              (load-custom-level! freeplay))
+              (when (= :home (:screen @app-state))
+                (load-custom-level! freeplay)))
             (advance! (rand-nth [:blinky :pinky :inky :clyde])))
           (recur))))
 

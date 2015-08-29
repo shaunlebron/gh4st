@@ -131,6 +131,8 @@
   ([] (start-game! 0))
   ([i]
    (swap! app-state assoc :screen :game)
+   (swap! app-state assoc-in [:settings :paths :enabled] false)
+   (swap! app-state assoc-in [:settings :targets :enabled] false)
    (load-level! i)))
 
 (def key-functions
