@@ -139,7 +139,8 @@
         [:div.game
          (om/build settings (:settings data))
          [:div.title {:style {:width width}}
-          (-> data :level-text :title)]
+          (str (inc (:level data)) ". " (-> data :level-text :title))
+          ]
          [:div.desc {:style {:width width}}
           (let [end (:end data)]
             (cond
