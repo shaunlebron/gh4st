@@ -7,9 +7,10 @@
     [gh4st.state :refer [app-state]]
     [gh4st.ai :refer [tick-actor]]
     [gh4st.board :refer [ghost-positions]]
-    [gh4st.levels :refer [levels]]
+    [gh4st.levels :refer [levels freeplay]]
     [gh4st.texts :refer [texts]]
     [gh4st.history :as history]
+    [gh4st.img :refer [fruits]]
     ))
 
 (defonce max-level
@@ -97,15 +98,20 @@
       (<! (timeout 100))
       (no-trans! false))))
 
+(defn load-custom-level!
+  [data]
+  (history/forget-all!)
+  (prevent-actor-transitions!)
+  (swap! app-state assoc :level (rand-int (count fruits)))
+  (swap! app-state assoc :end nil)
+  (swap! app-state merge data))
+
 (defn load-level!
   [n]
   (let [data (get levels n)]
-    (history/forget-all!)
-    (prevent-actor-transitions!)
+    (load-custom-level! data)
     (swap! app-state assoc :level n)
     (swap! max-level max n)
-    (swap! app-state assoc :end nil)
-    (swap! app-state merge data)
     (swap! app-state assoc :level-text (get texts n))))
 
 (defn restart-level! []

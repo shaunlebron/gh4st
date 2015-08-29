@@ -249,35 +249,20 @@ $level-dark: #4E5759;
   }
 }
 
-$title-bump: 3px;
-$title-margin: 120px;
-$title-bottom: -10px;
+$title-bump: 5px;
 
-.home {
-  width: 1000px;
-  margin: 0 auto;
+.splash {
+  margin-top: 240px;
   text-align: center;
-  color: #aaa;
-
   h1 {
-    text-align: left;
-    width: 428px;
+    text-align: center;
     letter-spacing: 0.05em;
-    margin: $title-margin auto $title-bottom;
-    font-size: 120px;
+    font-size: 90px;
     color: #F00;
 
-    .letter {
-      float:left;
-      width: 180px;
-      margin: 0;
-      padding:0;
-    }
-
     .ghost {
+      display: inline-block;
       transform: scale(1.2);
-      float:left;
-      margin-top: 50px;
     }
     text-shadow: 0 $title-bump 0 #111;
     @include clear-fix('after');
@@ -286,6 +271,31 @@ $title-bottom: -10px;
 
   .bump {
     transform: translate(0, -$title-bump);
+  }
+
+  opacity: 0;
+  transition: opacity 0.5s;
+  &.fadein {
+    opacity: 1;
+  }
+
+}
+
+.home.fadein .board {
+  opacity: 1;
+}
+
+.home {
+  width: 1000px;
+  margin: 100px auto;
+  text-align: center;
+  color: #aaa;
+
+  .board {
+    opacity: 0;
+    transition: opacity 1s;
+
+    transform: scale(0.8);
   }
 
   a {

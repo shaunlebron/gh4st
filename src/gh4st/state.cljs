@@ -3,9 +3,9 @@
     [gh4st.board :refer [empty-board]]))
 
 (def empty-state
-  {:screen :home ;; :home or :game
+  {:screen :splash
 
-   :home-actor :blinky
+   :splash-actor :blinky
 
    :level-text nil
 

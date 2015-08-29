@@ -12,7 +12,10 @@
     [gh4st.state :refer [app-state]]
     [gh4st.editor :as editor :refer [select-cell!]]
     [gh4st.img :refer [actor-order sprite-class]]
-    [gh4st.game :as game :refer [start-game!]]
+    [gh4st.game :as game :refer [start-game!
+                                 load-custom-level!
+                                 advance!
+                                 ]]
     [gh4st.board :refer [decode-tile
                          board-size
                          ]]
@@ -24,7 +27,7 @@
                          ]]
     [gh4st.viz :refer [actor-target-viz
                        actor-path-viz]]
-    [gh4st.levels :refer [levels]]
+    [gh4st.levels :refer [levels freeplay]]
     ))
 
 (defn enable-keys [keyfuncs]
@@ -118,6 +121,73 @@
 (def escape-keys
   {"escape" #(swap! app-state assoc :screen :home)})
 
+(defn game-board
+  [state]
+  (let [[cols rows] (board-size (:board state))
+        scale (+ cell-size cell-pad)
+        width (* cols scale)
+        height (* rows scale)]
+    [:div {:class (cond-> "board"
+                    (:no-transitions? state) (str " no-transitions"))
+           :style {:width width
+                   :height height}}
+     (for [[y row] (map-indexed vector (:board state))]
+       [:div.row
+        (for [[x value] (map-indexed vector row)]
+          (cell state value [x y]))])
+
+     ;; draw sprites
+     (let [;; SVG ViewBox:
+           ;;    Transforms [col,row] coords to the center pixels
+           ;;    of the respective cells.
+           ;;
+           ;; .---------------
+           ;; |dxd  ^     |  |
+           ;; |     |     |  |
+           ;; |<----O     |  |  A 1x1 Box
+           ;; |           |  |
+           ;; | (cell)    |  |  O = desired origin
+           ;; |-----------/  |  dxd = desired offset size
+           ;; | (pad)        |
+           ;; |--------------/ 
+           svg-props {:class "viz-layer"
+                      :width width
+                      :height height
+                      :view-box 
+                      (let [mult (+ cell-size cell-pad)
+                            d (- (/ cell-size mult 2))]
+                        (string/join " " [d d cols rows]))}
+
+           settings (:settings state)
+
+           game-over? (:end state)
+
+           get-svg-props
+           (fn [type-]
+             (let [visible? (and (not game-over?)
+                                 (:enabled (get settings type-)))]
+               (merge svg-props
+                      {:style {:opacity (if visible? 1 0)}})))
+           ]
+
+       (list
+         ;; draw paths
+         [:svg (get-svg-props :paths)
+          (for [name- (remove #{:fruit} actor-order)]
+            (when (get-in state [:actors name- :pos])
+              (actor-path-viz state name- 9)))]
+
+         ;; draw sprites
+         (for [name- actor-order]
+           (actor name- (get-in state [:actors name-])))
+
+         ;; draw targets
+         [:svg (get-svg-props :targets)
+          (for [name- (remove #{:fruit} actor-order)]
+            (when (get-in state [:actors name- :pos])
+              (actor-target-viz state name-)))]))
+     ]))
+
 (defcomponent game
   [data owner]
   (will-mount [_this]
@@ -148,111 +218,62 @@
               (= end :defeat) defeat-text
               (= end :defeat-allowed) allow-defeat-text
               :else (-> @data :level-text :desc)))]
-
-         [:div {:class (cond-> "board"
-                         (:no-transitions? data) (str " no-transitions"))
-                :style {:width width
-                        :height height}}
-          (for [[y row] (map-indexed vector (:board data))]
-            [:div.row
-             (for [[x value] (map-indexed vector row)]
-               (cell data value [x y]))])
-
-          ;; draw sprites
-          (let [;; SVG ViewBox:
-                ;;    Transforms [col,row] coords to the center pixels
-                ;;    of the respective cells.
-                ;;
-                ;; .---------------
-                ;; |dxd  ^     |  |
-                ;; |     |     |  |
-                ;; |<----O     |  |  A 1x1 Box
-                ;; |           |  |
-                ;; | (cell)    |  |  O = desired origin
-                ;; |-----------/  |  dxd = desired offset size
-                ;; | (pad)        |
-                ;; |--------------/ 
-                svg-props {:class "viz-layer"
-                           :width width
-                           :height height
-                           :view-box 
-                           (let [mult (+ cell-size cell-pad)
-                                 d (- (/ cell-size mult 2))]
-                             (string/join " " [d d cols rows]))}
-                
-                settings (:settings data)
-
-                game-over? (:end data)
-
-                get-svg-props
-                (fn [type-]
-                  (let [visible? (and (not game-over?)
-                                      (:enabled (get settings type-)))]
-                    (merge svg-props
-                           {:style {:opacity (if visible? 1 0)}})))
-                ]
-
-            (list
-              ;; draw paths
-              [:svg (get-svg-props :paths)
-               (for [name- (remove #{:fruit} actor-order)]
-                 (when (get-in data [:actors name- :pos])
-                   (actor-path-viz data name- 9)))]
-
-              ;; draw sprites
-              (for [name- actor-order]
-                (actor name- (get-in data [:actors name-])))
-
-              ;; draw targets
-              [:svg (get-svg-props :targets)
-               (for [name- (remove #{:fruit} actor-order)]
-                 (when (get-in data [:actors name- :pos])
-                   (actor-target-viz data name-)))]))
-          ]
+         (game-board data)
+         
          [:div.controls]]))))
 
 ;;----------------------------------------------------------------------
 ;; Welcome screen
 ;;----------------------------------------------------------------------
 
-(def stop-welcome-anim nil)
-
-(def next-home-actor
-  {:blinky :pinky
-   :pinky :inky
-   :inky :clyde
-   :clyde :blinky})
-
 (def welcome-keys
   {"enter" #(start-game!)}
   )
 
+(def stop-welcome-anim nil)
+
 (defcomponent welcome
   [data owner]
   (will-mount [_this]
+    (swap! app-state assoc-in [:settings :paths :enabled] true)
+
+    (load-custom-level! freeplay)
+
     (set! stop-welcome-anim (chan))
+
+    ;; move actors
     (go-loop []
-      (let [[v c] (alts! [(timeout 400) stop-welcome-anim])]
+      (let [wait (rand-nth [1000 500 200])
+            [v c] (alts! [(timeout 1000) stop-welcome-anim])]
         (when-not (= c stop-welcome-anim)
-          (swap! app-state update-in [:home-actor] next-home-actor)
-          (swap! app-state assoc :home-bump true)
-          (<! (timeout 20))
-          (swap! app-state assoc :home-bump false)
+          (if (:end @app-state)
+            (do
+              (<! (timeout 3000))
+              (load-custom-level! freeplay))
+            (advance! (rand-nth [:blinky :pinky :inky :clyde])))
           (recur))))
-    )
+
+    ;; change viz settings periodically
+    (go-loop []
+      (let [[v c] (alts! [(timeout 2000) stop-welcome-anim])]
+        (when-not (= c stop-welcome-anim)
+          (swap! app-state update-in [:settings :targets :enabled] not)
+          (recur))))
+
+    ;; fade in
+    (go
+      (<! (timeout 500))
+      (swap! app-state assoc :home-fadein true)))
+
   (will-unmount [_this]
     (close! stop-welcome-anim))
+
   (render [_this]
     (html
-      [:div.home
-       (let [name- (:home-actor data)]
-         [:h1 {:class (cond-> (str (name name-))
-                        (:home-bump data) (str " bump"))}
-          [:div.letter "GH"]
-          [:div {:class (str "ghost spritesheet "
-                             (sprite-class name- [0 1]) "-anim")}]
-          [:div.letter "ST"]
-          ])
+      [:div
+       {:class (cond-> "home"
+                 (:home-fadein data) (str " fadein"))}
+       (game-board data)
        [:div.menu
         [:div.menu-button.main
          {:on-click #(start-game!)}
@@ -270,6 +291,63 @@
         ]
        ]
       )))
+
+;;----------------------------------------------------------------------
+;; Splash Screen
+;;----------------------------------------------------------------------
+
+(def next-splash-actor
+  {:blinky :pinky
+   :pinky :inky
+   :inky :clyde
+   :clyde :blinky})
+
+(def stop-splash-bump nil)
+
+(defcomponent splash
+  [data owner]
+  (will-mount
+    [_this]
+
+    ;; bump animation
+    (set! stop-splash-bump (chan))
+    (go-loop []
+      (let [[v c] (alts! [(timeout 400) stop-splash-bump])]
+        (when-not (= c stop-splash-bump)
+          (swap! app-state update-in [:splash-actor] next-splash-actor)
+          (swap! app-state assoc :splash-bump true)
+          (<! (timeout 20))
+          (swap! app-state assoc :splash-bump false)
+          (recur))))
+
+    ;; fade out
+    (go
+      (swap! app-state assoc :splash-fadein true)
+      (<! (timeout 3000))
+      (swap! app-state dissoc :splash-fadein)
+      (<! (timeout 1000))
+      (swap! app-state assoc :screen :home))
+
+    )
+  (will-unmount
+    [_this]
+    (close! stop-splash-bump))
+  (render
+    [_this]
+    (html
+      [:div
+       {:class (cond-> "splash"
+                 (:splash-fadein data) (str " fadein"))}
+       (let [name- (:splash-actor data)]
+         [:h1 {:class (cond-> (str (name name-))
+                        (:splash-bump data) (str " bump"))}
+          "GH"
+          [:div {:class (str "ghost spritesheet "
+                             (sprite-class name- [0 1]) "-anim")}]
+          "ST"
+          ])])   
+    )
+  )
 
 ;;----------------------------------------------------------------------
 ;; Level Select

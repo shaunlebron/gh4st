@@ -4,7 +4,7 @@
     [om-tools.core :refer-macros [defcomponent]]
     [om.core :as om]
     [gh4st.state :refer [app-state]]
-    [gh4st.view :refer [welcome game level-select]]
+    [gh4st.view :refer [welcome game level-select splash]]
     ))
 
 (enable-console-print!)
@@ -14,6 +14,7 @@
   (render [_this]
     (html
       (case (:screen data)
+        :splash (om/build splash data)
         :home (om/build welcome data)
         :game (om/build game data)
         :level-select (om/build level-select data)
