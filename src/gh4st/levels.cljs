@@ -181,6 +181,25 @@
     [:_ :_ :_ :_ :_ :_ :O :_ :O :_ :_ :_ :O :_ :_ :_ :_ :_ :_ :_ :_]
     [:_ :_ :_ :_ :_ :_ :O :O :O :_ :_ :_ :O :_ :_ :_ :_ :_ :_ :_ :_]]})
 
+(def level12
+  {:allow-defeat false
+   :actors
+   {:pacman {:pos [17 2], :dir [0 1], :prev-pos nil, :anim? false},
+    :clyde {:pos [15 5], :dir [0 1], :prev-pos nil, :anim? false},
+    :fruit {:pos [5 2], :prev-pos nil},
+    :pinky {:prev-pos nil, :dir [0 1], :pos [10 2], :anim? false}},
+   :board
+   [[:_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_]
+    [:_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :O :O :O :O :O :O :O :O :_ :_ :_]
+    [:_ :_ :_ :_ :_ :O :O :O :_ :_ :O :_ :_ :_ :_ :O :_ :O :_ :_ :_]
+    [:_ :_ :_ :_ :_ :O :_ :O :O :O :O :_ :_ :_ :_ :O :_ :O :_ :_ :_]
+    [:_ :_ :_ :_ :_ :O :_ :O :_ :_ :O :_ :_ :_ :_ :O :O :O :_ :_ :_]
+    [:_ :_ :_ :_ :_ :O :O :O :O :_ :O :O :O :O :_ :O :_ :_ :_ :_ :_]
+    [:_ :_ :_ :_ :_ :_ :_ :_ :O :_ :O :_ :_ :O :_ :O :_ :_ :_ :_ :_]
+    [:_ :_ :_ :_ :_ :_ :_ :_ :O :O :O :O :O :O :O :O :_ :_ :_ :_ :_]
+    [:_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_]]
+   })
+
 (def freeplay
   {:allow-defeat false
    :actors
@@ -212,6 +231,7 @@
    level9
    level10
    level11
+   level12
 
    freeplay
    

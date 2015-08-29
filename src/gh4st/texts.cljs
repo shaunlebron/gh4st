@@ -126,6 +126,14 @@
    }
   )
 
+(def text12
+  {:title "Pinky and Clyde"
+   :desc [:p
+          "Press " [:kbd.pinky "2"] " to move Pinky. " [:kbd.clyde "3"] " for Clyde."
+          ]
+   }
+  )
+
 (def text-end
   {:title "That's all for now"
    :desc [:p
@@ -148,6 +156,7 @@
    text9
    text10
    text11
+   text12
 
    text-end
 
