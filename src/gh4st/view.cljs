@@ -256,7 +256,7 @@
 
     ;; change viz settings periodically
     (go-loop []
-2     (let [[v c] (alts! [(timeout 2000) stop-welcome-anim])]
+      (let [[v c] (alts! [(timeout 2000) stop-welcome-anim])]
         (when-not (= c stop-welcome-anim)
           (swap! app-state update-in [:settings :targets :enabled] not)
           (recur))))
@@ -281,8 +281,7 @@
          "START"]
         [:div.menu-button
          {:on-click #(swap! app-state assoc :screen :level-select)}
-         "Select Level"]
-        [:div.menu-button "Editor"]]
+         "Select Level"]]
        [:p.author
         "by " [:a {:href "http://twitter.com/shaunlebron"} "@shaunlebron"]
         " on " [:a {:href "https://github.com/shaunlebron/gh4st"} "github"]]
@@ -380,14 +379,5 @@
                 (when (actors a)
                   [:div
                    {:class (str "spritesheet sprite-" (name a) "-left")}
-                   ])
-                ))
-            ]
-           
-           ]
-          )]
-
-       ])
-    )
-  )
+                   ])))]])]])))
 
