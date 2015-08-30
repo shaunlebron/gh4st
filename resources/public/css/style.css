@@ -228,6 +228,12 @@ body {
   opacity: 0.4;
   font-size: 42px;
   font-weight: 300; }
+.game .teach-title {
+  margin: 80px auto 40px;
+  text-align: center;
+  color: #FAFEDE;
+  font-size: 42px;
+  font-weight: 300; }
 .game .desc {
   height: 148px;
   line-height: 1.5em;

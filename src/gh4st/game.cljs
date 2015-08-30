@@ -140,11 +140,17 @@
   (let [shuffled (shuffle-level-actors (get levels (:level @app-state)))]
     (swap! app-state assoc :actors (:actors shuffled))))
 
+(defn teach-toggle! []
+  (swap! app-state update-in [:teach-mode] not))
+
+(defn teach-key! [n]
+  (swap! app-state assoc :teach-key n))
+
 (def key-functions
-  {"1" #(advance! :blinky)
-   "2" #(advance! :pinky)
-   "4" #(advance! :inky)
-   "3" #(advance! :clyde)
+  {"1" #(do (advance! :blinky) (teach-key! 1))
+   "2" #(do (advance! :pinky)  (teach-key! 2))
+   "4" #(do (advance! :inky)  (teach-key! 4))
+   "3" #(do (advance! :clyde)  (teach-key! 3))
 
    "z" try-undo!
    "y" try-redo!
@@ -153,5 +159,6 @@
    "shift+left" try-prev-level!
 
    "shift+s" shuffle-level-actors!
+   "ctrl+0" teach-toggle!
    "r" restart-level!})
 

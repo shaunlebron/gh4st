@@ -130,7 +130,9 @@
     [:div {:class (cond-> "board"
                     (:no-transitions? state) (str " no-transitions"))
            :style {:width width
-                   :height height}}
+                   :height height
+                   :transform (if (:teach-mode state) "scale(0.8)")
+                   }}
      (for [[y row] (map-indexed vector (:board state))]
        [:div.row
         (for [[x value] (map-indexed vector row)]
@@ -216,18 +218,25 @@
         [:div.game
          (when-not conclusion?
            (om/build settings (:settings data)))
-         [:div.title {:style {:width width}}
-          (when-not conclusion?
-            (str (inc (:level data)) ". "))
-          (-> data :level-text :title)
-          ]
-         [:div.desc {:style {:width width}}
-          (let [end (:end data)]
-            (cond
-              (= end :victory) victory-text
-              (= end :defeat) defeat-text
-              (= end :defeat-allowed) allow-defeat-text
-              :else (-> @data :level-text :desc)))]
+
+         (if (:teach-mode data)
+           [:div.teach-title
+            "Press "
+            [:kbd {:class ([nil "blinky" "pinky" "clyde" "inky"] (:teach-key data))}
+             (:teach-key data)]]
+           (list
+             [:div.title {:style {:width width}}
+              (when-not conclusion?
+                (str (inc (:level data)) ". "))
+              (-> data :level-text :title)]
+             [:div.desc {:style {:width width}}
+              (let [end (:end data)]
+                (cond
+                  (= end :victory) victory-text
+                  (= end :defeat) defeat-text
+                  (= end :defeat-allowed) allow-defeat-text
+                  :else (-> @data :level-text :desc)))]))
+
          (game-board data)
          (when conclusion?
            [:div.conclusion

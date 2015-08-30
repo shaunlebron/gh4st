@@ -291,6 +291,23 @@
             (next actors)))
         level))))
 
+(def level-teach
+  {:actors
+   {:pacman {:pos [10 3], :dir [1 0], :prev-pos nil},
+    :blinky {:pos [15 2], :dir [0 1], :prev-pos nil},
+    :pinky {:pos [9 1], :dir [-1 0], :prev-pos nil},
+    :inky {:pos [5 4], :dir [0 -1], :prev-pos nil},
+    :clyde {:pos [12 6], :dir [1 0], :prev-pos nil},
+    :fruit {:pos [18 3], :prev-pos nil}},
+   :board
+   [[:_ :O :O :O :O :O :O :O :O :_ :_ :_ :O :O :O :O :O :O :O :_ :_]
+    [:_ :O :_ :O :_ :O :_ :_ :O :O :O :O :O :_ :_ :O :_ :_ :O :_ :_]
+    [:_ :O :O :O :_ :O :_ :_ :O :_ :_ :_ :O :_ :_ :O :O :O :O :O :_]
+    [:_ :_ :O :_ :_ :O :_ :_ :O :_ :_ :_ :O :O :O :O :_ :O :_ :O :_]
+    [:_ :_ :O :O :O :O :O :O :O :_ :_ :_ :O :_ :_ :O :_ :O :O :O :_]
+    [:_ :_ :_ :O :_ :_ :O :_ :O :O :O :O :O :_ :_ :O :_ :_ :O :_ :_]
+    [:_ :_ :_ :O :O :O :O :O :O :_ :_ :_ :O :O :O :O :O :O :O :_ :_]]})
+
 (def levels
   [level0
    level1
