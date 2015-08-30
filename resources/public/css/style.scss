@@ -310,8 +310,15 @@ $title-bump: 5px;
     margin-bottom: 4px;
   }
 
+  .music {
+    color: #444;
+    margin:0;
+    margin-bottom: 4px;
+  }
+
   .details {
     color: #444;
+    margin-top: 30px;
     margin-bottom: 80px;
     position: relative;
   }
@@ -352,7 +359,7 @@ $title-bump: 5px;
     color: $menu-dark;
 
     &.main {
-      margin: 30px auto;
+      margin: 20px auto;
       font-size: 40px;
       font-weight: 700;
     }
@@ -390,6 +397,9 @@ $title-bump: 5px;
     .focus {
       letter-spacing: 0.03em;
       color: #FAFEDE;
+    }
+    .links {
+      margin-top: 20px;
     }
   }
 
@@ -481,7 +491,7 @@ $title-bump: 5px;
 
 a {
   &:link,&:hover, &:visited, &:active {
-    color: #EEE;
+    color: #AAA;
     text-decoration: none;
   }
 }

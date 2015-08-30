@@ -160,11 +160,16 @@
 
 (def text-end
   {:title "Well Done!"
-   :desc [:p
+   :desc [:div
+          [:p
           "Now that you've lived as these meticulous monsters," [:br]
           "you should have no problem outsmarting them in their original games." [:br]
-          "Thanks for playing, and Happy Ludum Dare 33!" [:br]
-          [:a {:href "http://twitter.com/shaunlebron"} "@shaunlebron"]]
+          "Thanks for playing this 'post-compo' concept and Happy Ludum Dare 33!" [:br]]
+          [:div.links
+          [:a {:href "http://twitter.com/shaunlebron"} "@shaunlebron"]
+          " | " [:a {:href "https://github.com/shaunlebron/gh4st"} "github"]
+          " | " [:a {:href "http://ludumdare.com/compo/ludum-dare-33/?action=preview&uid=31638"} "Ludum Entry"]
+          ]]
    }
   )
 

@@ -178,8 +178,13 @@ body {
     color: #444;
     margin: 0;
     margin-bottom: 4px; }
+  .home .music {
+    color: #444;
+    margin: 0;
+    margin-bottom: 4px; }
   .home .details {
     color: #444;
+    margin-top: 30px;
     margin-bottom: 80px;
     position: relative; }
   .home .mini-pacman {
@@ -207,7 +212,7 @@ body {
     color: #4E5759;
     border: 1px solid #222; }
     .home .menu-button.main {
-      margin: 30px auto;
+      margin: 20px auto;
       font-size: 40px;
       font-weight: 700; }
     .home .menu-button:hover {
@@ -233,6 +238,8 @@ body {
   .game .desc .focus {
     letter-spacing: 0.03em;
     color: #FAFEDE; }
+  .game .desc .links {
+    margin-top: 20px; }
 .game .settings {
   position: fixed;
   right: 0;
@@ -291,7 +298,7 @@ body {
     display: block; }
 
 a:link, a:hover, a:visited, a:active {
-  color: #EEE;
+  color: #AAA;
   text-decoration: none; }
 
 .pacman {

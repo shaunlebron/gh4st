@@ -202,7 +202,8 @@
     )
   (did-update [_this _prev-props _prev-state]
     (when-let [conclusion? (= (:level data) (dec (count levels)))]
-      (.play (js/document.getElementById "outro-song")))
+      (.play (js/document.getElementById "outro-song"))
+      (.pause (js/document.getElementById "intro-song")))
     )
 
   (render [_this]
@@ -301,10 +302,15 @@
          "Select Level"]]
        [:p.author
         "by " [:a {:href "http://twitter.com/shaunlebron"} "@shaunlebron"]
-        " on " [:a {:href "https://github.com/shaunlebron/gh4st"} "github"]]
-       [:div.details "Based on the ghost A.I. of the original Pac-Man."
-          [:div {:class (str "mini-pacman spritesheet "
-                             (sprite-class "pacman" [-1 0]) "-anim")}]
+        " | " [:a {:href "https://github.com/shaunlebron/gh4st"} "github"]
+        " | " [:a {:href "http://ludumdare.com/compo/ludum-dare-33/?action=preview&uid=31638"} "Ludum Dare 33"]]
+       [:p.music
+        "music by " [:a {:href "https://myspace.com/insted/music/songs"} "The Philippians"]]
+       [:div.details
+        [:a {:href "http://home.comcast.net/~jpittman2/pacman/pacmandossier.html"}
+         "Based on the ghost A.I. of the original Pac-Man."]
+        [:div {:class (str "mini-pacman spritesheet "
+                           (sprite-class "pacman" [-1 0]) "-anim")}]
         ]
        ]
       )))
