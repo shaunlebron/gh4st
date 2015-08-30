@@ -229,6 +229,7 @@ body {
   font-size: 42px;
   font-weight: 300; }
 .game .desc {
+  height: 148px;
   line-height: 1.5em;
   font-weight: 300;
   font-size: 28px;

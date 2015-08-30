@@ -229,12 +229,12 @@
 (def level14
   {:allow-defeat false
    :actors
-   {:pacman {:pos [3 2], :dir [1 0], :prev-pos [14 1]},
-    :blinky {:pos [10 2], :dir [1 0], :prev-pos nil},
-    :pinky {:pos [5 0], :dir [0 1], :prev-pos nil},
-    :inky {:pos [11 0], :dir [-1 0], :prev-pos nil},
-    :clyde {:pos [17 4], :dir [-1 0], :prev-pos nil},
-    :fruit {:pos [15 2], :prev-pos nil}},
+   {:pacman {:pos [18 5], :dir [0 1], :prev-pos [14 1]},
+    :blinky {:pos [17 1], :dir [0 -1], :prev-pos nil},
+    :pinky {:pos [12 0], :dir [-1 0], :prev-pos nil},
+    :inky {:pos [1 4], :dir [0 -1], :prev-pos nil},
+    :clyde {:pos [10 4], :dir [1 0], :prev-pos nil},
+    :fruit {:pos [8 2], :prev-pos nil}},
    :board
    [[:_ :_ :_ :_ :_ :O :O :O :O :O :O :O :O :O :O :O :O :O :_ :_ :_]
     [:_ :_ :_ :_ :_ :O :_ :_ :O :_ :_ :_ :_ :O :_ :O :_ :O :_ :_ :_]
