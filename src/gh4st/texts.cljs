@@ -73,7 +73,7 @@
   {:title "Pinky can help"
    :desc [:p
           "Meet " [:span.pinky "Pinky"] ", your second ghost!" [:br]
-          "You can now choice which ghost to move each turn." [:br]
+          "You can now choose which ghost to move each turn." [:br]
           "Press" [:kbd.pinky "2"] " to move Pinky. " [:kbd.blinky "1"] " for Blinky."]
    }
   )
