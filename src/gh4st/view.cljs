@@ -27,7 +27,7 @@
                          ]]
     [gh4st.viz :refer [actor-target-viz
                        actor-path-viz]]
-    [gh4st.levels :refer [levels attract random-attract]]
+    [gh4st.levels :refer [levels attract shuffle-level-actors]]
     ))
 
 (defn enable-keys [keyfuncs]
@@ -268,7 +268,7 @@
             (do
               (<! (timeout 3000))
               (when (= :home (:screen @app-state))
-                (load-custom-level! (random-attract))))
+                (load-custom-level! (shuffle-level-actors attract))))
             (advance! (rand-nth [:blinky :pinky :inky :clyde])))
           (recur))))
 

@@ -267,9 +267,9 @@
     [:O :_ :O :_ :O :_ :O :_ :_ :O :_ :_ :_ :O :_ :O :_ :_ :O :_ :_]
     [:O :O :O :_ :O :O :O :O :O :O :_ :_ :_ :O :O :O :O :O :O :_ :_]]})
 
-(defn random-attract []
-  (let [level attract
-        {:keys [board actors]} level
+(defn shuffle-level-actors
+  [level]
+  (let [{:keys [board actors]} level
         [w h] (board-size board)
         opens (set (for [y (range h) x (range w)
                          :when (= :O (get-in board [y x]))]

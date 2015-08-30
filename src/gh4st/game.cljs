@@ -7,7 +7,7 @@
     [gh4st.state :refer [app-state]]
     [gh4st.ai :refer [tick-actor]]
     [gh4st.board :refer [ghost-positions]]
-    [gh4st.levels :refer [levels attract]]
+    [gh4st.levels :refer [levels attract shuffle-level-actors]]
     [gh4st.texts :refer [texts]]
     [gh4st.history :as history]
     [gh4st.img :refer [fruits]]
@@ -135,6 +135,11 @@
    (swap! app-state assoc-in [:settings :targets :enabled] false)
    (load-level! i)))
 
+(defn shuffle-level-actors! []
+  (restart-level!)
+  (let [shuffled (shuffle-level-actors (get levels (:level @app-state)))]
+    (swap! app-state assoc :actors (:actors shuffled))))
+
 (def key-functions
   {"1" #(advance! :blinky)
    "2" #(advance! :pinky)
@@ -147,5 +152,6 @@
    "shift+right" try-next-level!
    "shift+left" try-prev-level!
 
+   "shift+s" shuffle-level-actors!
    "r" restart-level!})
 
