@@ -676,6 +676,30 @@
   animation-direction: alternate;
 }
 
+.sprite-scared-ghost-default {
+  background-position: left -264px top -330px;
+}
+
+@keyframes sprite-scared-ghost-default-frames {
+
+  from {
+    background-position: left -264px top -330px;
+  }
+  
+  to {
+    background-position: left -396px top -330px;
+  }
+
+}
+
+.sprite-scared-ghost-default-anim {
+  animation-name: sprite-scared-ghost-default-frames;
+  animation-duration: 0.2s;
+  animation-timing-function: steps(2);
+  animation-iteration-count: infinite;
+  animation-direction: normal;
+}
+
 .sprite-cherry {
   background-position: left 0px top 0px;
 }

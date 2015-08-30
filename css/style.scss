@@ -281,20 +281,19 @@ $title-bump: 5px;
 
 }
 
-.home.fadein .board {
-  opacity: 1;
-}
-
 .home {
   width: 1000px;
   margin: 100px auto;
   text-align: center;
   color: #aaa;
 
-  .board {
-    opacity: 0;
-    transition: opacity 1s;
+  opacity: 0;
+  transition: opacity 0.5s;
+  &.fadein {
+    opacity: 1;
+  }
 
+  .board {
     transform: scale(0.8);
   }
 
@@ -311,8 +310,15 @@ $title-bump: 5px;
     margin-bottom: 4px;
   }
 
+  .music {
+    color: #444;
+    margin:0;
+    margin-bottom: 4px;
+  }
+
   .details {
     color: #444;
+    margin-top: 30px;
     margin-bottom: 80px;
     position: relative;
   }
@@ -353,7 +359,7 @@ $title-bump: 5px;
     color: $menu-dark;
 
     &.main {
-      margin: 30px auto;
+      margin: 20px auto;
       font-size: 40px;
       font-weight: 700;
     }
@@ -382,16 +388,18 @@ $title-bump: 5px;
   }
 
   .desc {
-    height: 200px;
     line-height: 1.5em;
     font-weight: 300;
     font-size: 28px;
-    margin: 20px auto;
+    margin: 20px auto 40px;
     color: #5D5E5B;
     text-align: center;
     .focus {
       letter-spacing: 0.03em;
       color: #FAFEDE;
+    }
+    .links {
+      margin-top: 20px;
     }
   }
 
@@ -463,9 +471,27 @@ $title-bump: 5px;
 
 }
 
+.conclusion {
+  width: 400px;
+  margin: 0 auto;
+  .spritesheet {
+    position: static;
+    float: left;
+    margin: -10px;
+  }
+  .pacman {
+    margin-right: 46px;
+  }
+
+  .mspacman {
+    margin-left: 46px;
+  }
+  @include clear-fix('after');
+}
+
 a {
   &:link,&:hover, &:visited, &:active {
-    color: #EEE;
+    color: #AAA;
     text-decoration: none;
   }
 }

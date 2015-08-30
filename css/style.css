@@ -160,17 +160,16 @@ body {
   .splash.fadein {
     opacity: 1; }
 
-.home.fadein .board {
-  opacity: 1; }
-
 .home {
   width: 1000px;
   margin: 100px auto;
   text-align: center;
-  color: #aaa; }
+  color: #aaa;
+  opacity: 0;
+  transition: opacity 0.5s; }
+  .home.fadein {
+    opacity: 1; }
   .home .board {
-    opacity: 0;
-    transition: opacity 1s;
     transform: scale(0.8); }
   .home a:link, .home a:hover, .home a:visited, .home a:active {
     color: #555;
@@ -179,8 +178,13 @@ body {
     color: #444;
     margin: 0;
     margin-bottom: 4px; }
+  .home .music {
+    color: #444;
+    margin: 0;
+    margin-bottom: 4px; }
   .home .details {
     color: #444;
+    margin-top: 30px;
     margin-bottom: 80px;
     position: relative; }
   .home .mini-pacman {
@@ -208,7 +212,7 @@ body {
     color: #4E5759;
     border: 1px solid #222; }
     .home .menu-button.main {
-      margin: 30px auto;
+      margin: 20px auto;
       font-size: 40px;
       font-weight: 700; }
     .home .menu-button:hover {
@@ -225,16 +229,17 @@ body {
   font-size: 42px;
   font-weight: 300; }
 .game .desc {
-  height: 200px;
   line-height: 1.5em;
   font-weight: 300;
   font-size: 28px;
-  margin: 20px auto;
+  margin: 20px auto 40px;
   color: #5D5E5B;
   text-align: center; }
   .game .desc .focus {
     letter-spacing: 0.03em;
     color: #FAFEDE; }
+  .game .desc .links {
+    margin-top: 20px; }
 .game .settings {
   position: fixed;
   right: 0;
@@ -276,8 +281,24 @@ body {
   .game .settings:hover {
     opacity: 0.95; }
 
+.conclusion {
+  width: 400px;
+  margin: 0 auto; }
+  .conclusion .spritesheet {
+    position: static;
+    float: left;
+    margin: -10px; }
+  .conclusion .pacman {
+    margin-right: 46px; }
+  .conclusion .mspacman {
+    margin-left: 46px; }
+  .conclusion:after {
+    clear: both;
+    content: '';
+    display: block; }
+
 a:link, a:hover, a:visited, a:active {
-  color: #EEE;
+  color: #AAA;
   text-decoration: none; }
 
 .pacman {
