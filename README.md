@@ -1,6 +1,10 @@
 # GH4ST
 
+_post compo version of [ld33-gh4st](https://github.com/shaunlebron/ld33-gh4st)_
+
 ![screen](http://i.imgur.com/pNLEb3e.png)
+
+__[PLAY HERE](http://shaunlebron.github.io/gh4st)__
 
 Coordinate the four ghosts, which adhere to the actual AI from the original
 Pac-Man arcade. Your only power to catch Pac-Man is to choose which ghost is
