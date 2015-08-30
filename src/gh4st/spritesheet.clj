@@ -53,6 +53,14 @@
    :direction :normal
    :anims [:up :left :down :right]})
 
+(def scared-ghost-anim
+  {:framelength 2
+   :fps 10
+   :direction :normal
+   :anims [:default]
+   }
+  )
+
 (def sprites
   [{:name :blinky    :pos [0 1] :default-frame 0 :anim ghost-anim}
    {:name :pinky     :pos [0 2] :default-frame 1 :anim ghost-anim}
@@ -61,6 +69,7 @@
    {:name :pacman    :pos [0 6] :default-frame 1 :anim pac-anim}
    {:name :mspacman  :pos [0 7] :default-frame 1 :anim pac-anim}
    {:name :cookieman :pos [0 8] :default-frame 1 :anim pac-anim}
+   {:name :scared-ghost :pos [4 5] :default-frame 0 :anim scared-ghost-anim}
    {:name :cherry     :pos [0 0]}
    {:name :strawberry :pos [1 0]}
    {:name :orange     :pos [2 0]}

@@ -461,6 +461,24 @@ $title-bump: 5px;
 
 }
 
+.conclusion {
+  width: 400px;
+  margin: 0 auto;
+  .spritesheet {
+    position: static;
+    float: left;
+    margin: -10px;
+  }
+  .pacman {
+    margin-right: 46px;
+  }
+
+  .mspacman {
+    margin-left: 46px;
+  }
+  @include clear-fix('after');
+}
+
 a {
   &:link,&:hover, &:visited, &:active {
     color: #EEE;

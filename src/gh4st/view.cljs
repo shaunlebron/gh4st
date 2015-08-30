@@ -200,16 +200,25 @@
     (disable-keys game/key-functions)
     (disable-keys escape-keys)
     )
+  (did-update [_this _prev-props _prev-state]
+    (when-let [conclusion? (= (:level data) (dec (count levels)))]
+      (.play (js/document.getElementById "outro-song")))
+    )
+
   (render [_this]
     (let [[cols rows] (board-size (:board data))
           scale (+ cell-size cell-pad)
           width (* cols scale)
-          height (* rows scale)]
+          height (* rows scale)
+          conclusion? (= (:level data) (dec (count levels)))]
       (html
         [:div.game
-         (om/build settings (:settings data))
+         (when-not conclusion?
+           (om/build settings (:settings data)))
          [:div.title {:style {:width width}}
-          (str (inc (:level data)) ". " (-> data :level-text :title))
+          (when-not conclusion?
+            (str (inc (:level data)) ". "))
+          (-> data :level-text :title)
           ]
          [:div.desc {:style {:width width}}
           (let [end (:end data)]
@@ -219,8 +228,16 @@
               (= end :defeat-allowed) allow-defeat-text
               :else (-> @data :level-text :desc)))]
          (game-board data)
-         
-         [:div.controls]]))))
+         (when conclusion?
+           [:div.conclusion
+            [:div.spritesheet.sprite-pacman-right-anim.pacman]
+            [:div.spritesheet.sprite-scared-ghost-default-anim]
+            [:div.spritesheet.sprite-scared-ghost-default-anim]
+            [:div.spritesheet.sprite-scared-ghost-default-anim]
+            [:div.spritesheet.sprite-scared-ghost-default-anim]
+            [:div.spritesheet.sprite-mspacman-left-anim.mspacman]
+            ])
+         ]))))
 
 ;;----------------------------------------------------------------------
 ;; Welcome screen

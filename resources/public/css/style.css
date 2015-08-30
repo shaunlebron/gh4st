@@ -274,6 +274,22 @@ body {
   .game .settings:hover {
     opacity: 0.95; }
 
+.conclusion {
+  width: 400px;
+  margin: 0 auto; }
+  .conclusion .spritesheet {
+    position: static;
+    float: left;
+    margin: -10px; }
+  .conclusion .pacman {
+    margin-right: 46px; }
+  .conclusion .mspacman {
+    margin-left: 46px; }
+  .conclusion:after {
+    clear: both;
+    content: '';
+    display: block; }
+
 a:link, a:hover, a:visited, a:active {
   color: #EEE;
   text-decoration: none; }

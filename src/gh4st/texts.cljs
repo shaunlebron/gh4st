@@ -129,15 +129,41 @@
 (def text12
   {:title "Pinky and Clyde"
    :desc [:p
+          "You may be noticing some foolproof strategies at this point." [:br]
           "Press " [:kbd.pinky "2"] " to move Pinky. " [:kbd.clyde "3"] " for Clyde."
           ]
    }
   )
 
-(def text-end
-  {:title "That's all for now"
+(def text13
+  {:title "Inky, the wingman"
    :desc [:p
-          "Still a work in progress.  Thanks for playing!" [:br]
+          "Meet "[:span.inky "Inky"] ", your last ghost. He tries to flank Pac-Man" [:br]
+          "from the side opposite to Blinky. See \"Targets\" button." [:br]
+          "Press " [:kbd.inky "4"] " to move Inky." [:kbd.blinky "1"] " for Blinky."
+          ]
+   }
+  )
+
+(def text14
+  {:title "All together now"
+   :desc [:p
+          "Alright, we can do this!" [:br]
+          "Use "
+          [:kbd.blinky "1"] " "
+          [:kbd.pinky "2"] " "
+          [:kbd.clyde "3"] " "
+          [:kbd.inky "4"] " to coordinate a swift death."
+          ]
+   }
+  )
+
+(def text-end
+  {:title "Well Done!"
+   :desc [:p
+          "Now that you've lived as these meticulous monsters," [:br]
+          "you should have no problem outsmarting them in their original games." [:br]
+          "Thanks for playing, and Happy Ludum Dare 33!" [:br]
           [:a {:href "http://twitter.com/shaunlebron"} "@shaunlebron"]]
    }
   )
@@ -157,6 +183,8 @@
    text10
    text11
    text12
+   text13
+   text14
 
    text-end
 
