@@ -7,7 +7,7 @@
     [gh4st.state :refer [app-state]]
     [gh4st.ai :refer [tick-actor]]
     [gh4st.board :refer [ghost-positions]]
-    [gh4st.levels :refer [levels freeplay]]
+    [gh4st.levels :refer [levels attract]]
     [gh4st.texts :refer [texts]]
     [gh4st.history :as history]
     [gh4st.img :refer [fruits]]

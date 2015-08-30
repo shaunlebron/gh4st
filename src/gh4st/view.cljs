@@ -27,7 +27,7 @@
                          ]]
     [gh4st.viz :refer [actor-target-viz
                        actor-path-viz]]
-    [gh4st.levels :refer [levels freeplay]]
+    [gh4st.levels :refer [levels attract random-attract]]
     ))
 
 (defn enable-keys [keyfuncs]
@@ -255,7 +255,7 @@
   (will-mount [_this]
     (swap! app-state assoc-in [:settings :paths :enabled] true)
 
-    (load-custom-level! freeplay)
+    (load-custom-level! attract)
 
     (set! stop-welcome-anim (chan))
 
@@ -268,7 +268,7 @@
             (do
               (<! (timeout 3000))
               (when (= :home (:screen @app-state))
-                (load-custom-level! freeplay)))
+                (load-custom-level! (random-attract))))
             (advance! (rand-nth [:blinky :pinky :inky :clyde])))
           (recur))))
 

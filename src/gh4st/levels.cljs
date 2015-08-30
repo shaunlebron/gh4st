@@ -1,4 +1,9 @@
-(ns gh4st.levels)
+(ns gh4st.levels
+  (:require
+    [gh4st.board :refer [board-size floor?]]
+    [gh4st.math :refer [add-pos sub-pos]]
+    )
+  )
 
 (def level0
   {:allow-defeat false
@@ -244,7 +249,7 @@
    :board
    [[:_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_ :_]]})
 
-(def freeplay
+(def attract
   {:allow-defeat false
    :actors
    {:pacman {:pos [3 2], :dir [1 0], :prev-pos [14 1]},
@@ -261,6 +266,30 @@
     [:O :_ :O :O :O :_ :O :O :O :O :O :O :O :O :_ :O :O :O :O :O :_]
     [:O :_ :O :_ :O :_ :O :_ :_ :O :_ :_ :_ :O :_ :O :_ :_ :O :_ :_]
     [:O :O :O :_ :O :O :O :O :O :O :_ :_ :_ :O :O :O :O :O :O :_ :_]]})
+
+(defn random-attract []
+  (let [level attract
+        {:keys [board actors]} level
+        [w h] (board-size board)
+        opens (set (for [y (range h) x (range w)
+                         :when (= :O (get-in board [y x]))]
+                     [x y]))
+        dirs [[0 -1][-1 0][0 1][1 0]]]
+    (loop [level level
+           opens opens
+           actors actors]
+      (if-let [[name- actor] (first actors)]
+        (let [new-pos (rand-nth (vec opens))
+              adjacents (set (map #(add-pos new-pos %) dirs))
+              look-pos (rand-nth (filterv #(floor? % board) adjacents))
+              next-dir (sub-pos look-pos new-pos)
+              new-actor (cond-> (assoc actor :pos new-pos)
+                          (not= :fruit name-) (assoc :dir next-dir))]
+          (recur
+            (assoc-in level [:actors name-] new-actor)
+            (apply disj opens new-pos adjacents)
+            (next actors)))
+        level))))
 
 (def levels
   [level0
