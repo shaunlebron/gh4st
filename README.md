@@ -19,6 +19,8 @@ allowed to move per turn.
 In this game, you must learn to exploit the deterministic behaviors of your
 ghosts and Pac-Man in order to catch Pac-Man before he gets his fruit.
 
+<img src="http://fat.gfycat.com/JaggedFrailBarebirdbat.gif" height=155px> <img src="http://fat.gfycat.com/BeneficialHonoredCattle.gif" height=155px>
+
 ## Setup
 
 - Install [leiningen](http://leiningen.org/)
