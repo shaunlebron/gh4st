@@ -6,6 +6,8 @@ _post compo version of [ld33-gh4st](https://github.com/shaunlebron/ld33-gh4st)_
 
 __[PLAY HERE](http://shaunlebron.github.io/gh4st)__
 
+__[BLOG POST](http://ludumdare.com/compo/2015/08/30/pac-man-ghost-a-i-puzzle/)__
+
 Coordinate the four ghosts, which adhere to the actual AI from the original
 Pac-Man arcade. Your only power to catch Pac-Man is to choose which ghost is
 allowed to move per turn.
