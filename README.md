@@ -1,10 +1,8 @@
 # GH4ST
 
- <table><tr>
-<td>__[PLAY HERE]__</td>
-<td>[Blog Post]</td>
-<td>[48 hour version]</td>
-</tr></table>
+- __[PLAY HERE]__
+- [Blog Post]
+- [48 hour version]
 
 [PLAY HERE]:http://shaunlebron.github.io/gh4st
 [Blog Post]:http://ludumdare.com/compo/2015/08/30/pac-man-ghost-a-i-puzzle/
